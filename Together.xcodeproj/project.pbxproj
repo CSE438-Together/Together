@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C493162272C451A00DBE3DE /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C493160272C451A00DBE3DE /* amplifyconfiguration.json */; };
+		0C493163272C451A00DBE3DE /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C493161272C451A00DBE3DE /* awsconfiguration.json */; };
+		0C493165272C5B6700DBE3DE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493164272C5B6700DBE3DE /* LoginViewController.swift */; };
+		0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493166272C61A900DBE3DE /* MeViewController.swift */; };
+		0C493169272C62B700DBE3DE /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493168272C62B700DBE3DE /* ExploreViewController.swift */; };
+		0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49316A272C651800DBE3DE /* MyEventViewController.swift */; };
+		0C49316D272C6B5C00DBE3DE /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49316C272C6B5C00DBE3DE /* PostViewController.swift */; };
+		0C49316F272C6FDA00DBE3DE /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */; };
+		0C493171272C73AF00DBE3DE /* MyPostDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */; };
 		50072378272B8F0500F3FF31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50072377272B8F0500F3FF31 /* AppDelegate.swift */; };
 		5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50072379272B8F0500F3FF31 /* SceneDelegate.swift */; };
-		5007237C272B8F0500F3FF31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5007237B272B8F0500F3FF31 /* ViewController.swift */; };
 		5007237F272B8F0500F3FF31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5007237D272B8F0500F3FF31 /* Main.storyboard */; };
 		50072381272B8F0500F3FF31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50072380272B8F0500F3FF31 /* Assets.xcassets */; };
 		50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50072382272B8F0500F3FF31 /* LaunchScreen.storyboard */; };
@@ -25,12 +33,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0723DC26F9A4591049733450 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
-		1B6E68506CF710D3AB0BEFFC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		0C493160272C451A00DBE3DE /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		0C493161272C451A00DBE3DE /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		0C493164272C5B6700DBE3DE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0C493166272C61A900DBE3DE /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
+		0C493168272C62B700DBE3DE /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		0C49316A272C651800DBE3DE /* MyEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventViewController.swift; sourceTree = "<group>"; };
+		0C49316C272C6B5C00DBE3DE /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
+		0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostDetailedViewController.swift; sourceTree = "<group>"; };
 		50072374272B8F0500F3FF31 /* Together.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Together.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50072377272B8F0500F3FF31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50072379272B8F0500F3FF31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5007237B272B8F0500F3FF31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5007237E272B8F0500F3FF31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50072380272B8F0500F3FF31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50072383272B8F0500F3FF31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,7 +75,6 @@
 				509FBEB9272C767C007512DF /* AmplifyModel */,
 				50072376272B8F0500F3FF31 /* Together */,
 				50072375272B8F0500F3FF31 /* Products */,
-				AED75D90E2FA95E5AB9E200C /* AmplifyConfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,11 +91,17 @@
 			children = (
 				50072377272B8F0500F3FF31 /* AppDelegate.swift */,
 				50072379272B8F0500F3FF31 /* SceneDelegate.swift */,
-				5007237B272B8F0500F3FF31 /* ViewController.swift */,
 				5007237D272B8F0500F3FF31 /* Main.storyboard */,
+				0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */,
+				0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */,
+				0C49316C272C6B5C00DBE3DE /* PostViewController.swift */,
+				0C49316A272C651800DBE3DE /* MyEventViewController.swift */,
+				0C493168272C62B700DBE3DE /* ExploreViewController.swift */,
 				50072380272B8F0500F3FF31 /* Assets.xcassets */,
 				50072382272B8F0500F3FF31 /* LaunchScreen.storyboard */,
 				50072385272B8F0500F3FF31 /* Info.plist */,
+				0C493164272C5B6700DBE3DE /* LoginViewController.swift */,
+				0C493166272C61A900DBE3DE /* MeViewController.swift */,
 			);
 			path = Together;
 			sourceTree = "<group>";
@@ -175,8 +194,6 @@
 				50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */,
 				50072381272B8F0500F3FF31 /* Assets.xcassets in Resources */,
 				5007237F272B8F0500F3FF31 /* Main.storyboard in Resources */,
-				C23B6DA5815A705C389B3C1B /* awsconfiguration.json in Resources */,
-				B152E29CF69FB07F92C252B4 /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,7 +208,14 @@
 				5007237C272B8F0500F3FF31 /* ViewController.swift in Sources */,
 				509FBEBF272C76C5007512DF /* Abcc.swift in Sources */,
 				509FBEBD272C76C5007512DF /* Abcc+Schema.swift in Sources */,
+				0C493165272C5B6700DBE3DE /* LoginViewController.swift in Sources */,
 				50072378272B8F0500F3FF31 /* AppDelegate.swift in Sources */,
+				0C49316F272C6FDA00DBE3DE /* DetailedViewController.swift in Sources */,
+				0C49316D272C6B5C00DBE3DE /* PostViewController.swift in Sources */,
+				0C493169272C62B700DBE3DE /* ExploreViewController.swift in Sources */,
+				0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */,
+				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
+				0C493171272C73AF00DBE3DE /* MyPostDetailedViewController.swift in Sources */,
 				5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
