@@ -2,7 +2,7 @@
 import Amplify
 import Foundation
 
-extension Abcc {
+extension AABBCC {
   // MARK: - CodingKeys 
    public enum CodingKeys: String, ModelKey {
     case id
@@ -12,9 +12,9 @@ extension Abcc {
   //  MARK: - ModelSchema 
   
   public static let schema = defineSchema { model in
-    let abcc = Abcc.keys
+    let aABBCC = AABBCC.keys
     
-    model.pluralName = "Abccs"
+    model.pluralName = "AABBCCS"
     
     model.fields(
       .id()
