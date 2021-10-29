@@ -38,8 +38,6 @@
 		509FBEBA272C76C5007512DF /* Abcc+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Abcc+Schema.swift"; path = "amplify/generated/models/Abcc+Schema.swift"; sourceTree = "<group>"; };
 		509FBEBB272C76C5007512DF /* AmplifyModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		509FBEBC272C76C5007512DF /* Abcc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Abcc.swift; path = amplify/generated/models/Abcc.swift; sourceTree = "<group>"; };
-		728E339C272BB6CB00D30F02 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
-		728E339D272BB6CB00D30F02 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				50072377272B8F0500F3FF31 /* AppDelegate.swift */,
-				728E339D272BB6CB00D30F02 /* amplifyconfiguration.json */,
-				728E339C272BB6CB00D30F02 /* awsconfiguration.json */,
 				50072379272B8F0500F3FF31 /* SceneDelegate.swift */,
 				5007237B272B8F0500F3FF31 /* ViewController.swift */,
 				5007237D272B8F0500F3FF31 /* Main.storyboard */,
