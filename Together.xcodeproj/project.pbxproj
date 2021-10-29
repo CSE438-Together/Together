@@ -70,7 +70,7 @@
 		5007236B272B8F0500F3FF31 = {
 			isa = PBXGroup;
 			children = (
-				509FBEB9272C767C007512DF /* AmplifyModel */,
+				503B5755272C980500BAC518 /* AmplifyModels */,
 				50072376272B8F0500F3FF31 /* Together */,
 				50072375272B8F0500F3FF31 /* Products */,
 			);
@@ -106,14 +106,14 @@
 			path = Together;
 			sourceTree = "<group>";
 		};
-		509FBEB9272C767C007512DF /* AmplifyModel */ = {
+		503B5755272C980500BAC518 /* AmplifyModels */ = {
 			isa = PBXGroup;
 			children = (
 				72349E65272C9E6400BA23E1 /* AABBCC.swift */,
 				72349E6B272C9EAD00BA23E1 /* AmplifyModels.swift */,
 				72349E66272C9E6400BA23E1 /* AABBCC+Schema.swift */,
 			);
-			name = AmplifyModel;
+			name = AmplifyModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

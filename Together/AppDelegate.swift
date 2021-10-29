@@ -18,8 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         do {
-            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: AmplifyModels())
-            try Amplify.add(plugin: AWSAPIPlugin())
+            let model = AmplifyModels()
+            let APIPlugin = AWSAPIPlugin(modelRegistration: model)
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model)
+            try Amplify.add(plugin: APIPlugin)
             try Amplify.add(plugin: dataStorePlugin)
             try Amplify.configure()
         } catch {
