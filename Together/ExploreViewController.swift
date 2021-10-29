@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Amplify
 
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -25,6 +26,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         exploreTableView.dataSource = self
         exploreTableView.delegate = self
+        
+        APITest()
 
     }
     
@@ -43,6 +46,19 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
         
         self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    func APITest(){
+        let aabbcc = AABBCC()
+
+        Amplify.DataStore.save(aabbcc) { result in
+            switch result {
+            case .success:
+                print("Post saved successfully!")
+            case .failure(let error):
+                print("Error saving post \(error)")
+            }
+        }
     }
 
 }

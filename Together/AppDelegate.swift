@@ -26,16 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("An error occurred setting up Amplify: \(error)")
         }
         
-        let Abcc = Abcc()
-
-        Amplify.DataStore.save(Abcc) { result in
-            switch result {
-            case .success:
-                print("Post saved successfully!")
-            case .failure(let error):
-                print("Error saving post \(error)")
-            }
-        }
         return true
     }
 

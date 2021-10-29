@@ -1,4 +1,4 @@
-type Abcc @model @auth(rules: [{allow: public}]) {
+type AABBCC @model @auth(rules: [{allow: public}]) {
   id: ID!
 }
  
