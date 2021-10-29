@@ -70,6 +70,7 @@
 		5007236B272B8F0500F3FF31 = {
 			isa = PBXGroup;
 			children = (
+				50F85F01272CAD1200A705C9 /* AmplifyConfig */,
 				503B5755272C980500BAC518 /* AmplifyModels */,
 				50072376272B8F0500F3FF31 /* Together */,
 				50072375272B8F0500F3FF31 /* Products */,
@@ -88,8 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				50072377272B8F0500F3FF31 /* AppDelegate.swift */,
-				72349E6D272C9FA700BA23E1 /* amplifyconfiguration.json */,
-				72349E6E272C9FA700BA23E1 /* awsconfiguration.json */,
 				50072379272B8F0500F3FF31 /* SceneDelegate.swift */,
 				5007237D272B8F0500F3FF31 /* Main.storyboard */,
 				0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */,
@@ -114,6 +113,15 @@
 				72349E66272C9E6400BA23E1 /* AABBCC+Schema.swift */,
 			);
 			name = AmplifyModels;
+			sourceTree = "<group>";
+		};
+		50F85F01272CAD1200A705C9 /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				72349E6D272C9FA700BA23E1 /* amplifyconfiguration.json */,
+				72349E6E272C9FA700BA23E1 /* awsconfiguration.json */,
+			);
+			name = AmplifyConfig;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
