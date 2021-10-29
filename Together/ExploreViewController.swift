@@ -49,9 +49,9 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func APITest(){
-        let aabbcc = AABBCC()
+        let postTest = Post(id: "623383027", author: "Hive", departureTime: Temporal.Time(Date()), source: "Kingsbury", destination: "WashU", transportation: "On Foot", description: "Go to blow up the school", maxMembers: 9)
 
-        Amplify.DataStore.save(aabbcc) { result in
+        Amplify.DataStore.save(postTest) { result in
             switch result {
             case .success:
                 print("Post saved successfully!")

@@ -1,4 +1,11 @@
-type AABBCC @model @auth(rules: [{allow: public}]) {
+type Post @model @auth(rules: [{allow: public}]) {
   id: ID!
+  author: String
+  departureTime: AWSTime
+  source: String
+  destination: String
+  transportation: String
+  description: String
+  maxMembers: Int
 }
- 
+  

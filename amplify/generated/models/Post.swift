@@ -1,0 +1,32 @@
+// swiftlint:disable all
+import Amplify
+import Foundation
+
+public struct Post: Model {
+  public let id: String
+  public var author: String?
+  public var departureTime: Temporal.Time?
+  public var source: String?
+  public var destination: String?
+  public var transportation: String?
+  public var description: String?
+  public var maxMembers: Int?
+  
+  public init(id: String = UUID().uuidString,
+      author: String? = nil,
+      departureTime: Temporal.Time? = nil,
+      source: String? = nil,
+      destination: String? = nil,
+      transportation: String? = nil,
+      description: String? = nil,
+      maxMembers: Int? = nil) {
+      self.id = id
+      self.author = author
+      self.departureTime = departureTime
+      self.source = source
+      self.destination = destination
+      self.transportation = transportation
+      self.description = description
+      self.maxMembers = maxMembers
+  }
+}
