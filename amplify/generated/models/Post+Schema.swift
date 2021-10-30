@@ -26,7 +26,7 @@ extension Post {
     model.fields(
       .id(),
       .field(post.author, is: .optional, ofType: .string),
-      .field(post.departureTime, is: .optional, ofType: .time),
+      .field(post.departureTime, is: .optional, ofType: .string),
       .field(post.source, is: .optional, ofType: .string),
       .field(post.destination, is: .optional, ofType: .string),
       .field(post.transportation, is: .optional, ofType: .string),
