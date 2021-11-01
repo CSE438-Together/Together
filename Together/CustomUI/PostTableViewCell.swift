@@ -18,11 +18,7 @@ class PostTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        postTitle.sizeToFit()
-        from.sizeToFit()
-        to.sizeToFit()
-        when.sizeToFit()
-        numOfMembers.sizeToFit()
+        userAvatar.layer.cornerRadius = userAvatar.frame.width * 0.2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

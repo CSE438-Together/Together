@@ -12,15 +12,16 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 
     @IBOutlet weak var exploreTableView: UITableView!
     var i: Int = 0
-    
+    var refreshControl = UIRefreshControl()
     var posts: [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableView()
-        posts = APIFunction.loadPosts()
-
+        refreshControl.attributedTitle = NSAttributedString(string: "refreshing...")
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+        exploreTableView.addSubview(refreshControl) // not required when using UITableViewController
+        refreshPosts()
     }
     
     func setupTableView(){
@@ -45,13 +46,24 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         myCell.to.text = posts[indexPath.row].destination
         myCell.when.text = posts[indexPath.row].departureTime
         myCell.numOfMembers.text = "1 / \(String(describing: posts[indexPath.row].maxMembers!))"
-        
+        myCell.postTitle.text = posts[indexPath.row].title
         return myCell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
-        
         self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    @objc func refreshPosts(){
+        DispatchQueue.global().async {
+            do {
+                self.posts = APIFunction.loadPosts()
+            }
+            DispatchQueue.main.async {
+                self.exploreTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        }
     }
 
 }
