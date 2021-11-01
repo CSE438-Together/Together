@@ -11,34 +11,40 @@ import Amplify
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var exploreTableView: UITableView!
+    var i: Int = 0
     
-    let itemString = ["Let's go ikea!                09/25/2021",
-                      "Let's go to the zoo!          10/21/2021",
-                      "Let's go to the AMC7.         11/21/2021",
-                      "Let's go hiking!              09/25/2021",
-                      "Road Trip to LA!              10/25/2021",
-                      "Rower.                        11/1/2021",
-                      "Thanksgiving Party.           11/06/2021",
-                      "Wustl Special Event!          11/12/2021",
-                      "Fall Breaking Hiking          11/15/2021"]
+    var posts: [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        exploreTableView.dataSource = self
-        exploreTableView.delegate = self
         
-        APITest()
+        setupTableView()
+        posts = APIFunction.loadPosts()
 
     }
     
+    func setupTableView(){
+        exploreTableView.dataSource = self
+        exploreTableView.delegate = self
+        
+        var nib = UINib(nibName: "PostTableViewCell", bundle: nil)
+        exploreTableView.register(nib, forCellReuseIdentifier: "cell")
+        exploreTableView.estimatedRowHeight = 85.0
+        exploreTableView.rowHeight = UITableView.automaticDimension
+//        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemString.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let myCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        myCell.textLabel?.text = itemString[indexPath.row]
+        let myCell = exploreTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PostTableViewCell
+        myCell.from.text = posts[indexPath.row].source
+        myCell.to.text = posts[indexPath.row].destination
+        myCell.when.text = posts[indexPath.row].departureTime
+        myCell.numOfMembers.text = "1 / \(String(describing: posts[indexPath.row].maxMembers!))"
         
         return myCell
     }
@@ -46,19 +52,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
         
         self.navigationController?.pushViewController(vc!, animated: true)
-    }
-    
-    func APITest(){
-        let postTest = Post(id: "623383027", author: "Hive", departureTime: Temporal.Time(Date()), source: "Kingsbury", destination: "WashU", transportation: "On Foot", description: "Go to blow up the school", maxMembers: 9)
-
-        Amplify.DataStore.save(postTest) { result in
-            switch result {
-            case .success:
-                print("Post saved successfully!")
-            case .failure(let error):
-                print("Error saving post \(error)")
-            }
-        }
     }
 
 }
