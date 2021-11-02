@@ -13,6 +13,8 @@ extension Post {
     case transportation
     case description
     case maxMembers
+    case title
+    case postTime
   }
   
   public static let keys = CodingKeys.self
@@ -31,7 +33,9 @@ extension Post {
       .field(post.destination, is: .optional, ofType: .string),
       .field(post.transportation, is: .optional, ofType: .string),
       .field(post.description, is: .optional, ofType: .string),
-      .field(post.maxMembers, is: .optional, ofType: .int)
+      .field(post.maxMembers, is: .optional, ofType: .int),
+      .field(post.title, is: .optional, ofType: .string),
+      .field(post.postTime, is: .optional, ofType: .string)
     )
     }
 }

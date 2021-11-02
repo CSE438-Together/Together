@@ -19,7 +19,7 @@ class APIFunction {
         formatter.timeStyle = .medium
         let timeString = formatter.string(from: time)
         
-        let postTest = Post(id: "\(i)", author: "Hive", departureTime: timeString, source: "Kingsbury", destination: "WashU", transportation: "On Foot2", description: "Go to blow up the school", maxMembers: i)
+        let postTest = Post(author: "Hive", departureTime: timeString, source: "Kingsbury", destination: "WashU", transportation: "On Foot2", description: "Go to blow up the school", maxMembers: i, title: "Let's go to place \(i)", postTime: timeString)
         
         i += 1
         
