@@ -28,4 +28,8 @@ class PostViewController: UIViewController {
         postButton.layer.borderWidth = 1.5
         
     }
+    
+    @IBAction func addPost(_ sender: Any) {
+        APIFunction.createPost()
+    }
 }

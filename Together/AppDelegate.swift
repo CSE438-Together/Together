@@ -7,6 +7,8 @@
 
 import UIKit
 import Amplify
+import AWSAPIPlugin
+import AWSDataStorePlugin
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,10 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         do {
-                try Amplify.configure()
-            } catch {
-                print("An error occurred setting up Amplify: \(error)")
-            }
+            let model = AmplifyModels()
+            let APIPlugin = AWSAPIPlugin(modelRegistration: model)
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model)
+            try Amplify.add(plugin: APIPlugin)
+            try Amplify.add(plugin: dataStorePlugin)
+            try Amplify.configure()
+        } catch {
+            print("An error occurred setting up Amplify: \(error)")
+        }
+        
         return true
     }
 

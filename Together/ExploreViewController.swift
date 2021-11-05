@@ -6,43 +6,64 @@
 //
 
 import UIKit
+import Amplify
 
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var exploreTableView: UITableView!
-    
-    let itemString = ["Let's go ikea!                09/25/2021",
-                      "Let's go to the zoo!          10/21/2021",
-                      "Let's go to the AMC7.         11/21/2021",
-                      "Let's go hiking!              09/25/2021",
-                      "Road Trip to LA!              10/25/2021",
-                      "Rower.                        11/1/2021",
-                      "Thanksgiving Party.           11/06/2021",
-                      "Wustl Special Event!          11/12/2021",
-                      "Fall Breaking Hiking          11/15/2021"]
+    var i: Int = 0
+    var refreshControl = UIRefreshControl()
+    var posts: [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+        refreshControl.attributedTitle = NSAttributedString(string: "refreshing...")
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+        exploreTableView.addSubview(refreshControl) // not required when using UITableViewController
+        refreshPosts()
+    }
+    
+    func setupTableView(){
         exploreTableView.dataSource = self
         exploreTableView.delegate = self
-
+        
+        var nib = UINib(nibName: "PostTableViewCell", bundle: nil)
+        exploreTableView.register(nib, forCellReuseIdentifier: "cell")
+        exploreTableView.estimatedRowHeight = 85.0
+        exploreTableView.rowHeight = UITableView.automaticDimension
+//        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemString.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let myCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        myCell.textLabel?.text = itemString[indexPath.row]
-        
+        let myCell = exploreTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PostTableViewCell
+        myCell.from.text = posts[indexPath.row].source
+        myCell.to.text = posts[indexPath.row].destination
+        myCell.when.text = posts[indexPath.row].departureTime
+        myCell.numOfMembers.text = "1 / \(String(describing: posts[indexPath.row].maxMembers!))"
+        myCell.postTitle.text = posts[indexPath.row].title
         return myCell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
-        
         self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    @objc func refreshPosts(){
+        DispatchQueue.global().async {
+            do {
+                self.posts = APIFunction.loadPosts()
+            }
+            DispatchQueue.main.async {
+                self.exploreTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        }
     }
 
 }
