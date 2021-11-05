@@ -16,13 +16,20 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
                       "Let's go to the AMC7.         11/21/2021",
                       ]
     
-    override func viewDidLoad() {123
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         myEventTableView.dataSource = self
         myEventTableView.delegate = self
     }
+    
+    @IBAction func addPost(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as? PostViewController
+        
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myItemString.count

@@ -48,9 +48,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginPressed(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(identifier: "UserInfoView") as? MeViewController
-        
-        self.navigationController?.pushViewController(vc!, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+        (UIApplication.shared.connectedScenes.first?.delegate as?SceneDelegate)?.changeRootViewController(mainTabBarController)
     }
-    
 }

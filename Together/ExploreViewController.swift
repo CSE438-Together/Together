@@ -35,6 +35,13 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 //        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
+    @IBAction func addPost(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as? PostViewController
+        
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
