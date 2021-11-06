@@ -21,7 +21,7 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         setupPostView()
         // Do any additional setup after loading the view.
-        print("123123")
+        
     }
     
     func setupPostView(){

@@ -14,5 +14,9 @@ class MeViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func LogOutPressed(_ sender: Any) {
+        
+    }
 
 }
