@@ -41,4 +41,10 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         
         self.navigationController?.pushViewController(vc!, animated: true)
     }
+    
+    
+    @IBAction func addPostPress(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as? PostViewController
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
 }
