@@ -22,6 +22,9 @@
 		50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50072382272B8F0500F3FF31 /* LaunchScreen.storyboard */; };
 		50513A452737633C000C245B /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A442737633C000C245B /* NewPostViewController.swift */; };
 		50513A482737758E000C245B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A472737758E000C245B /* TextView.swift */; };
+		50513A4A273863B2000C245B /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A49273863B2000C245B /* LocationSearchViewController.swift */; };
+		50513A4C27386F68000C245B /* SearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A4B27386F68000C245B /* SearchResultsController.swift */; };
+		50513A4E2738721C000C245B /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A4D2738721C000C245B /* LocationTableViewCell.swift */; };
 		72349E6C272C9EAD00BA23E1 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72349E6B272C9EAD00BA23E1 /* AmplifyModels.swift */; };
 		72349E6F272C9FA700BA23E1 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 72349E6D272C9FA700BA23E1 /* amplifyconfiguration.json */; };
 		72349E70272C9FA700BA23E1 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 72349E6E272C9FA700BA23E1 /* awsconfiguration.json */; };
@@ -54,6 +57,9 @@
 		50072385272B8F0500F3FF31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50513A442737633C000C245B /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		50513A472737758E000C245B /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		50513A49273863B2000C245B /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
+		50513A4B27386F68000C245B /* SearchResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsController.swift; sourceTree = "<group>"; };
+		50513A4D2738721C000C245B /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		72349E6B272C9EAD00BA23E1 /* AmplifyModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		72349E6D272C9FA700BA23E1 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
 		72349E6E272C9FA700BA23E1 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
@@ -136,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				50513A442737633C000C245B /* NewPostViewController.swift */,
+				50513A49273863B2000C245B /* LocationSearchViewController.swift */,
+				50513A4B27386F68000C245B /* SearchResultsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -144,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				50513A472737758E000C245B /* TextView.swift */,
+				50513A4D2738721C000C245B /* LocationTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,9 +263,12 @@
 				72349E7D272CE21900BA23E1 /* APIFunction.swift in Sources */,
 				0C49316D272C6B5C00DBE3DE /* PostViewController.swift in Sources */,
 				50513A452737633C000C245B /* NewPostViewController.swift in Sources */,
+				50513A4E2738721C000C245B /* LocationTableViewCell.swift in Sources */,
 				72349E78272CB25B00BA23E1 /* Post.swift in Sources */,
+				50513A4A273863B2000C245B /* LocationSearchViewController.swift in Sources */,
 				0CA716882736124800E431CF /* RegisterViewController.swift in Sources */,
 				72349E6C272C9EAD00BA23E1 /* AmplifyModels.swift in Sources */,
+				50513A4C27386F68000C245B /* SearchResultsController.swift in Sources */,
 				72349E89272CF44D00BA23E1 /* PostTableViewCell.swift in Sources */,
 				0C493169272C62B700DBE3DE /* ExploreViewController.swift in Sources */,
 				50513A482737758E000C245B /* TextView.swift in Sources */,

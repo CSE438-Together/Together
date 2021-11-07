@@ -21,6 +21,16 @@ class NewPostViewController: UIViewController {
         descriptions.placeHolder = "Description"
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var title = "Departure Place"
+        if segue.identifier == "AddDestination" {
+            title = "Destination"
+        }
+        let navViewController = segue.destination as! UINavigationController
+        let viewController = navViewController.topViewController as! LocationSearchViewController
+        viewController.title = title
+    }
+    
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true)
     }
@@ -47,7 +57,6 @@ class NewPostViewController: UIViewController {
 extension NewPostViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
-        
         if view.isShowingPlaceHolder() {
             view.hidePlaceHolder()
         }
@@ -55,7 +64,6 @@ extension NewPostViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
-
         if view.endEditingWithEmpty() {
             view.showPlaceHolder()
         }
