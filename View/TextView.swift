@@ -10,8 +10,25 @@ import UIKit
 class TextView: UITextView {
     var placeHolder: String? {
         didSet {
-            text = placeHolder
-            textColor = UIColor.systemGray2
+            showPlaceHolder()
         }
+    }
+    
+    func showPlaceHolder() {
+        text = placeHolder
+        textColor = UIColor.placeholderText
+    }
+    
+    func hidePlaceHolder() {
+        text = ""
+        textColor = UIColor.label
+    }
+    
+    func isShowingPlaceHolder() -> Bool {
+        return text == placeHolder
+    }
+    
+    func endEditingWithEmpty() -> Bool {
+        return text == ""
     }
 }
