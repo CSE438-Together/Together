@@ -11,7 +11,7 @@ import Amplify
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var exploreTableView: UITableView!
-    @IBOutlet weak var addPostButton: UIBarButtonItem!
+//    @IBOutlet weak var addPostButton: UIBarButtonItem!
     var i: Int = 0
     var refreshControl = UIRefreshControl()
     var posts: [Post] = []
@@ -55,10 +55,10 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.pushViewController(vc!, animated: true)
     }
    
-    @IBAction func addPostPressed(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as? PostViewController
-        self.navigationController?.pushViewController(vc!, animated: true)
-    }
+//    @IBAction func addPostPressed(_ sender: Any) {
+//        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as? PostViewController
+//        self.navigationController?.pushViewController(vc!, animated: true)
+//    }
     
     
     @objc func refreshPosts(){
