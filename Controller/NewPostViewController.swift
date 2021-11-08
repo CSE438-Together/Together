@@ -18,13 +18,13 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var departurePlace: TextView!
     @IBOutlet weak var destination: TextView!
     @IBOutlet weak var VStackView: UIStackView!
-    @IBOutlet weak var test: UITableView!
+    @IBOutlet weak var destinationAutocomplete: UITableView!
+    @IBOutlet weak var departurePlaceAutocomplete: UITableView!
     
     var post: Post!
-    private let table = UITableView()
+    private var currentAutocomplete: UITableView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
-//    private var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,28 +33,15 @@ class NewPostViewController: UIViewController {
         departurePlace.placeHolder = "Choose a departure place"
         destination.placeHolder = "Choose a destination"
         
+        let inset = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
+        destinationAutocomplete.contentInset = inset
+        departurePlaceAutocomplete.contentInset = inset
+        
         if post == nil {
             post = Post()
         }
-        
+        // Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
         searchCompleter.delegate = self
-//        let searchResultController = UITableViewController()
-//        searchResultController.tableView = table
-        table.delegate = self
-        table.dataSource = self
-        test.dataSource = self
-        test.register(LocationTableViewCell.self, forCellReuseIdentifier: LocationTableViewCell.identifier)
-//        searchController = UISearchController(searchResultsController: searchResultController)
-//        searchController.searchResultsUpdater = self
-        table.register(LocationTableViewCell.self, forCellReuseIdentifier: LocationTableViewCell.identifier)
-        table.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
-        table.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        table.isHidden = true
-        
-        test.isHidden = true
-//        if let index = VStackView.arrangedSubviews.firstIndex(of: destination) {
-//            self.VStackView.insertArrangedSubview(self.table, at: index + 1)
-//        }
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -86,12 +73,10 @@ extension NewPostViewController: UITextViewDelegate {
         if view.isShowingPlaceHolder() {
             view.hidePlaceHolder()
         }
-        if view == destination {
-//            if let index = VStackView.arrangedSubviews.firstIndex(of: view) {
-//                UIView.animate(withDuration: 0.5) {
-//                    self.test.isHidden = !self.test.isHidden
-//                }
-//            }
+        if textView == destination {
+            currentAutocomplete = destinationAutocomplete
+        } else if textView == departurePlace {
+            currentAutocomplete = departurePlaceAutocomplete
         }
     }
     
@@ -100,6 +85,12 @@ extension NewPostViewController: UITextViewDelegate {
         if view.endEditingWithEmpty() {
             view.showPlaceHolder()
         }
+        if let table = currentAutocomplete {
+            UIView.animate(withDuration: 0.5) {
+                table.isHidden = true
+            }
+        }
+        currentAutocomplete = nil
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -110,7 +101,9 @@ extension NewPostViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        searchCompleter.queryFragment = textView.text
+        if textView == destination || textView == departurePlace {
+            searchCompleter.queryFragment = textView.text
+        }
     }
 }
 
@@ -126,7 +119,17 @@ extension UILabel {
 }
 
 extension NewPostViewController: UITableViewDelegate {
-//    tableview
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let text = searchResults[indexPath.row].title + "\n" + searchResults[indexPath.row].subtitle
+        if tableView == departurePlaceAutocomplete {
+            departurePlace.text = text
+        } else if tableView == destinationAutocomplete {
+            destination.text = text
+        }
+        UIView.animate(withDuration: 0.5) {
+            tableView.isHidden = true
+        }
+    }
 }
 
 extension NewPostViewController: UITableViewDataSource {
@@ -136,7 +139,7 @@ extension NewPostViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: LocationTableViewCell.identifier,
+            withIdentifier: "autocompleteCell",
             for: indexPath
         )
         guard let title = cell.textLabel,
@@ -150,20 +153,13 @@ extension NewPostViewController: UITableViewDataSource {
     }
 }
 
-// Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
-//extension NewPostViewController: UISearchResultsUpdating {
-//    func updateSearchResults(for searchController: UISearchController) {
-//        searchCompleter.queryFragment = searchController.searchBar.text!
-//    }
-//}
-
 extension NewPostViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
-//        table.reloadData()
-        test.reloadData()
+        guard let table = currentAutocomplete else { return }
+        table.reloadData()
         UIView.animate(withDuration: 0.5) {
-            self.test.isHidden = false
+            table.isHidden = false
         }
     }
 }
