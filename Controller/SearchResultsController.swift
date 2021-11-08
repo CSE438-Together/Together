@@ -11,6 +11,7 @@ import MapKit
 class SearchResultsController: UITableViewController {
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+    weak var delegate: LocationSearchViewController!
     
     override func viewDidLoad() {
         searchCompleter.delegate = self
@@ -34,6 +35,19 @@ class SearchResultsController: UITableViewController {
         title.text = searchResults[indexPath.row].title
         subtitle.text = searchResults[indexPath.row].subtitle
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var title = searchResults[indexPath.row].title
+        let subtitle = searchResults[indexPath.row].subtitle
+        delegate.addressLine1 = title
+        title += "\n"
+        if subtitle != "Search Nearby" {
+            delegate.address.text = title + subtitle
+        } else {
+            delegate.address.text = title
+        }
+        self.dismiss(animated: true)
     }
 }
 

@@ -14,21 +14,52 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var plus: UIButton!
     @IBOutlet weak var maxParticipants: UILabel!
     @IBOutlet weak var descriptions: TextView!
+    @IBOutlet weak var addDeparturePlace: UIButton!
+    @IBOutlet weak var addDestination: UIButton!
+    
+    var post: Post!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         postTitle.placeHolder = "Title"
         descriptions.placeHolder = "Description"
+        if post == nil {
+            post = Post()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var title = "Departure Place"
-        if segue.identifier == "AddDestination" {
-            title = "Destination"
+        guard let navViewController = segue.destination as? UINavigationController,
+              let viewController = navViewController.topViewController as? LocationSearchViewController
+        else {
+            return
         }
-        let navViewController = segue.destination as! UINavigationController
-        let viewController = navViewController.topViewController as! LocationSearchViewController
-        viewController.title = title
+        viewController.delegate = self
+        if segue.identifier == "AddDestination" {
+            viewController.title = "Destination"
+            if addDestination.title(for: .normal) != "Add Destination" {
+                viewController.currentAddress = post.destination
+            }
+        } else {
+            viewController.title = "Departure Place"
+            if addDeparturePlace.title(for: .normal) != "Add Departure Place" {
+                viewController.currentAddress = post.source
+            }
+        }                
+    }
+    
+    func updateAddress(_ target: String?, _ addressLine1: String?, _ address: String?) {
+        if target == "Destination" {
+            if post.destination != address {
+                post.destination = address
+                addDestination.setTitle(addressLine1, for: .normal)
+            }
+        } else {
+            if post.source != address {
+                post.source = address
+                addDeparturePlace.setTitle(addressLine1, for: .normal)
+            }
+        }
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {

@@ -412,6 +412,8 @@
                     </navigationItem>
                     <size key="freeformSize" width="390" height="1000"/>
                     <connections>
+                        <outlet property="addDeparturePlace" destination="iH7-G6-u8f" id="8cI-fz-8Av"/>
+                        <outlet property="addDestination" destination="9wE-Fd-AaJ" id="SLb-cH-zCM"/>
                         <outlet property="datePicker" destination="dpJ-Bq-w2u" id="9oV-YI-GS2"/>
                         <outlet property="descriptions" destination="8km-V8-Goh" id="OOL-5Y-wvu"/>
                         <outlet property="maxParticipants" destination="n1m-9u-D3c" id="iiD-Rh-8jb"/>
@@ -431,15 +433,50 @@
                     <view key="view" contentMode="scaleToFill" id="Tjn-pD-Yxl">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lSe-3c-T6C">
+                                <rect key="frame" x="0.0" y="56.000000000000007" width="390" height="85.666666666666686"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYi-2l-tEV">
+                                        <rect key="frame" x="15" y="15" width="360" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="None" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbz-Ar-2GH">
+                                        <rect key="frame" x="15" y="49" width="360" height="21.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="15" leading="15" bottom="15" trailing="15"/>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="yIO-Cg-2Px"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lSe-3c-T6C" firstAttribute="leading" secondItem="yIO-Cg-2Px" secondAttribute="leading" id="9Qi-kz-uEA"/>
+                            <constraint firstItem="lSe-3c-T6C" firstAttribute="top" secondItem="yIO-Cg-2Px" secondAttribute="top" id="gpN-ek-2Ac"/>
+                            <constraint firstItem="yIO-Cg-2Px" firstAttribute="trailing" secondItem="lSe-3c-T6C" secondAttribute="trailing" id="l7A-Cv-Edh"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="always" id="4bz-Hs-H8K">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="DGu-NE-Vo8">
                             <color key="tintColor" systemColor="systemPinkColor"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="BnB-UT-ert" id="hPj-R5-adI"/>
+                            </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9f1-YZ-o32"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9f1-YZ-o32">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="BnB-UT-ert" id="vWD-lO-mx6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="address" destination="pbz-Ar-2GH" id="GUP-sL-PfN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vgB-QL-w6z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
