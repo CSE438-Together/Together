@@ -10,6 +10,11 @@
       "StackName": "amplify-together-dev-125754",
       "StackId": "arn:aws:cloudformation:us-east-2:834368787490:stack/amplify-together-dev-125754/bef7ca30-38e1-11ec-b968-02d890c7688a",
       "AmplifyAppId": "d39v3meb0a054j"
+    },
+    "categories": {
+      "auth": {
+        "Together": {}
+      }
     }
   }
 }
