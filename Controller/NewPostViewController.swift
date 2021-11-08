@@ -147,8 +147,6 @@ extension NewPostViewController: UITableViewDataSource {
         else {
             return cell
         }
-        cell.imageView?.image =  cell.imageView?.image?.withRenderingMode(.alwaysTemplate)
-        cell.imageView?.tintColor = UIColor.systemPink
 
         title.text = searchResults[indexPath.row].title
         subtitle.text = searchResults[indexPath.row].subtitle
