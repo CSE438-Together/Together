@@ -14,7 +14,7 @@ class SearchResultsController: UITableViewController {
     weak var delegate: LocationSearchViewController!
     
     override func viewDidLoad() {
-        searchCompleter.delegate = self
+//        searchCompleter.delegate = self
         tableView.register(LocationTableViewCell.self, forCellReuseIdentifier: LocationTableViewCell.identifier)
     }
     
@@ -37,23 +37,23 @@ class SearchResultsController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var title = searchResults[indexPath.row].title
-        let subtitle = searchResults[indexPath.row].subtitle
-        delegate.addressLine1 = title
-        title += "\n"
-        if subtitle != "Search Nearby" {
-            delegate.address.text = title + subtitle
-        } else {
-            delegate.address.text = title
-        }
-        self.dismiss(animated: true)
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        var title = searchResults[indexPath.row].title
+//        let subtitle = searchResults[indexPath.row].subtitle
+//        delegate.addressLine1 = title
+//        title += "\n"
+//        if subtitle != "Search Nearby" {
+//            delegate.address.text = title + subtitle
+//        } else {
+//            delegate.address.text = title
+//        }
+//        self.dismiss(animated: true)
+//    }
 }
-
-extension SearchResultsController: MKLocalSearchCompleterDelegate {
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
-        tableView.reloadData()
-    }
-}
+//
+//extension SearchResultsController: MKLocalSearchCompleterDelegate {
+//    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+//        searchResults = completer.results
+//        tableView.reloadData()
+//    }
+//}
