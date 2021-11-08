@@ -495,7 +495,6 @@
                     </navigationItem>
                     <size key="freeformSize" width="390" height="1000"/>
                     <connections>
-                        <outlet property="VStackView" destination="ogC-9q-Wv5" id="per-0q-zni"/>
                         <outlet property="datePicker" destination="dpJ-Bq-w2u" id="9oV-YI-GS2"/>
                         <outlet property="departurePlace" destination="Ji8-0C-xtD" id="gBG-ZI-SAX"/>
                         <outlet property="departurePlaceAutocomplete" destination="xxb-6x-4kA" id="kUR-qt-Har"/>

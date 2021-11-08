@@ -84,6 +84,7 @@
 		5007236B272B8F0500F3FF31 = {
 			isa = PBXGroup;
 			children = (
+				50D26DA12739BB3C00DA9CD3 /* Utility */,
 				50513A4627377526000C245B /* View */,
 				50513A4327375DE8000C245B /* Controller */,
 				50F85F01272CAD1200A705C9 /* AmplifyConfig */,
@@ -104,23 +105,12 @@
 		50072376272B8F0500F3FF31 /* Together */ = {
 			isa = PBXGroup;
 			children = (
-				72349E7E272CECDA00BA23E1 /* CustomUI */,
 				50072377272B8F0500F3FF31 /* AppDelegate.swift */,
 				50072379272B8F0500F3FF31 /* SceneDelegate.swift */,
 				5007237D272B8F0500F3FF31 /* Main.storyboard */,
-				0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */,
-				0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */,
-				0C49316C272C6B5C00DBE3DE /* PostViewController.swift */,
-				0C49316A272C651800DBE3DE /* MyEventViewController.swift */,
-				0C493168272C62B700DBE3DE /* ExploreViewController.swift */,
 				50072380272B8F0500F3FF31 /* Assets.xcassets */,
 				50072382272B8F0500F3FF31 /* LaunchScreen.storyboard */,
 				50072385272B8F0500F3FF31 /* Info.plist */,
-				0C493164272C5B6700DBE3DE /* LoginViewController.swift */,
-				0CA716872736124800E431CF /* RegisterViewController.swift */,
-				51B7CE4927379DF80055EC2D /* CodeConfirmViewController.swift */,
-				0C493166272C61A900DBE3DE /* MeViewController.swift */,
-				72349E7C272CE21900BA23E1 /* APIFunction.swift */,
 			);
 			path = Together;
 			sourceTree = "<group>";
@@ -139,6 +129,15 @@
 			isa = PBXGroup;
 			children = (
 				50513A442737633C000C245B /* NewPostViewController.swift */,
+				0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */,
+				0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */,
+				0C49316C272C6B5C00DBE3DE /* PostViewController.swift */,
+				0C49316A272C651800DBE3DE /* MyEventViewController.swift */,
+				0C493168272C62B700DBE3DE /* ExploreViewController.swift */,
+				0C493164272C5B6700DBE3DE /* LoginViewController.swift */,
+				0CA716872736124800E431CF /* RegisterViewController.swift */,
+				51B7CE4927379DF80055EC2D /* CodeConfirmViewController.swift */,
+				0C493166272C61A900DBE3DE /* MeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -146,9 +145,18 @@
 		50513A4627377526000C245B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				72349E7E272CECDA00BA23E1 /* CustomUI */,
 				50513A472737758E000C245B /* TextView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		50D26DA12739BB3C00DA9CD3 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				72349E7C272CE21900BA23E1 /* APIFunction.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		50F85F01272CAD1200A705C9 /* AmplifyConfig */ = {

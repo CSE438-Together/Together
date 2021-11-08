@@ -17,7 +17,6 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var descriptions: TextView!
     @IBOutlet weak var departurePlace: TextView!
     @IBOutlet weak var destination: TextView!
-    @IBOutlet weak var VStackView: UIStackView!
     @IBOutlet weak var destinationAutocomplete: UITableView!
     @IBOutlet weak var departurePlaceAutocomplete: UITableView!
     
@@ -129,6 +128,14 @@ extension NewPostViewController: UITableViewDelegate {
         UIView.animate(withDuration: 0.5) {
             tableView.isHidden = true
         }
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(text) { (placemarks, error) in
+            guard let placemark = placemarks?.first else { return }
+            let item = MKMapItem(placemark: MKPlacemark(placemark: placemark))
+            item.openInMaps(launchOptions: nil)
+        }
+
     }
 }
 
@@ -147,7 +154,6 @@ extension NewPostViewController: UITableViewDataSource {
         else {
             return cell
         }
-
         title.text = searchResults[indexPath.row].title
         subtitle.text = searchResults[indexPath.row].subtitle
         return cell
