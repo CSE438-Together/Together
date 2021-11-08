@@ -21,16 +21,18 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var departurePlaceAutocomplete: UITableView!
     
     var post: Post!
-    private var currentAutocomplete: UITableView?
+    private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        postTitle.placeHolder = "Title"
-        descriptions.placeHolder = "Description"
-        departurePlace.placeHolder = "Choose a departure place"
-        destination.placeHolder = "Choose a destination"
+        postTitle.placeholder = "Title"
+        descriptions.placeholder = "Description"
+        departurePlace.placeholder = "Choose a departure place"
+        destination.placeholder = "Choose a destination"
+        departurePlace.autocompleteTable = departurePlaceAutocomplete
+        destination.autocompleteTable = destinationAutocomplete
         
         let inset = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
         destinationAutocomplete.contentInset = inset
@@ -69,27 +71,19 @@ class NewPostViewController: UIViewController {
 extension NewPostViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
-        if view.isShowingPlaceHolder() {
-            view.hidePlaceHolder()
+        if view.isShowingPlaceholder() {
+            view.hidePlaceholder()
         }
-        if textView == destination {
-            currentAutocomplete = destinationAutocomplete
-        } else if textView == departurePlace {
-            currentAutocomplete = departurePlaceAutocomplete
-        }
+        currentTextView = view
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
-        if view.endEditingWithEmpty() {
-            view.showPlaceHolder()
+        if view.isEmpty() {
+            view.showPlaceholder()
         }
-        if let table = currentAutocomplete {
-            UIView.animate(withDuration: 0.5) {
-                table.isHidden = true
-            }
-        }
-        currentAutocomplete = nil
+        view.removeAutocompleteTable()
+        currentTextView = nil
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -121,21 +115,21 @@ extension NewPostViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = searchResults[indexPath.row].title + "\n" + searchResults[indexPath.row].subtitle
         if tableView == departurePlaceAutocomplete {
-            departurePlace.text = text
+            autocompleteSelected(departurePlace, text)
         } else if tableView == destinationAutocomplete {
-            destination.text = text
+            autocompleteSelected(destination, text)
         }
-        UIView.animate(withDuration: 0.5) {
-            tableView.isHidden = true
-        }
-        
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(text) { (placemarks, error) in
-            guard let placemark = placemarks?.first else { return }
-            let item = MKMapItem(placemark: MKPlacemark(placemark: placemark))
-            item.openInMaps(launchOptions: nil)
-        }
-
+//        let geoCoder = CLGeocoder()
+//        geoCoder.geocodeAddressString(text) { (placemarks, error) in
+//            guard let placemark = placemarks?.first else { return }
+//            let item = MKMapItem(placemark: MKPlacemark(placemark: placemark))
+//            item.openInMaps(launchOptions: nil)
+//        }
+    }
+    
+    private func autocompleteSelected(_ textView: TextView, _ text: String) {
+        textView.text = text
+        textView.removeAutocompleteTable()
     }
 }
 
@@ -163,10 +157,8 @@ extension NewPostViewController: UITableViewDataSource {
 extension NewPostViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
-        guard let table = currentAutocomplete else { return }
-        table.reloadData()
-        UIView.animate(withDuration: 0.5) {
-            table.isHidden = false
-        }
+        
+        guard let textView = currentTextView else { return }
+        textView.loadSearchResults()
     }
 }

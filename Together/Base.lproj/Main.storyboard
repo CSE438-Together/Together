@@ -497,10 +497,10 @@
                     <connections>
                         <outlet property="datePicker" destination="dpJ-Bq-w2u" id="9oV-YI-GS2"/>
                         <outlet property="departurePlace" destination="Ji8-0C-xtD" id="gBG-ZI-SAX"/>
-                        <outlet property="departurePlaceAutocomplete" destination="xxb-6x-4kA" id="kUR-qt-Har"/>
+                        <outlet property="departurePlaceAutocomplete" destination="xxb-6x-4kA" id="FiK-4j-b1f"/>
                         <outlet property="descriptions" destination="8km-V8-Goh" id="OOL-5Y-wvu"/>
                         <outlet property="destination" destination="MDa-rC-El2" id="Pxy-Yc-Wdg"/>
-                        <outlet property="destinationAutocomplete" destination="bQ2-HK-S14" id="CNq-bk-vHF"/>
+                        <outlet property="destinationAutocomplete" destination="bQ2-HK-S14" id="fjc-C6-w9S"/>
                         <outlet property="maxParticipants" destination="n1m-9u-D3c" id="iiD-Rh-8jb"/>
                         <outlet property="minus" destination="N6d-YX-sii" id="KKi-dn-aVu"/>
                         <outlet property="plus" destination="uhY-BK-mzk" id="izi-eg-YQF"/>

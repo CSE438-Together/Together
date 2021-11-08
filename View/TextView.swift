@@ -8,27 +8,46 @@
 import UIKit
 
 class TextView: UITextView {
-    var placeHolder: String? {
+    var autocompleteTable: UITableView?
+    
+    var placeholder: String? {
         didSet {
-            showPlaceHolder()
+            showPlaceholder()
         }
     }
     
-    func showPlaceHolder() {
-        text = placeHolder
+    func showPlaceholder() {
+        text = placeholder
         textColor = UIColor.placeholderText
     }
     
-    func hidePlaceHolder() {
+    func hidePlaceholder() {
         text = ""
         textColor = UIColor.label
     }
     
-    func isShowingPlaceHolder() -> Bool {
-        return text == placeHolder
+    func isShowingPlaceholder() -> Bool {
+        return text == placeholder
     }
     
-    func endEditingWithEmpty() -> Bool {
+    func isEmpty() -> Bool {
         return text == ""
+    }
+    
+    func loadSearchResults() {
+        guard let table = autocompleteTable else { return }
+        table.reloadData()
+        if table.isHidden {
+            UIView.animate(withDuration: 0.5) {
+                table.isHidden = false
+            }
+        }        
+    }
+    
+    func removeAutocompleteTable() {
+        guard let table = autocompleteTable else { return }
+        UIView.animate(withDuration: 0.5) {
+            table.isHidden = true
+        }
     }
 }
