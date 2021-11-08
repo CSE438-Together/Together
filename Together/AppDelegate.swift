@@ -7,6 +7,7 @@
 
 import UIKit
 import Amplify
+import AWSCognitoAuthPlugin
 import AWSAPIPlugin
 import AWSDataStorePlugin
 
@@ -24,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model)
             try Amplify.add(plugin: APIPlugin)
             try Amplify.add(plugin: dataStorePlugin)
+            try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.configure()
+            print("Amplify configured with auth plugin")
         } catch {
             print("An error occurred setting up Amplify: \(error)")
         }
