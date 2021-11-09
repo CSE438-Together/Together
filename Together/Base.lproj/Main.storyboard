@@ -238,14 +238,14 @@
                                                         </connections>
                                                     </textView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3HE-DS-mFj" userLabel="Divider">
-                                                        <rect key="frame" x="15" y="62.666666666666657" width="360" height="1"/>
+                                                        <rect key="frame" x="15" y="70.666666666666657" width="360" height="1"/>
                                                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="TL1-O7-VE6"/>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="mpl-0w-5Tb">
-                                                        <rect key="frame" x="15" y="73.666666666666657" width="360" height="150"/>
+                                                        <rect key="frame" x="15" y="89.333333333333343" width="360" height="150"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departure Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBx-5m-d0a">
                                                                 <rect key="frame" x="0.0" y="0.0" width="119" height="150"/>
@@ -262,30 +262,49 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGW-2A-9uF" userLabel="Divider">
-                                                        <rect key="frame" x="15" y="233.66666666666669" width="360" height="1"/>
+                                                        <rect key="frame" x="15" y="257.33333333333331" width="360" height="1"/>
                                                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="Aei-xN-v5S"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auu-qr-PX6">
-                                                        <rect key="frame" x="15" y="244.66666666666669" width="360" height="20.333333333333314"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a departure place" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-0C-xtD" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="275" width="360" height="33"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <color key="textColor" systemColor="placeholderTextColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="ery-IW-a08" id="NgY-YZ-amz"/>
-                                                        </connections>
-                                                    </textView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="GRe-y1-nmT">
+                                                        <rect key="frame" x="15" y="276" width="360" height="28"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auu-qr-PX6">
+                                                                <rect key="frame" x="0.0" y="0.0" width="155" height="20.333333333333332"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="oVj-gW-nJY"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a departure place" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-0C-xtD" customClass="TextView" customModule="Together" customModuleProvider="target">
+                                                                <rect key="frame" x="155" y="-5" width="205" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="textColor" systemColor="placeholderTextColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                <dataDetectorType key="dataDetectorTypes" address="YES"/>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="ery-IW-a08" id="NgY-YZ-amz"/>
+                                                                </connections>
+                                                            </textView>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJs-s4-pqD">
+                                                                <rect key="frame" x="360" y="-4" width="40" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="LSD-p4-fAT"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Edit"/>
+                                                                <connections>
+                                                                    <action selector="departurePlaceEditButtonPressed:" destination="ery-IW-a08" eventType="touchUpInside" id="LSc-mF-QcR"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xxb-6x-4kA">
-                                                        <rect key="frame" x="15" y="313" width="360" height="200"/>
+                                                        <rect key="frame" x="15" y="309" width="360" height="200"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="200" id="rRB-Vk-SMP"/>
@@ -319,7 +338,6 @@
                                                                         </imageView>
                                                                     </subviews>
                                                                 </tableViewCellContentView>
-                                                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             </tableViewCell>
                                                         </prototypes>
                                                         <connections>
@@ -327,24 +345,43 @@
                                                             <outlet property="delegate" destination="ery-IW-a08" id="ZMa-dt-ljA"/>
                                                         </connections>
                                                     </tableView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-bY-qqu">
-                                                        <rect key="frame" x="15" y="318" width="360" height="20.333333333333314"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a destination" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MDa-rC-El2" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="348.33333333333331" width="360" height="33"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <color key="textColor" systemColor="placeholderTextColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="ery-IW-a08" id="mfN-ew-l3R"/>
-                                                        </connections>
-                                                    </textView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="Pfv-UD-imU">
+                                                        <rect key="frame" x="15" y="322" width="360" height="28"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-bY-qqu">
+                                                                <rect key="frame" x="0.0" y="0.0" width="94" height="20.333333333333332"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="gIj-aS-R77"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a destination" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MDa-rC-El2" customClass="TextView" customModule="Together" customModuleProvider="target">
+                                                                <rect key="frame" x="94" y="-5" width="266" height="33"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="textColor" systemColor="placeholderTextColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                <dataDetectorType key="dataDetectorTypes" address="YES"/>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="ery-IW-a08" id="mfN-ew-l3R"/>
+                                                                </connections>
+                                                            </textView>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYD-2f-ZZ7">
+                                                                <rect key="frame" x="360" y="-4" width="40" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="mFh-hL-1rA"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Edit"/>
+                                                                <connections>
+                                                                    <action selector="destinationEditButtonPressed:" destination="ery-IW-a08" eventType="touchUpInside" id="Ccu-ux-his"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bQ2-HK-S14">
-                                                        <rect key="frame" x="15" y="386.33333333333331" width="360" height="199.99999999999994"/>
+                                                        <rect key="frame" x="15" y="355" width="360" height="200"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="200" id="EfZ-nO-d56"/>
@@ -378,7 +415,6 @@
                                                                         </imageView>
                                                                     </subviews>
                                                                 </tableViewCellContentView>
-                                                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             </tableViewCell>
                                                         </prototypes>
                                                         <connections>
@@ -387,14 +423,14 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JgN-JU-r94" userLabel="Divider">
-                                                        <rect key="frame" x="15" y="391.33333333333331" width="360" height="1"/>
+                                                        <rect key="frame" x="15" y="367.66666666666669" width="360" height="1"/>
                                                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="KDR-SC-7Ei"/>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="eak-Ip-lQf">
-                                                        <rect key="frame" x="15" y="402.33333333333331" width="360" height="20.333333333333314"/>
+                                                        <rect key="frame" x="15" y="386.66666666666669" width="360" height="20.333333333333314"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum Participants" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrv-G8-c3K">
                                                                 <rect key="frame" x="0.0" y="0.0" width="168.66666666666666" height="20.333333333333332"/>
@@ -433,7 +469,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3u-Xi-h8F">
-                                                        <rect key="frame" x="15" y="432.66666666666663" width="360" height="1"/>
+                                                        <rect key="frame" x="15" y="424.66666666666663" width="360" height="1"/>
                                                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="iAg-G9-9Qa"/>
@@ -498,9 +534,11 @@
                         <outlet property="datePicker" destination="dpJ-Bq-w2u" id="9oV-YI-GS2"/>
                         <outlet property="departurePlace" destination="Ji8-0C-xtD" id="gBG-ZI-SAX"/>
                         <outlet property="departurePlaceAutocomplete" destination="xxb-6x-4kA" id="FiK-4j-b1f"/>
+                        <outlet property="departurePlaceEdit" destination="sJs-s4-pqD" id="Ik1-dF-Buu"/>
                         <outlet property="descriptions" destination="8km-V8-Goh" id="OOL-5Y-wvu"/>
                         <outlet property="destination" destination="MDa-rC-El2" id="Pxy-Yc-Wdg"/>
                         <outlet property="destinationAutocomplete" destination="bQ2-HK-S14" id="fjc-C6-w9S"/>
+                        <outlet property="destinationEdit" destination="HYD-2f-ZZ7" id="qeM-dV-0ks"/>
                         <outlet property="maxParticipants" destination="n1m-9u-D3c" id="iiD-Rh-8jb"/>
                         <outlet property="minus" destination="N6d-YX-sii" id="KKi-dn-aVu"/>
                         <outlet property="plus" destination="uhY-BK-mzk" id="izi-eg-YQF"/>

@@ -19,6 +19,8 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var destination: TextView!
     @IBOutlet weak var destinationAutocomplete: UITableView!
     @IBOutlet weak var departurePlaceAutocomplete: UITableView!
+    @IBOutlet weak var departurePlaceEdit: UIButton!
+    @IBOutlet weak var destinationEdit: UIButton!
     
     var post: Post!
     private var currentTextView: TextView?
@@ -33,10 +35,8 @@ class NewPostViewController: UIViewController {
         destination.placeholder = "Choose a destination"
         departurePlace.autocompleteTable = departurePlaceAutocomplete
         destination.autocompleteTable = destinationAutocomplete
-        
-        let inset = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        destinationAutocomplete.contentInset = inset
-        departurePlaceAutocomplete.contentInset = inset
+        departurePlace.editButton = departurePlaceEdit
+        destination.editButton = destinationEdit
         
         datePicker.minimumDate = datePicker.date
 
@@ -67,6 +67,22 @@ class NewPostViewController: UIViewController {
         }
         maxParticipants.text = "\(num)"
         minus.isEnabled = true
+    }
+    
+    @IBAction func departurePlaceEditButtonPressed(_ sender: UIButton) {
+        handleEditButton(sender, departurePlace)
+    }
+    
+    @IBAction func destinationEditButtonPressed(_ sender: UIButton) {
+        handleEditButton(sender, destination)
+    }
+    
+    private func handleEditButton(_ button: UIButton, _ textView: TextView) {
+        textView.isEditable = true
+        textView.selectAll(self)
+        UIView.animate(withDuration: 0.5) {
+            button.isHidden = true
+        }
     }
 }
 
@@ -121,17 +137,11 @@ extension NewPostViewController: UITableViewDelegate {
         } else if tableView == destinationAutocomplete {
             autocompleteSelected(destination, text)
         }
-//        let geoCoder = CLGeocoder()
-//        geoCoder.geocodeAddressString(text) { (placemarks, error) in
-//            guard let placemark = placemarks?.first else { return }
-//            let item = MKMapItem(placemark: MKPlacemark(placemark: placemark))
-//            item.openInMaps(launchOptions: nil)
-//        }
     }
     
     private func autocompleteSelected(_ textView: TextView, _ text: String) {
         textView.text = text
-        textView.removeAutocompleteTable()
+        textView.endEditing(true)
     }
 }
 
