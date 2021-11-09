@@ -77,6 +77,10 @@ class NewPostViewController: UIViewController {
         handleEditButton(sender, destination)
     }
     
+    @IBAction func transportationDidChange(_ sender: UISegmentedControl) {
+        
+    }
+    
     private func handleEditButton(_ button: UIButton, _ textView: TextView) {
         textView.isEditable = true
         textView.selectAll(self)
