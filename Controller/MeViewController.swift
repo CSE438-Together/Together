@@ -12,8 +12,6 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
 
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var takePicButton: UIButton!
-    @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var getFromLibraryButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
@@ -25,10 +23,9 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         logoutButton.layer.cornerRadius = 10
         takePicButton.layer.borderWidth = 1.5
         takePicButton.layer.cornerRadius = 10
-        saveButton.layer.borderWidth = 1.5
-        saveButton.layer.cornerRadius = 10
-        getFromLibraryButton.layer.borderWidth = 1.5
-        getFromLibraryButton.layer.cornerRadius = 10
+        
+        userImage.layer.cornerRadius = userImage.frame.width/2
+        userImage.layer.masksToBounds = true
         
     }
     
@@ -71,24 +68,43 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
             
     }
     
-    @IBAction func takePic(_ sender: Any) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .camera
-        present(picker, animated: true, completion: nil)
+    
+    @IBAction func editUserImage(_ sender: Any) {
+        let editImageAlert = UIAlertController(title: "Please choose action", message: "", preferredStyle: UIAlertController.Style.actionSheet)
+           
+        let chooseFromPhotoLibrary = UIAlertAction(title: "Choose From Photo Library", style: UIAlertAction.Style.default, handler: ChooseFromPhotoLibrary)
+        editImageAlert.addAction(chooseFromPhotoLibrary)
+           
+        let chooseFromTheCamera = UIAlertAction(title: "Choose From Camera", style: UIAlertAction.Style.default,handler:ChooseFromCamera)
+        editImageAlert.addAction(chooseFromTheCamera)
+        
+        let saveCurrentImage = UIAlertAction(title: "save Current Image", style: UIAlertAction.Style.default,handler:SaveCurrentImage)
+        editImageAlert.addAction(saveCurrentImage)
+        
+        let canelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel,handler: nil)
+        editImageAlert.addAction(canelAction)
+           
+        self.present(editImageAlert, animated: true, completion: nil)
     }
     
-    @IBAction func accessLibrary(_ sender: Any) {
+    func ChooseFromPhotoLibrary(avc:UIAlertAction)-> Void{
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .photoLibrary
         present(picker, animated: true, completion: nil)
     }
     
+    func ChooseFromCamera(avc:UIAlertAction) -> Void{
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .camera
+        present(picker, animated: true, completion: nil)
+    }
     
-    @IBAction func SavePressed(_ sender: Any) {
+    func SaveCurrentImage(avc:UIAlertAction)-> Void{
         UIImageWriteToSavedPhotosAlbum(userImage.image!,self,#selector(MeViewController.image(image:didFinishSavingWithError:contextInfo:)),nil)
     }
+    
     @objc func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
     
         if error == nil {
@@ -100,13 +116,10 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
            ac.addAction(UIAlertAction(title:"OK", style: .default, handler:nil))
            present(ac, animated:true, completion:nil)
         }
-
-        
     }
     
     @IBAction func LogOutPressed(_ sender: Any) {
         signOutLocally()
     }
-    
     
 }

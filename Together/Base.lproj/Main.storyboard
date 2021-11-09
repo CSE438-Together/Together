@@ -1097,35 +1097,15 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wW-ji-aXN">
                                 <rect key="frame" x="76" y="482" width="239" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Take Photo"/>
+                                <state key="normal" title="Edit profile image"/>
                                 <connections>
-                                    <action selector="takePic:" destination="32J-dB-XaJ" eventType="touchUpInside" id="EwA-wN-Sm5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYh-qu-ZQk">
-                                <rect key="frame" x="76" y="536" width="239" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="choose from photo library"/>
-                                <connections>
-                                    <action selector="accessLibrary:" destination="32J-dB-XaJ" eventType="touchUpInside" id="ap8-VM-eqv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhs-Tv-Ffb">
-                                <rect key="frame" x="76" y="590" width="239" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="SavePressed:" destination="32J-dB-XaJ" eventType="touchUpInside" id="Vge-rT-t75"/>
+                                    <action selector="editUserImage:" destination="32J-dB-XaJ" eventType="touchUpInside" id="L6v-7F-sqF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yl1-00-C3c">
-                                <rect key="frame" x="76" y="644" width="239" height="36"/>
+                                <rect key="frame" x="76" y="551" width="239" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1140,9 +1120,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Lhn-8l-KFP"/>
                     <connections>
-                        <outlet property="getFromLibraryButton" destination="BYh-qu-ZQk" id="QEs-nI-KAb"/>
                         <outlet property="logoutButton" destination="yl1-00-C3c" id="YLE-dQ-LWh"/>
-                        <outlet property="saveButton" destination="qhs-Tv-Ffb" id="ApC-wh-gsr"/>
                         <outlet property="takePicButton" destination="2wW-ji-aXN" id="eVi-D1-cvJ"/>
                         <outlet property="userImage" destination="ib5-L9-Hx2" id="3e5-td-gtN"/>
                     </connections>
@@ -1280,14 +1258,14 @@
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
