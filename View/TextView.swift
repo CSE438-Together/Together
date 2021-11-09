@@ -30,10 +30,6 @@ class TextView: UITextView {
         return text == placeholder
     }
     
-    func isEmpty() -> Bool {
-        return text == ""
-    }
-    
     func loadSearchResults() {
         guard let table = autocompleteTable else { return }
         table.reloadData()

@@ -38,6 +38,8 @@ class NewPostViewController: UIViewController {
         destinationAutocomplete.contentInset = inset
         departurePlaceAutocomplete.contentInset = inset
         
+        datePicker.minimumDate = datePicker.date
+
         if post == nil {
             post = Post()
         }
@@ -79,7 +81,7 @@ extension NewPostViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
-        if view.isEmpty() {
+        if !view.hasText {
             view.showPlaceholder()
         }
         view.removeAutocompleteTable()
@@ -156,8 +158,7 @@ extension NewPostViewController: UITableViewDataSource {
 
 extension NewPostViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
-        
+        searchResults = completer.results        
         guard let textView = currentTextView else { return }
         textView.loadSearchResults()
     }
