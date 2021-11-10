@@ -10,7 +10,19 @@ import Amplify
 
 var i:Int = 1
 
-class APIFunction {
+class API {
+    public static func getAll() -> [Post] {
+        var posts: [Post] = []
+        Amplify.DataStore.query(Post.self) { result in
+            switch(result) {
+            case .success(let items):
+                posts = items
+            case .failure(let error):
+                print("Could not query DataStore: \(error)")
+            }
+        }
+        return posts
+    }
     
     static func createPost() {
         let time = Date()
@@ -19,8 +31,8 @@ class APIFunction {
         formatter.timeStyle = .medium
         let timeString = formatter.string(from: time)
         
-        let postTest = Post(author: "Hive", departureTime: timeString, source: "Kingsbury", destination: "WashU", transportation: "On Foot2", description: "Go to blow up the school", maxMembers: i, title: "Let's go to place \(i)", postTime: timeString)
-        
+//        let postTest = Post(author: "Hive", departureTime: timeString, source: "Kingsbury", destination: "WashU", transportation: "On Foot2", description: "Go to blow up the school", maxMembers: i, title: "Let's go to place \(i)", postTime: timeString)
+        let postTest = Post()
         i += 1
         
         Amplify.DataStore.save(postTest) { result in

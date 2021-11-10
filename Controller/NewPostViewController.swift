@@ -22,8 +22,9 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var departurePlaceAutocomplete: UITableView!
     @IBOutlet weak var departurePlaceEdit: UIButton!
     @IBOutlet weak var destinationEdit: UIButton!
+    @IBOutlet weak var transportation: UISegmentedControl!
     
-    var post: Post!
+    var post: Post?
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
@@ -40,10 +41,7 @@ class NewPostViewController: UIViewController {
         destination.editButton = destinationEdit
         
         datePicker.minimumDate = datePicker.date
-
-        if post == nil {
-            post = Post()
-        }
+        
         // Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
         searchCompleter.delegate = self
     }
@@ -52,6 +50,27 @@ class NewPostViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @IBAction func sendButtonPressed(_ sender: Any) {
+        let item = Post(
+            title: postTitle.text,
+            departurePlace: departurePlace.text,
+            destination: destination.text,
+            transportation: Transportation.getInstance(of: transportation.selectedSegmentIndex),
+            departureTime: Temporal.DateTime(datePicker.date),
+            maxMembers: maxParticipants.toInt(),
+            description: descriptions.text
+        )        
+        Amplify.DataStore.save(item) {
+            result in
+            switch(result) {
+            case .success(let savedItem):
+                print("Saved item: \(savedItem.id)")
+            case .failure(let error):
+                print("Could not save item to DataStore: \(error)")
+            }
+        }
+        self.dismiss(animated: true)
+    }
     @IBAction func minusButtonPressed(_ sender: Any) {
         let num = maxParticipants.toInt() - 1
         if num == 2 {
@@ -76,10 +95,6 @@ class NewPostViewController: UIViewController {
     
     @IBAction func destinationEditButtonPressed(_ sender: UIButton) {
         handleEditButton(sender, destination)
-    }
-    
-    @IBAction func transportationDidChange(_ sender: UISegmentedControl) {
-        
     }
     
     private func handleEditButton(_ button: UIButton, _ textView: TextView) {
@@ -120,17 +135,6 @@ extension NewPostViewController: UITextViewDelegate {
         if textView == destination || textView == departurePlace {
             searchCompleter.queryFragment = textView.text
         }
-    }
-}
-
-extension UILabel {
-    func toInt() -> Int {
-        guard let text = self.text,
-              let num = Int(text)
-        else {
-            return 0
-        }
-        return num
     }
 }
 
