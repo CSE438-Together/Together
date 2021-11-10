@@ -38,6 +38,17 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 //        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "NewPost" {
+            guard let navController = segue.destination as? UINavigationController,
+                  let newPostViewController = navController.children.first as? NewPostViewController
+            else {
+                return
+            }
+            newPostViewController.delegate = self
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
@@ -58,16 +69,16 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.pushViewController(vc!, animated: true)
     }    
     
-    @objc func refreshPosts(){
-        DispatchQueue.global().async {
-            do {
-                self.posts = API.loadPosts()
-            }
-            DispatchQueue.main.async {
-                self.exploreTableView.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-        }
-    }
+//    @objc func refreshPosts(){
+//        DispatchQueue.global().async {
+//            do {
+//                self.posts = API.loadPosts()
+//            }
+//            DispatchQueue.main.async {
+//                self.exploreTableView.reloadData()
+//                self.refreshControl.endRefreshing()
+//            }
+//        }
+//    }
 
 }

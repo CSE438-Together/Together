@@ -61,7 +61,7 @@
                     <navigationItem key="navigationItem" title="EXPLORE" id="vBm-jA-UpY">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="pJw-uM-Ddo">
                             <connections>
-                                <segue destination="l9F-U4-9Rm" kind="presentation" modalPresentationStyle="fullScreen" id="KHX-tO-yWj"/>
+                                <segue destination="l9F-U4-9Rm" kind="presentation" identifier="NewPost" modalPresentationStyle="fullScreen" id="KHX-tO-yWj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

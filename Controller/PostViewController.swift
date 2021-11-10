@@ -31,6 +31,6 @@ class PostViewController: UIViewController {
     }
     
     @IBAction func addPost(_ sender: Any) {
-        API.createPost()
+//        API.createPost()
     }
 }

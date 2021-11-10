@@ -25,6 +25,7 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var transportation: UISegmentedControl!
     
     var post: Post?
+    var delegate: ExploreViewController!
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
@@ -69,7 +70,9 @@ class NewPostViewController: UIViewController {
                 print("Could not save item to DataStore: \(error)")
             }
         }
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            self.delegate.posts.insert(item, at: 0)
+        }
     }
     @IBAction func minusButtonPressed(_ sender: Any) {
         let num = maxParticipants.toInt() - 1
