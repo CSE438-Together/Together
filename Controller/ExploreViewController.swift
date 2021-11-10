@@ -12,9 +12,12 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var exploreTableView: UITableView!
     
     var refreshControl = UIRefreshControl()
-    var posts: [Post] = API.getAll() {
+    var posts: [Post] = [] {
         didSet {
-            exploreTableView.reloadData()
+            DispatchQueue.main.async {
+                self.exploreTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
     }
     
@@ -22,9 +25,9 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         setupTableView()
         refreshControl.attributedTitle = NSAttributedString(string: "refreshing...")
-//        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
-        exploreTableView.addSubview(refreshControl) // not required when using UITableViewController
-//        refreshPosts()
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+        exploreTableView.refreshControl = refreshControl
+        refreshPosts()
     }
     
     func setupTableView(){
@@ -64,21 +67,15 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         postCell.when.text = posts[indexPath.row].departureTime.toString()
         return postCell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
         self.navigationController?.pushViewController(vc!, animated: true)
     }    
     
-//    @objc func refreshPosts(){
-//        DispatchQueue.global().async {
-//            do {
-//                self.posts = API.loadPosts()
-//            }
-//            DispatchQueue.main.async {
-//                self.exploreTableView.reloadData()
-//                self.refreshControl.endRefreshing()
-//            }
-//        }
-//    }
-
+    @objc func refreshPosts() {
+        DispatchQueue.global().async {
+            self.posts = API.getAll()
+        }
+    }
 }
