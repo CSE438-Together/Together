@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import Amplify
 
 class NewPostViewController: UIViewController {
     @IBOutlet weak var postTitle: TextView!
@@ -114,7 +115,7 @@ extension NewPostViewController: UITextViewDelegate {
         }
         return true
     }
-    
+
     func textViewDidChange(_ textView: UITextView) {
         if textView == destination || textView == departurePlace {
             searchCompleter.queryFragment = textView.text
