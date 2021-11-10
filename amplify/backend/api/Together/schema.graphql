@@ -1,13 +1,19 @@
+enum Transportation {
+  CAR
+  WALK
+  TRAM
+  BIKE
+  TAXI
+}
+
 type Post @model @auth(rules: [{allow: public}]) {
   id: ID!
-  author: String
-  departureTime: String
-  source: String
-  destination: String
-  transportation: String
-  description: String
-  maxMembers: Int
   title: String
-  postTime: String
+  departurePlace: String
+  destination: String
+  transportation: Transportation
+  departureTime: AWSDateTime
+  maxMembers: Int
+  description: String
 }
  

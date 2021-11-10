@@ -6,15 +6,15 @@ extension Post {
   // MARK: - CodingKeys 
    public enum CodingKeys: String, ModelKey {
     case id
-    case author
-    case departureTime
-    case source
+    case title
+    case departurePlace
     case destination
     case transportation
-    case description
+    case departureTime
     case maxMembers
-    case title
-    case postTime
+    case description
+    case createdAt
+    case updatedAt
   }
   
   public static let keys = CodingKeys.self
@@ -23,19 +23,23 @@ extension Post {
   public static let schema = defineSchema { model in
     let post = Post.keys
     
+    model.authRules = [
+      rule(allow: .public, operations: [.create, .update, .delete, .read])
+    ]
+    
     model.pluralName = "Posts"
     
     model.fields(
       .id(),
-      .field(post.author, is: .optional, ofType: .string),
-      .field(post.departureTime, is: .optional, ofType: .string),
-      .field(post.source, is: .optional, ofType: .string),
-      .field(post.destination, is: .optional, ofType: .string),
-      .field(post.transportation, is: .optional, ofType: .string),
-      .field(post.description, is: .optional, ofType: .string),
-      .field(post.maxMembers, is: .optional, ofType: .int),
       .field(post.title, is: .optional, ofType: .string),
-      .field(post.postTime, is: .optional, ofType: .string)
+      .field(post.departurePlace, is: .optional, ofType: .string),
+      .field(post.destination, is: .optional, ofType: .string),
+      .field(post.transportation, is: .optional, ofType: .enum(type: Transportation.self)),
+      .field(post.departureTime, is: .optional, ofType: .dateTime),
+      .field(post.maxMembers, is: .optional, ofType: .int),
+      .field(post.description, is: .optional, ofType: .string),
+      .field(post.createdAt, is: .optional, isReadOnly: true, ofType: .dateTime),
+      .field(post.updatedAt, is: .optional, isReadOnly: true, ofType: .dateTime)
     )
     }
 }
