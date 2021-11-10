@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 import Amplify
 import AWSCognitoAuthPlugin
 import AWSAPIPlugin
@@ -13,9 +14,7 @@ import AWSDataStorePlugin
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
@@ -27,13 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try Amplify.add(plugin: dataStorePlugin)
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.configure()
+            
             print("Amplify configured with auth plugin")
         } catch {
             print("An error occurred setting up Amplify: \(error)")
         }
-        
         return true
     }
+        
+        
 
     // MARK: UISceneSession Lifecycle
 
