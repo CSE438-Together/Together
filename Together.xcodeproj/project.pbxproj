@@ -22,9 +22,9 @@
 		50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50072382272B8F0500F3FF31 /* LaunchScreen.storyboard */; };
 		50513A452737633C000C245B /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A442737633C000C245B /* NewPostViewController.swift */; };
 		50513A482737758E000C245B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A472737758E000C245B /* TextView.swift */; };
-		51B7CE40273645890055EC2D /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 51B7CE3F273645890055EC2D /* amplifyconfiguration.json */; };
-		51B7CE42273645910055EC2D /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 51B7CE41273645910055EC2D /* awsconfiguration.json */; };
 		51B7CE4A27379DF80055EC2D /* CodeConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B7CE4927379DF80055EC2D /* CodeConfirmViewController.swift */; };
+		51B7CE52273B37A90055EC2D /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 51B7CE51273B37A90055EC2D /* amplifyconfiguration.json */; };
+		51B7CE54273B37B20055EC2D /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 51B7CE53273B37B20055EC2D /* awsconfiguration.json */; };
 		72349E6C272C9EAD00BA23E1 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72349E6B272C9EAD00BA23E1 /* AmplifyModels.swift */; };
 		72349E78272CB25B00BA23E1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72349E76272CB25B00BA23E1 /* Post.swift */; };
 		72349E79272CB25B00BA23E1 /* Post+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72349E77272CB25B00BA23E1 /* Post+Schema.swift */; };
@@ -55,9 +55,9 @@
 		50072385272B8F0500F3FF31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50513A442737633C000C245B /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		50513A472737758E000C245B /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
-		51B7CE3F273645890055EC2D /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
-		51B7CE41273645910055EC2D /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		51B7CE4927379DF80055EC2D /* CodeConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeConfirmViewController.swift; sourceTree = "<group>"; };
+		51B7CE51273B37A90055EC2D /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		51B7CE53273B37B20055EC2D /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		72349E6B272C9EAD00BA23E1 /* AmplifyModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		72349E76272CB25B00BA23E1 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = amplify/generated/models/Post.swift; sourceTree = "<group>"; };
 		72349E77272CB25B00BA23E1 /* Post+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Post+Schema.swift"; path = "amplify/generated/models/Post+Schema.swift"; sourceTree = "<group>"; };
@@ -162,8 +162,8 @@
 		50F85F01272CAD1200A705C9 /* AmplifyConfig */ = {
 			isa = PBXGroup;
 			children = (
-				51B7CE3F273645890055EC2D /* amplifyconfiguration.json */,
-				51B7CE41273645910055EC2D /* awsconfiguration.json */,
+				51B7CE51273B37A90055EC2D /* amplifyconfiguration.json */,
+				51B7CE53273B37B20055EC2D /* awsconfiguration.json */,
 			);
 			name = AmplifyConfig;
 			sourceTree = "<group>";
@@ -245,8 +245,8 @@
 			files = (
 				50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */,
 				50072381272B8F0500F3FF31 /* Assets.xcassets in Resources */,
-				51B7CE42273645910055EC2D /* awsconfiguration.json in Resources */,
-				51B7CE40273645890055EC2D /* amplifyconfiguration.json in Resources */,
+				51B7CE54273B37B20055EC2D /* awsconfiguration.json in Resources */,
+				51B7CE52273B37A90055EC2D /* amplifyconfiguration.json in Resources */,
 				72349E8A272CF44D00BA23E1 /* PostTableViewCell.xib in Resources */,
 				5007237F272B8F0500F3FF31 /* Main.storyboard in Resources */,
 			);

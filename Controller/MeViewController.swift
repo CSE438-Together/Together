@@ -35,9 +35,8 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
             case .success:
                 DispatchQueue.main.async(execute: {
                     print("Successfully signed out")
-                    
-                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                    let LoginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController")
+            
+                    let LoginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                     self.show(LoginViewController, sender: self)
                 })
             case .failure(let error):
