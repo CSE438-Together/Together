@@ -20,9 +20,13 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    private let searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.searchController = searchController
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         setupTableView()
         refreshControl.attributedTitle = NSAttributedString(string: "refreshing...")
         refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)

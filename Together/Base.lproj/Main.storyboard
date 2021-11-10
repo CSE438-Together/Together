@@ -34,14 +34,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pPT-Xm-1eU">
-                                <rect key="frame" x="0.0" y="88" width="390" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DZD-Df-9kf">
-                                <rect key="frame" x="0.0" y="132" width="390" height="629"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DZD-Df-9kf">
+                                <rect key="frame" x="0.0" y="88" width="390" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VrG-WW-peC">
@@ -57,6 +51,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aK7-dg-9J1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aK7-dg-9J1" firstAttribute="trailing" secondItem="DZD-Df-9kf" secondAttribute="trailing" id="1OW-Sk-Z6C"/>
+                            <constraint firstItem="aK7-dg-9J1" firstAttribute="bottom" secondItem="DZD-Df-9kf" secondAttribute="bottom" id="8VI-KS-Z3L"/>
+                            <constraint firstItem="DZD-Df-9kf" firstAttribute="top" secondItem="aK7-dg-9J1" secondAttribute="top" id="8a4-o5-vNg"/>
+                            <constraint firstItem="DZD-Df-9kf" firstAttribute="leading" secondItem="aK7-dg-9J1" secondAttribute="leading" id="qfd-Fm-DMO"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="EXPLORE" id="vBm-jA-UpY">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="pJw-uM-Ddo">
@@ -285,7 +285,7 @@
                                                         <rect key="frame" x="15" y="300.66666666666669" width="360" height="28"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auu-qr-PX6">
-                                                                <rect key="frame" x="0.0" y="0.0" width="155" height="20.333333333333332"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.333333333333336" height="20.333333333333332"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="oVj-gW-nJY"/>
                                                                 </constraints>
@@ -294,7 +294,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a departure place" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-0C-xtD" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                <rect key="frame" x="155" y="-5" width="205" height="33"/>
+                                                                <rect key="frame" x="35.333333333333343" y="-5" width="324.66666666666663" height="33"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <color key="textColor" systemColor="placeholderTextColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -362,7 +362,7 @@
                                                         <rect key="frame" x="15" y="341.33333333333331" width="360" height="28"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-bY-qqu">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94" height="20.333333333333332"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="17.333333333333332" height="20.333333333333332"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="gIj-aS-R77"/>
                                                                 </constraints>
@@ -371,7 +371,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a destination" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MDa-rC-El2" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                <rect key="frame" x="94" y="-5" width="266" height="33"/>
+                                                                <rect key="frame" x="17.333333333333343" y="-5" width="342.66666666666663" height="33"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <color key="textColor" systemColor="placeholderTextColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
