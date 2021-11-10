@@ -9,19 +9,24 @@ import UIKit
 import Amplify
 
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
     @IBOutlet weak var exploreTableView: UITableView!
-//    @IBOutlet weak var addPostButton: UIBarButtonItem!
-    var i: Int = 0
+    
     var refreshControl = UIRefreshControl()
-    var posts: [Post] = []
+    var posts: [Post] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.exploreTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         refreshControl.attributedTitle = NSAttributedString(string: "refreshing...")
         refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
-        exploreTableView.addSubview(refreshControl) // not required when using UITableViewController
+        exploreTableView.refreshControl = refreshControl
         refreshPosts()
     }
     
@@ -29,11 +34,22 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.dataSource = self
         exploreTableView.delegate = self
         
-        var nib = UINib(nibName: "PostTableViewCell", bundle: nil)
+        let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         exploreTableView.register(nib, forCellReuseIdentifier: "cell")
         exploreTableView.estimatedRowHeight = 85.0
         exploreTableView.rowHeight = UITableView.automaticDimension
 //        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "NewPost" {
+            guard let navController = segue.destination as? UINavigationController,
+                  let newPostViewController = navController.children.first as? NewPostViewController
+            else {
+                return
+            }
+            newPostViewController.delegate = self
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,36 +57,25 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = exploreTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let postCell = cell as? PostTableViewCell else { return cell }
         
-        let myCell = exploreTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PostTableViewCell
-        myCell.from.text = posts[indexPath.row].source
-        myCell.to.text = posts[indexPath.row].destination
-        myCell.when.text = posts[indexPath.row].departureTime
-        myCell.numOfMembers.text = "1 / \(String(describing: posts[indexPath.row].maxMembers!))"
-        myCell.postTitle.text = posts[indexPath.row].title
-        return myCell
+        postCell.postTitle.text = posts[indexPath.row].title
+        postCell.from.text = posts[indexPath.row].departurePlace
+        postCell.to.text = posts[indexPath.row].destination
+        postCell.numOfMembers.text = "\(posts[indexPath.row].maxMembers ?? 2)"
+        postCell.when.text = posts[indexPath.row].departureTime.toString()
+        return postCell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
         self.navigationController?.pushViewController(vc!, animated: true)
-    }
-   
-//    @IBAction func addPostPressed(_ sender: Any) {
-//        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as? PostViewController
-//        self.navigationController?.pushViewController(vc!, animated: true)
-//    }
+    }    
     
-    
-    @objc func refreshPosts(){
+    @objc func refreshPosts() {
         DispatchQueue.global().async {
-            do {
-                self.posts = APIFunction.loadPosts()
-            }
-            DispatchQueue.main.async {
-                self.exploreTableView.reloadData()
-                self.refreshControl.endRefreshing()
-            }
+            self.posts = API.getAll()
         }
     }
-
 }

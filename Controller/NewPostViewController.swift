@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import Amplify
 
 class NewPostViewController: UIViewController {
     @IBOutlet weak var postTitle: TextView!
@@ -19,8 +20,12 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var destination: TextView!
     @IBOutlet weak var destinationAutocomplete: UITableView!
     @IBOutlet weak var departurePlaceAutocomplete: UITableView!
+    @IBOutlet weak var departurePlaceEdit: UIButton!
+    @IBOutlet weak var destinationEdit: UIButton!
+    @IBOutlet weak var transportation: UISegmentedControl!
     
-    var post: Post!
+    var post: Post?
+    var delegate: ExploreViewController!
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
@@ -33,14 +38,11 @@ class NewPostViewController: UIViewController {
         destination.placeholder = "Choose a destination"
         departurePlace.autocompleteTable = departurePlaceAutocomplete
         destination.autocompleteTable = destinationAutocomplete
+        departurePlace.editButton = departurePlaceEdit
+        destination.editButton = destinationEdit
         
-        let inset = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        destinationAutocomplete.contentInset = inset
-        departurePlaceAutocomplete.contentInset = inset
+        datePicker.minimumDate = datePicker.date
         
-        if post == nil {
-            post = Post()
-        }
         // Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
         searchCompleter.delegate = self
     }
@@ -49,6 +51,29 @@ class NewPostViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @IBAction func sendButtonPressed(_ sender: Any) {
+        let item = Post(
+            title: postTitle.text,
+            departurePlace: departurePlace.text,
+            destination: destination.text,
+            transportation: Transportation.getInstance(of: transportation.selectedSegmentIndex),
+            departureTime: Temporal.DateTime(datePicker.date),
+            maxMembers: maxParticipants.toInt(),
+            description: descriptions.text
+        )        
+        Amplify.DataStore.save(item) {
+            result in
+            switch(result) {
+            case .success(let savedItem):
+                print("Saved item: \(savedItem.id)")
+            case .failure(let error):
+                print("Could not save item to DataStore: \(error)")
+            }
+        }
+        self.dismiss(animated: true) {
+            self.delegate.posts.insert(item, at: 0)
+        }
+    }
     @IBAction func minusButtonPressed(_ sender: Any) {
         let num = maxParticipants.toInt() - 1
         if num == 2 {
@@ -66,6 +91,22 @@ class NewPostViewController: UIViewController {
         maxParticipants.text = "\(num)"
         minus.isEnabled = true
     }
+    
+    @IBAction func departurePlaceEditButtonPressed(_ sender: UIButton) {
+        handleEditButton(sender, departurePlace)
+    }
+    
+    @IBAction func destinationEditButtonPressed(_ sender: UIButton) {
+        handleEditButton(sender, destination)
+    }
+    
+    private func handleEditButton(_ button: UIButton, _ textView: TextView) {
+        textView.isEditable = true
+        textView.selectAll(self)
+        UIView.animate(withDuration: 0.5) {
+            button.isHidden = true
+        }
+    }
 }
 
 extension NewPostViewController: UITextViewDelegate {
@@ -79,7 +120,7 @@ extension NewPostViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
-        if view.isEmpty() {
+        if !view.hasText {
             view.showPlaceholder()
         }
         view.removeAutocompleteTable()
@@ -92,22 +133,11 @@ extension NewPostViewController: UITextViewDelegate {
         }
         return true
     }
-    
+
     func textViewDidChange(_ textView: UITextView) {
         if textView == destination || textView == departurePlace {
             searchCompleter.queryFragment = textView.text
         }
-    }
-}
-
-extension UILabel {
-    func toInt() -> Int {
-        guard let text = self.text,
-              let num = Int(text)
-        else {
-            return 0
-        }
-        return num
     }
 }
 
@@ -119,17 +149,11 @@ extension NewPostViewController: UITableViewDelegate {
         } else if tableView == destinationAutocomplete {
             autocompleteSelected(destination, text)
         }
-//        let geoCoder = CLGeocoder()
-//        geoCoder.geocodeAddressString(text) { (placemarks, error) in
-//            guard let placemark = placemarks?.first else { return }
-//            let item = MKMapItem(placemark: MKPlacemark(placemark: placemark))
-//            item.openInMaps(launchOptions: nil)
-//        }
     }
     
     private func autocompleteSelected(_ textView: TextView, _ text: String) {
         textView.text = text
-        textView.removeAutocompleteTable()
+        textView.endEditing(true)
     }
 }
 
@@ -156,8 +180,7 @@ extension NewPostViewController: UITableViewDataSource {
 
 extension NewPostViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
-        
+        searchResults = completer.results        
         guard let textView = currentTextView else { return }
         textView.loadSearchResults()
     }

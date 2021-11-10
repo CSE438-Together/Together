@@ -9,6 +9,7 @@ import UIKit
 
 class TextView: UITextView {
     var autocompleteTable: UITableView?
+    var editButton: UIButton?
     
     var placeholder: String? {
         didSet {
@@ -30,10 +31,6 @@ class TextView: UITextView {
         return text == placeholder
     }
     
-    func isEmpty() -> Bool {
-        return text == ""
-    }
-    
     func loadSearchResults() {
         guard let table = autocompleteTable else { return }
         table.reloadData()
@@ -45,9 +42,19 @@ class TextView: UITextView {
     }
     
     func removeAutocompleteTable() {
-        guard let table = autocompleteTable else { return }
+        guard let table = autocompleteTable,
+              let button = editButton
+        else {
+            return
+        }
         UIView.animate(withDuration: 0.5) {
             table.isHidden = true
+        }
+        if !isShowingPlaceholder() {            
+            isEditable = false
+            UIView.animate(withDuration: 0.5) {
+                button.isHidden = false
+            }
         }
     }
 }
