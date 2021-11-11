@@ -61,7 +61,7 @@
                     <navigationItem key="navigationItem" title="EXPLORE" id="vBm-jA-UpY">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="pJw-uM-Ddo">
                             <connections>
-                                <segue destination="l9F-U4-9Rm" kind="presentation" identifier="NewPost" modalPresentationStyle="fullScreen" id="KHX-tO-yWj"/>
+                                <segue destination="l9F-U4-9Rm" kind="presentation" identifier="" modalPresentationStyle="fullScreen" id="KHX-tO-yWj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1306,7 +1306,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ery-IW-a08" kind="relationship" relationship="rootViewController" id="sq8-Hz-u8e"/>
+                        <segue destination="ery-IW-a08" kind="relationship" relationship="rootViewController" destinationCreationSelector="showNewPostViewController:" id="sq8-Hz-u8e"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e0R-D4-aYx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
