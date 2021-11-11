@@ -41,17 +41,10 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
                 })
             case .failure(let error):
                 DispatchQueue.main.async(execute: {
-                    print("Sign out failed with error \(error)")
-                    self.alert(title: "Failed", message: "Sign out failed with error \(error)")
+                    Alert.showWarning(self, "Failed", "Sign out failed with error \(error)")
                 })
             }
         }
-    }
-
-    func alert(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
