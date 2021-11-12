@@ -13,6 +13,7 @@ extension Post {
     case departureTime
     case maxMembers
     case description
+    case owner
     case createdAt
     case updatedAt
   }
@@ -24,7 +25,7 @@ extension Post {
     let post = Post.keys
     
     model.authRules = [
-      rule(allow: .public, operations: [.create, .update, .delete, .read])
+      rule(allow: .owner, ownerField: "owner", identityClaim: "cognito:username", provider: .userPools, operations: [.create, .update, .delete])
     ]
     
     model.pluralName = "Posts"
@@ -38,6 +39,7 @@ extension Post {
       .field(post.departureTime, is: .optional, ofType: .dateTime),
       .field(post.maxMembers, is: .optional, ofType: .int),
       .field(post.description, is: .optional, ofType: .string),
+      .field(post.owner, is: .optional, ofType: .string),
       .field(post.createdAt, is: .optional, isReadOnly: true, ofType: .dateTime),
       .field(post.updatedAt, is: .optional, isReadOnly: true, ofType: .dateTime)
     )

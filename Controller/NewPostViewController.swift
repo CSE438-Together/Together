@@ -61,26 +61,31 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func sendButtonPressed(_ sender: Any) {
+        guard let user = Amplify.Auth.getCurrentUser() else { return }
+        
         let item = Post(
-            title: postTitle.text,
-            departurePlace: departurePlace.text,
-            destination: destination.text,
-            transportation: Transportation.getInstance(of: transportation.selectedSegmentIndex),
-            departureTime: Temporal.DateTime(datePicker.date),
-            maxMembers: maxParticipants.toInt(),
-            description: descriptions.text
-        )        
-        Amplify.DataStore.save(item) {
-            result in
-            switch(result) {
-            case .success(let savedItem):
-                print("Saved item: \(savedItem.id)")
-            case .failure(let error):
-                print("Could not save item to DataStore: \(error)")
-            }
-        }
+            title: self.postTitle.text,
+            departurePlace: self.departurePlace.text,
+            destination: self.destination.text,
+            transportation: Transportation.getInstance(of: self.transportation.selectedSegmentIndex),
+            departureTime: Temporal.DateTime(self.datePicker.date),
+            maxMembers: self.maxParticipants.toInt(),
+            description: self.descriptions.text,
+            owner: user.username
+        )
+        
         self.dismiss(animated: true) {
-            self.delegate.posts.insert(item, at: 0)
+            DispatchQueue.global().async {
+                Amplify.DataStore.save(item) {
+                    result in
+                    switch(result) {
+                    case .success:
+                        self.delegate.showPostSentSuccessMessage()
+                    case .failure:
+                        self.delegate.showFailToSendPostMessage()
+                    }
+                }
+            }
         }
     }
     
