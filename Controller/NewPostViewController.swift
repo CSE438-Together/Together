@@ -114,9 +114,10 @@ class NewPostViewController: UIViewController {
                         result in
                         switch(result) {
                         case .success:
-                            controller.showPostSentSuccessMessage()
+                            controller.refreshPosts()
+                            controller.message.showSuccessMessage()
                         case .failure:
-                            controller.showFailToSendPostMessage()
+                            controller.message.showFailureMessage()
                         }
                     }
                 }
