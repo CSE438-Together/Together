@@ -104,11 +104,25 @@ class NewPostViewController: UIViewController {
             departureTime: Temporal.DateTime(self.datePicker.date),
             maxMembers: self.maxParticipants.toInt(),
             description: self.descriptions.text,
-            owner: user.username
+            owner: user.username,
+            members: [user.username]
         )
         
         self.dismiss(animated: true) {
             if let controller = self.delegate as? ExploreViewController {
+                DispatchQueue.global().async {
+                    Amplify.DataStore.save(item) {
+                        result in
+                        switch(result) {
+                        case .success:
+                            controller.refreshPosts()
+                            controller.message.showSuccessMessage()
+                        case .failure:
+                            controller.message.showFailureMessage()
+                        }
+                    }
+                }
+            } else if let controller = self.delegate as? MyEventViewController {
                 DispatchQueue.global().async {
                     Amplify.DataStore.save(item) {
                         result in
