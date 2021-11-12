@@ -46,4 +46,20 @@ extension Transportation {
             return .car
         }
     }
+    
+    public static func getIntValue(of type: Transportation?) -> Int {
+        guard let transportation = type else { return 0 }
+        switch transportation {
+        case .car:
+            return 0
+        case .walk:
+            return 1
+        case .tram:
+            return 2
+        case .bike:
+            return 3
+        case .taxi:
+            return 4
+        }
+    }
 }
