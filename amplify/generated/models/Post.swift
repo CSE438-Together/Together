@@ -11,6 +11,7 @@ public struct Post: Model {
   public var departureTime: Temporal.DateTime?
   public var maxMembers: Int?
   public var description: String?
+  public var owner: String?
   public var createdAt: Temporal.DateTime?
   public var updatedAt: Temporal.DateTime?
   
@@ -21,7 +22,8 @@ public struct Post: Model {
       transportation: Transportation? = nil,
       departureTime: Temporal.DateTime? = nil,
       maxMembers: Int? = nil,
-      description: String? = nil) {
+      description: String? = nil,
+      owner: String? = nil) {
     self.init(id: id,
       title: title,
       departurePlace: departurePlace,
@@ -30,6 +32,7 @@ public struct Post: Model {
       departureTime: departureTime,
       maxMembers: maxMembers,
       description: description,
+      owner: owner,
       createdAt: nil,
       updatedAt: nil)
   }
@@ -41,6 +44,7 @@ public struct Post: Model {
       departureTime: Temporal.DateTime? = nil,
       maxMembers: Int? = nil,
       description: String? = nil,
+      owner: String? = nil,
       createdAt: Temporal.DateTime? = nil,
       updatedAt: Temporal.DateTime? = nil) {
       self.id = id
@@ -51,6 +55,7 @@ public struct Post: Model {
       self.departureTime = departureTime
       self.maxMembers = maxMembers
       self.description = description
+      self.owner = owner
       self.createdAt = createdAt
       self.updatedAt = updatedAt
   }

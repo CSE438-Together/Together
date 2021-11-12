@@ -10,6 +10,7 @@ import Amplify
 
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var exploreTableView: UITableView!
+    @IBOutlet weak var message: UILabel!
     
     var refreshControl = UIRefreshControl()
     var posts: [Post] = [] {
@@ -64,7 +65,39 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
         self.navigationController?.pushViewController(vc!, animated: true)
-    }    
+    }
+    
+    private func showMessage(_ text: String, _ color: UIColor) {
+        DispatchQueue.main.async {
+            self.message.backgroundColor = color
+            self.message.text = text
+            UIView.animate(withDuration: 0.5) {
+                self.message.isHidden = false
+            }
+            Timer.scheduledTimer(
+                timeInterval: 3.0,
+                target: self,
+                selector: #selector(self.fireTimer),
+                userInfo: nil,
+                repeats: false
+            )
+        }
+    }
+    
+    func showPostSentSuccessMessage() {
+        refreshPosts()
+        showMessage("Post Sent", .systemBlue)
+    }
+    
+    func showFailToSendPostMessage() {
+        showMessage("Fail to sent message", .systemRed)
+    }
+    
+    @objc func fireTimer() {
+        UIView.animate(withDuration: 0.5) {
+            self.message.isHidden = true
+        }
+    }
     
     @objc func refreshPosts() {
         DispatchQueue.global().async {

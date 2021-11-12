@@ -21,7 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             let model = AmplifyModels()
             let APIPlugin = AWSAPIPlugin(modelRegistration: model)
-            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model)
+            
+            let datastoreConfiguration = DataStoreConfiguration.custom(authModeStrategy: .default)
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model, configuration: datastoreConfiguration)
+//            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model)
+
             try Amplify.add(plugin: APIPlugin)
             try Amplify.add(plugin: dataStorePlugin)
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
