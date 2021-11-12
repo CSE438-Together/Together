@@ -11,6 +11,7 @@ import Amplify
 class MyEventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var myEventTableView: UITableView!
+    @IBOutlet weak var message: MessageLabel!
     
     var refreshControl = UIRefreshControl()
     var myEvents: [Post] = [] {
@@ -74,8 +75,9 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    @IBSegueAction func showNewPostViewController(_ coder: NSCoder) -> NewPostViewController? {
+    @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: MyEventViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
     }
+    
     
 }

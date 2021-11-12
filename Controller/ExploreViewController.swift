@@ -43,7 +43,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.register(nib, forCellReuseIdentifier: "cell")
         exploreTableView.estimatedRowHeight = 85.0
         exploreTableView.rowHeight = UITableView.automaticDimension
-//        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,7 +73,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    @IBSegueAction func showNewPostViewController(_ coder: NSCoder) -> NewPostViewController? {
+    @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
     }
+    
 }
