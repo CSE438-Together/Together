@@ -162,7 +162,9 @@ extension NewPostViewController: UITableViewDelegate {
     }
     
     private func autocompleteSelected(_ textView: TextView, _ text: String) {
-        textView.text = text
+        UIView.animate(withDuration: 0.5) {
+            textView.text = text
+        }
         textView.endEditing(true)
     }
 }
