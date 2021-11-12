@@ -69,7 +69,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @objc func refreshPosts() {
         DispatchQueue.global().async {
-            self.posts = API.getAll()
+            let keys = Post.keys
+            self.posts = API.getAll(sort: .descending(keys.departureTime))
         }
     }
     

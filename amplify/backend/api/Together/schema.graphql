@@ -16,5 +16,7 @@ type Post @model @auth(rules: [{allow: owner, operations: [create, update, delet
   maxMembers: Int
   description: String
   owner: String
+  members: [String]
+  applicants: [String]
 }
  
