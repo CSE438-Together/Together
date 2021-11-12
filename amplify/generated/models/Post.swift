@@ -11,8 +11,9 @@ public struct Post: Model {
   public var departureTime: Temporal.DateTime?
   public var maxMembers: Int?
   public var description: String?
-  public var createdAt: Temporal.DateTime?
-  public var updatedAt: Temporal.DateTime?
+  public var owner: String?
+  public var joiners: [String]?
+  public var waitList: [String]?
   
   public init(id: String = UUID().uuidString,
       title: String? = nil,
@@ -21,28 +22,10 @@ public struct Post: Model {
       transportation: Transportation? = nil,
       departureTime: Temporal.DateTime? = nil,
       maxMembers: Int? = nil,
-      description: String? = nil) {
-    self.init(id: id,
-      title: title,
-      departurePlace: departurePlace,
-      destination: destination,
-      transportation: transportation,
-      departureTime: departureTime,
-      maxMembers: maxMembers,
-      description: description,
-      createdAt: nil,
-      updatedAt: nil)
-  }
-  internal init(id: String = UUID().uuidString,
-      title: String? = nil,
-      departurePlace: String? = nil,
-      destination: String? = nil,
-      transportation: Transportation? = nil,
-      departureTime: Temporal.DateTime? = nil,
-      maxMembers: Int? = nil,
       description: String? = nil,
-      createdAt: Temporal.DateTime? = nil,
-      updatedAt: Temporal.DateTime? = nil) {
+      owner: String? = nil,
+      joiners: [String]? = nil,
+      waitList: [String]? = nil) {
       self.id = id
       self.title = title
       self.departurePlace = departurePlace
@@ -51,7 +34,8 @@ public struct Post: Model {
       self.departureTime = departureTime
       self.maxMembers = maxMembers
       self.description = description
-      self.createdAt = createdAt
-      self.updatedAt = updatedAt
+      self.owner = owner
+      self.joiners = joiners
+      self.waitList = waitList
   }
 }

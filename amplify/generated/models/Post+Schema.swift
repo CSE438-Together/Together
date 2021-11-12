@@ -13,8 +13,7 @@ extension Post {
     case departureTime
     case maxMembers
     case description
-    case createdAt
-    case updatedAt
+    case owner
   }
   
   public static let keys = CodingKeys.self
@@ -24,7 +23,7 @@ extension Post {
     let post = Post.keys
     
     model.authRules = [
-      rule(allow: .public, operations: [.create, .update, .delete, .read])
+      rule(allow: .owner, ownerField: "owner", identityClaim: "cognito:username", operations: [.create, .update, .delete])
     ]
     
     model.pluralName = "Posts"
@@ -38,8 +37,7 @@ extension Post {
       .field(post.departureTime, is: .optional, ofType: .dateTime),
       .field(post.maxMembers, is: .optional, ofType: .int),
       .field(post.description, is: .optional, ofType: .string),
-      .field(post.createdAt, is: .optional, isReadOnly: true, ofType: .dateTime),
-      .field(post.updatedAt, is: .optional, isReadOnly: true, ofType: .dateTime)
+      .field(post.owner, is: .optional, ofType: .string)
     )
     }
 }

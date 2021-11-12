@@ -1,15 +1,20 @@
 //
-//  NewPostViewController.swift
+//  EditPostViewController.swift
 //  Together
 //
-//  Created by lcx on 2021/11/6.
+//  Created by Bingxin Liu on 11/12/21.
 //
+
+// This VC should not exist
+// should merge into NewPostVC
+// for safety reason just duplicate most part
+
 
 import UIKit
 import MapKit
 import Amplify
 
-class NewPostViewController: UIViewController {
+class EditPostViewController: UIViewController {
     @IBOutlet weak var postTitle: TextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var minus: UIButton!
@@ -24,20 +29,23 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var destinationEdit: UIButton!
     @IBOutlet weak var transportation: UISegmentedControl!
     
-    private var post: Post?
-    private let delegate: ExploreViewController
+    // remove private
+    var post: Post?
+    // what is this ???
+    //private let delegate: ExploreViewController
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
-    
-    init?(coder: NSCoder, delegate: ExploreViewController) {
-        self.delegate = delegate
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+  
+    // whats is this ???
+//    init?(coder: NSCoder, delegate: ExploreViewController) {
+//        self.delegate = delegate
+//        super.init(coder: coder)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +80,7 @@ class NewPostViewController: UIViewController {
             departureTime: Temporal.DateTime(datePicker.date),
             maxMembers: maxParticipants.toInt(),
             description: descriptions.text
-        )        
+        )
         Amplify.DataStore.save(item) {
             result in
             switch(result) {
@@ -82,9 +90,10 @@ class NewPostViewController: UIViewController {
                 print("Could not save item to DataStore: \(error)")
             }
         }
-        self.dismiss(animated: true) {
-            self.delegate.posts.insert(item, at: 0)
-        }
+        // delete
+//        self.dismiss(animated: true) {
+//            self.delegate.posts.insert(item, at: 0)
+//        }
     }
     
     @IBAction func minusButtonPressed(_ sender: Any) {
@@ -122,7 +131,7 @@ class NewPostViewController: UIViewController {
     }
 }
 
-extension NewPostViewController: UITextViewDelegate {
+extension EditPostViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
         if view.isShowingPlaceholder() {
@@ -154,7 +163,7 @@ extension NewPostViewController: UITextViewDelegate {
     }
 }
 
-extension NewPostViewController: UITableViewDelegate {
+extension EditPostViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = searchResults[indexPath.row].title + "\n" + searchResults[indexPath.row].subtitle
         if tableView == departurePlaceAutocomplete {
@@ -172,7 +181,7 @@ extension NewPostViewController: UITableViewDelegate {
     }
 }
 
-extension NewPostViewController: UITableViewDataSource {
+extension EditPostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }
@@ -193,9 +202,9 @@ extension NewPostViewController: UITableViewDataSource {
     }
 }
 
-extension NewPostViewController: MKLocalSearchCompleterDelegate {
+extension EditPostViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results        
+        searchResults = completer.results
         guard let textView = currentTextView else { return }
         textView.loadSearchResults()
     }
