@@ -24,11 +24,20 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var destinationEdit: UIButton!
     @IBOutlet weak var transportation: UISegmentedControl!
     
-    var post: Post?
-    var delegate: ExploreViewController!
+    private var post: Post?
+    private let delegate: ExploreViewController
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
+    
+    init?(coder: NSCoder, delegate: ExploreViewController) {
+        self.delegate = delegate
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +83,7 @@ class NewPostViewController: UIViewController {
             self.delegate.posts.insert(item, at: 0)
         }
     }
+    
     @IBAction func minusButtonPressed(_ sender: Any) {
         let num = maxParticipants.toInt() - 1
         if num == 2 {
@@ -152,7 +162,9 @@ extension NewPostViewController: UITableViewDelegate {
     }
     
     private func autocompleteSelected(_ textView: TextView, _ text: String) {
-        textView.text = text
+        UIView.animate(withDuration: 0.5) {
+            textView.text = text
+        }
         textView.endEditing(true)
     }
 }

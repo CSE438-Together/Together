@@ -97,8 +97,7 @@ class LoginViewController: UIViewController {
                 })
             case .failure(let error):
                 DispatchQueue.main.async(execute: {
-                    print("Sign in failed \(error)")
-                    self.alert(title: "Sign in Failed", message: "\(error)")
+                    Alert.showWarning(self, "Sign in Failed", "\(error)")
                     self.spinner.stopAnimating()
                     self.removeBlurEffect()
                 })
@@ -108,10 +107,10 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginPressed(_ sender: Any) {
         if userNameText.hasText != true {
-            self.alert(title: "Value Required", message: "Email value is required!")
+            Alert.showWarning(self, "Value Required", "Email value is required!")
         }
         if passWordText.hasText != true {
-            self.alert(title: "Value Required", message: "Password value is required!")
+            Alert.showWarning(self, "Value Required", "Password value is required!")
         }
         
         let email = userNameText.text! + "@wustl.edu"
@@ -125,11 +124,5 @@ class LoginViewController: UIViewController {
         let RegisterViewController = storyBoard.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
         RegisterViewController.flagRegister = flagLogin
         self.show(RegisterViewController, sender: self)
-    }
-    
-    func alert(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
     }
 }

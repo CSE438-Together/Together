@@ -66,23 +66,23 @@ class RegisterViewController: UIViewController {
         let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
         
         if password.count < 8 {
-            self.alert(title: "Password Fail", message: "Password number must be at least 8!")
+            Alert.showWarning(self, "Invalid Password", "Password number must be at least 8!")
         }
         let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
         let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
         let texttest2 = NSPredicate(format:"SELF MATCHES %@", specialCharacterRegEx)
         let texttest3 = NSPredicate(format:"SELF MATCHES %@", lowerLetterRegEx)
         if texttest.evaluate(with: password) == false {
-            self.alert(title: "Password Fail", message: "Password must contain at least 1 uppercase character!")
+            Alert.showWarning(self, "Invalid Password", "Password must contain at least 1 uppercase character!")
         }
         if texttest1.evaluate(with: password) == false {
-            self.alert(title: "Password Fail", message: "Password must contain at least 1 numeral!")
+            Alert.showWarning(self, "Invalid Password", "Password must contain at least 1 numeral!")
         }
         if texttest2.evaluate(with: password) == false {
-            self.alert(title: "Password Fail", message: "Password must contain at least 1 special character!")
+            Alert.showWarning(self, "Invalid Password", "Password must contain at least 1 special character!")
         }
         if texttest3.evaluate(with: password) == false {
-            self.alert(title: "Password Fail", message: "Password must contain at least 1 lowercase character!")
+            Alert.showWarning(self, "Invalid Password", "Password must contain at least 1 lowercase character!")
         }
         
         Amplify.Auth.signUp(username: email, password: password, options: options) { result in
@@ -95,48 +95,39 @@ class RegisterViewController: UIViewController {
                 })
             case .failure(let error):
                 DispatchQueue.main.async(execute: {
-                    print("An error occurred while registering a user \(error)")
-                    self.alert(title: "Failed", message: "An error occurred while registering a user \(error)")
+                    Alert.showWarning(self, "Failed", "An error occurred while registering a user \(error)")
                     self.spinner.stopAnimating()
                     self.removeBlurEffect()
                 })
             }
         }
     }
-
+    
+    private func checkInput(_ textField: UITextField, _ message: String) {
+        if !textField.hasText {
+            Alert.showWarning(self, "Value Required", message)
+        }
+    }
+    
     @IBAction func registerButtonPressed(_ sender: Any) {
         print("register button pressed")
         
+        checkInput(emailText, "Email value is required!")
+        checkInput(passwordText, "Password value is required!")
+        checkInput(passwordRepeatText, "Password Repeated value is required!")
+        checkInput(givenName, "Givenname value is required!")
+        checkInput(familyName, "Familyname value is required!")
+        checkInput(phoneNum, "Phone Number value is required!")
+        checkInput(nickName, "Nickname value is required!")
         
-        if emailText.hasText != true {
-            self.alert(title: "Value Required", message: "Email value is required!")
-        }
-        if passwordText.hasText != true {
-            self.alert(title: "Value Required", message: "Password value is required!")
-        }
-        if passwordRepeatText.hasText != true {
-            self.alert(title: "Value Required", message: "Password Repeated value is required!")
-        }
-        if givenName.hasText != true {
-            self.alert(title: "Value Required", message: "Givenname value is required!")
-        }
-        if familyName.hasText != true {
-            self.alert(title: "Value Required", message: "Familyname value is required!")
-        }
-        if phoneNum.hasText != true {
-            self.alert(title: "Value Required", message: "Phone Number value is required!")
-        }
-        if nickName.hasText != true {
-            self.alert(title: "Value Required", message: "Nickname value is required!")
-        }
         if phoneNum.text!.range(of:"+1") == nil {
-            self.alert(title: "Invalid Phone Number", message: "Phone Number must contain +1!")
+            Alert.showWarning(self, "Invalid Phone Number", "Phone Number must contain +1!")
         }
         if phoneNum.text!.count != 12 {
-            self.alert(title: "Invalid Phone Number", message: "Phone number is invalid!")
+            Alert.showWarning(self, "Invalid Phone Number", "Phone number is invalid!")
         }
         if passwordText.text! != passwordRepeatText.text! {
-            self.alert(title: "Password Fail", message: "Password Repeated doesn't match Password!")
+            Alert.showWarning(self, "Password Fail", "Password Repeated doesn't match Password!")
         }
         else {
             let gender = genderSelection.titleForSegment(at: genderSelection.selectedSegmentIndex)
@@ -145,12 +136,6 @@ class RegisterViewController: UIViewController {
             self.setBlurEffect()
             signUp(email: email, password: passwordText.text!, passwordRepeat: passwordRepeatText.text!, givenName: givenName.text!, familyName: familyName.text!, phoneNum: phoneNum.text!, gender: gender!, nickName: nickName.text!)
         }
-    }
-    
-    func alert(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
     }
     
     func alertJump(){

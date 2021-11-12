@@ -20,9 +20,13 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    private let searchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.searchController = searchController
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         setupTableView()
         refreshControl.attributedTitle = NSAttributedString(string: "refreshing...")
         refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
@@ -39,17 +43,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.estimatedRowHeight = 85.0
         exploreTableView.rowHeight = UITableView.automaticDimension
 //        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "NewPost" {
-            guard let navController = segue.destination as? UINavigationController,
-                  let newPostViewController = navController.children.first as? NewPostViewController
-            else {
-                return
-            }
-            newPostViewController.delegate = self
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,5 +70,9 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         DispatchQueue.global().async {
             self.posts = API.getAll()
         }
+    }
+    
+    @IBSegueAction func showNewPostViewController(_ coder: NSCoder) -> NewPostViewController? {
+        return NewPostViewController(coder: coder, delegate: self)
     }
 }

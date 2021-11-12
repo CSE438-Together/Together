@@ -63,8 +63,7 @@ class CodeConfirmViewController: UIViewController {
                 })
             case .failure(let error):
                 DispatchQueue.main.async(execute: {
-                    print("An error occurred while confirming sign up \(error)")
-                    self.alert(title: "Failed", message: "An error occurred while confirming sign up \(error)")
+                    Alert.showWarning(self, "Failed", "An error occurred while confirming sign up \(error)")
                     self.spinner.stopAnimating()
                     self.removeBlurEffect()
                 })
@@ -72,11 +71,11 @@ class CodeConfirmViewController: UIViewController {
         }
     }
     
-    func alert(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
+//    func alert(title: String, message: String){
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: .default))
+//        present(alert, animated: true)
+//    }
     
     func alertJump(){
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
