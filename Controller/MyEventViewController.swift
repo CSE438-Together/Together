@@ -83,10 +83,10 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
 extension MyEventViewController: NewPostViewDelegate {
     func handleSuccess() {
         refreshPosts()
-        message.showSuccessMessage()
+        message.showSuccessMessage("Post Sent")
     }
     
     func handleFailure() {
-        message.showFailureMessage()
+        message.showFailureMessage("Fail to send Post")
     }
 }

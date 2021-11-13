@@ -81,10 +81,10 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 extension ExploreViewController: NewPostViewDelegate {
     func handleSuccess() {
         refreshPosts()
-        message.showSuccessMessage()
+        message.showSuccessMessage("Post Sent")
     }
     
     func handleFailure() {
-        message.showFailureMessage()
+        message.showFailureMessage("Fail to Send Post")
     }
 }
