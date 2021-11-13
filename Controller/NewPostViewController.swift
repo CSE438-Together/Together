@@ -24,18 +24,13 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var destinationEdit: UIButton!
     @IBOutlet weak var transportation: UISegmentedControl!
     
-    private var post: Post?
+    private var post: Post!
     private let delegate: Any
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
     
-    init?(coder: NSCoder, delegate: Any) {
-        self.delegate = delegate
-        super.init(coder: coder)
-    }
-    
-    init?(coder: NSCoder, delegate: Any, post: Post) {
+    init?(coder: NSCoder, delegate: Any, post: Post? = nil) {
         self.delegate = delegate
         self.post = post
         super.init(coder: coder)
@@ -61,12 +56,12 @@ class NewPostViewController: UIViewController {
         departurePlace.editButton = departurePlaceEdit
         destination.editButton = destinationEdit
         
-        if let item = post {
-            loadPost(item)
+        if post != nil {
+            loadPost()
         }
     }
     
-    private func loadPost(_ post: Post) {
+    private func loadPost() {
         postTitle.hidePlaceholder()
         descriptions.hidePlaceholder()
         departurePlace.hidePlaceholder()
@@ -89,29 +84,31 @@ class NewPostViewController: UIViewController {
         }
     }
     
+    private func updatePost() {
+        post.title = self.postTitle.text
+        post.departurePlace = self.departurePlace.text
+        post.destination = self.destination.text
+        post.transportation = Transportation.getInstance(of: self.transportation.selectedSegmentIndex)
+        post.departureTime = Temporal.DateTime(self.datePicker.date)
+        post.maxMembers = self.maxParticipants.toInt()
+        post.description = self.descriptions.text
+    }
+    
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true)
     }
     
     @IBAction func sendButtonPressed(_ sender: Any) {
         guard let user = Amplify.Auth.getCurrentUser() else { return }
-        
-        let item = Post(
-            title: self.postTitle.text,
-            departurePlace: self.departurePlace.text,
-            destination: self.destination.text,
-            transportation: Transportation.getInstance(of: self.transportation.selectedSegmentIndex),
-            departureTime: Temporal.DateTime(self.datePicker.date),
-            maxMembers: self.maxParticipants.toInt(),
-            description: self.descriptions.text,
-            owner: user.username,
-            members: [user.username]
-        )
+        if post == nil {
+            post = Post(owner: user.username, members: [user.username])
+        }
+        updatePost()
         
         self.dismiss(animated: true) {
             if let controller = self.delegate as? ExploreViewController {
                 DispatchQueue.global().async {
-                    Amplify.DataStore.save(item) {
+                    Amplify.DataStore.save(self.post) {
                         result in
                         switch(result) {
                         case .success:
@@ -124,7 +121,7 @@ class NewPostViewController: UIViewController {
                 }
             } else if let controller = self.delegate as? MyEventViewController {
                 DispatchQueue.global().async {
-                    Amplify.DataStore.save(item) {
+                    Amplify.DataStore.save(self.post) {
                         result in
                         switch(result) {
                         case .success:
