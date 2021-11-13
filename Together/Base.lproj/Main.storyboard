@@ -867,7 +867,7 @@
                                             <constraint firstAttribute="height" id="2R7-rb-SYP"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post Sent!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svZ-xr-sZ8" customClass="MessageLabel" customModule="Together" customModuleProvider="target">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post Sent!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svZ-xr-sZ8" customClass="MessageLabel" customModule="Together" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <constraints>
@@ -878,7 +878,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sAK-DL-JKl">
-                                        <rect key="frame" x="0.0" y="40" width="390" height="633"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="673"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
