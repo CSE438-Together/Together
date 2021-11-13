@@ -16,7 +16,7 @@ class MessageLabel: UILabel {
                 self.isHidden = false
             }
             Timer.scheduledTimer(
-                timeInterval: 3.0,
+                timeInterval: 2.0,
                 target: self,
                 selector: #selector(self.fireTimer),
                 userInfo: nil,
@@ -36,7 +36,6 @@ class MessageLabel: UILabel {
     @objc func fireTimer() {
         UIView.animate(withDuration: 0.5) {
             self.isHidden = true
-            self.backgroundColor = .clear
         }
     }
 }
