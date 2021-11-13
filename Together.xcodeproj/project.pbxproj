@@ -27,6 +27,7 @@
 		50513A482737758E000C245B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A472737758E000C245B /* TextView.swift */; };
 		506AC75E273C22E10070667B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AC75D273C22E10070667B /* Extension.swift */; };
 		50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */; };
+		50AEED5B27402A80009D08D0 /* AWSS3StoragePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 50AEED5A27402A80009D08D0 /* AWSS3StoragePlugin */; };
 		51B7CE4A27379DF80055EC2D /* CodeConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B7CE4927379DF80055EC2D /* CodeConfirmViewController.swift */; };
 		577AA8B4071B454D3E0A5D57 /* Post+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38664D4C08FA9A877DAC28A1 /* Post+Schema.swift */; };
 		642102E9FE4550AEE13307D5 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DFD74478BF6351E12A0161 /* AmplifyModels.swift */; };
@@ -81,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50AEED5B27402A80009D08D0 /* AWSS3StoragePlugin in Frameworks */,
 				728E3399272BB52900D30F02 /* AWSAPIPlugin in Frameworks */,
 				728E3395272BB52900D30F02 /* Amplify in Frameworks */,
 				728E3397272BB52900D30F02 /* AWSCognitoAuthPlugin in Frameworks */,
@@ -103,6 +105,7 @@
 				50072375272B8F0500F3FF31 /* Products */,
 				AED75D90E2FA95E5AB9E200C /* AmplifyConfig */,
 				504354493C2EE281FDD864A5 /* AmplifyModels */,
+				50AEED5927402A80009D08D0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,6 +184,13 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		50AEED5927402A80009D08D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		50D26DA12739BB3C00DA9CD3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +239,7 @@
 				728E3396272BB52900D30F02 /* AWSCognitoAuthPlugin */,
 				728E3398272BB52900D30F02 /* AWSAPIPlugin */,
 				728E339A272BB52900D30F02 /* AWSDataStorePlugin */,
+				50AEED5A27402A80009D08D0 /* AWSS3StoragePlugin */,
 			);
 			productName = Together;
 			productReference = 50072374272B8F0500F3FF31 /* Together.app */;
@@ -525,6 +536,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		50AEED5A27402A80009D08D0 /* AWSS3StoragePlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 728E3393272BB52900D30F02 /* XCRemoteSwiftPackageReference "amplify-ios" */;
+			productName = AWSS3StoragePlugin;
+		};
 		728E3394272BB52900D30F02 /* Amplify */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 728E3393272BB52900D30F02 /* XCRemoteSwiftPackageReference "amplify-ios" */;
