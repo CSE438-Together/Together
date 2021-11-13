@@ -25,12 +25,12 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var transportation: UISegmentedControl!
     
     private var post: Post!
-    private let delegate: Any
+    private let delegate: NewPostViewDelegate
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
     
-    init?(coder: NSCoder, delegate: Any, post: Post? = nil) {
+    init?(coder: NSCoder, delegate: NewPostViewDelegate, post: Post? = nil) {
         self.delegate = delegate
         self.post = post
         super.init(coder: coder)
@@ -106,34 +106,16 @@ class NewPostViewController: UIViewController {
         updatePost()
         
         self.dismiss(animated: true) {
-            if let controller = self.delegate as? ExploreViewController {
-                DispatchQueue.global().async {
-                    Amplify.DataStore.save(self.post) {
-                        result in
-                        switch(result) {
-                        case .success:
-                            controller.refreshPosts()
-                            controller.message.showSuccessMessage()
-                        case .failure:
-                            controller.message.showFailureMessage()
-                        }
+            DispatchQueue.global().async {
+                Amplify.DataStore.save(self.post) { [self]
+                    result in
+                    switch(result) {
+                    case .success:
+                        self.delegate.handleSuccess()
+                    case .failure:
+                        self.delegate.handleFailure()
                     }
                 }
-            } else if let controller = self.delegate as? MyEventViewController {
-                DispatchQueue.global().async {
-                    Amplify.DataStore.save(self.post) {
-                        result in
-                        switch(result) {
-                        case .success:
-                            controller.refreshPosts()
-                            controller.message.showSuccessMessage()
-                        case .failure:
-                            controller.message.showFailureMessage()
-                        }
-                    }
-                }
-            } else if let controller = self.delegate as? UIViewController {
-                
             }
         }
     }

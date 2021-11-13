@@ -26,6 +26,7 @@
 		50513A452737633C000C245B /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A442737633C000C245B /* NewPostViewController.swift */; };
 		50513A482737758E000C245B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A472737758E000C245B /* TextView.swift */; };
 		506AC75E273C22E10070667B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AC75D273C22E10070667B /* Extension.swift */; };
+		50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */; };
 		51B7CE4A27379DF80055EC2D /* CodeConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B7CE4927379DF80055EC2D /* CodeConfirmViewController.swift */; };
 		577AA8B4071B454D3E0A5D57 /* Post+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38664D4C08FA9A877DAC28A1 /* Post+Schema.swift */; };
 		642102E9FE4550AEE13307D5 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DFD74478BF6351E12A0161 /* AmplifyModels.swift */; };
@@ -66,6 +67,7 @@
 		50513A442737633C000C245B /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		50513A472737758E000C245B /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		506AC75D273C22E10070667B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewDelegate.swift; sourceTree = "<group>"; };
 		51B7CE4927379DF80055EC2D /* CodeConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeConfirmViewController.swift; sourceTree = "<group>"; };
 		72349E7C272CE21900BA23E1 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		72349E87272CF44D00BA23E1 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		5007236B272B8F0500F3FF31 = {
 			isa = PBXGroup;
 			children = (
+				50AEED56273F63F8009D08D0 /* Protocol */,
 				506AC75C273C22BD0070667B /* Extension */,
 				50D26DA12739BB3C00DA9CD3 /* Utility */,
 				50513A4627377526000C245B /* View */,
@@ -168,6 +171,14 @@
 				506AC75D273C22E10070667B /* Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		50AEED56273F63F8009D08D0 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		50D26DA12739BB3C00DA9CD3 /* Utility */ = {
@@ -296,6 +307,7 @@
 				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
 				0C493171272C73AF00DBE3DE /* MyPostDetailedViewController.swift in Sources */,
 				5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */,
+				50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */,
 				506AC75E273C22E10070667B /* Extension.swift in Sources */,
 				642102E9FE4550AEE13307D5 /* AmplifyModels.swift in Sources */,
 				577AA8B4071B454D3E0A5D57 /* Post+Schema.swift in Sources */,

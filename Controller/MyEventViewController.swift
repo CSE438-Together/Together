@@ -78,6 +78,15 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: MyEventViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
     }
+}
+
+extension MyEventViewController: NewPostViewDelegate {
+    func handleSuccess() {
+        refreshPosts()
+        message.showSuccessMessage()
+    }
     
-    
+    func handleFailure() {
+        message.showFailureMessage()
+    }
 }
