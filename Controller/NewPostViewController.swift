@@ -111,9 +111,9 @@ class NewPostViewController: UIViewController {
                     result in
                     switch(result) {
                     case .success:
-                        self.delegate.handleSuccess()
+                        delegate.handleSuccess()
                     case .failure:
-                        self.delegate.handleFailure()
+                        delegate.handleFailure()
                     }
                 }
             }
