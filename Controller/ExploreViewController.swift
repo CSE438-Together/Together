@@ -75,6 +75,16 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
+    }    
+}
+
+extension ExploreViewController: NewPostViewDelegate {
+    func handleSuccess() {
+        refreshPosts()
+        message.showSuccessMessage()
     }
     
+    func handleFailure() {
+        message.showFailureMessage()
+    }
 }
