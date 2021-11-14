@@ -14,22 +14,14 @@ class TextView: UITextView {
     var placeholder: String? {
         didSet {
             isEditable = true
-            showPlaceholder()
+            text = placeholder
         }
     }
     
-    func showPlaceholder() {
-        text = placeholder
-        textColor = UIColor.placeholderText
-    }
-    
-    func hidePlaceholder() {
-        text = ""
-        textColor = UIColor.label
-    }
-    
-    func isShowingPlaceholder() -> Bool {
-        return text == placeholder
+    override var text: String! {
+        didSet {
+            textColor = text == placeholder ? .placeholderText : .label
+        }
     }
     
     func loadSearchResults() {
@@ -51,7 +43,7 @@ class TextView: UITextView {
         UIView.animate(withDuration: 0.5) {
             table.isHidden = true
         }
-        if !isShowingPlaceholder() {            
+        if text != placeholder {            
             isEditable = false
             UIView.animate(withDuration: 0.5) {
                 button.isHidden = false
