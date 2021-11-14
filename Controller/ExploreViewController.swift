@@ -10,6 +10,7 @@ import Amplify
 
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var exploreTableView: UITableView!
+    @IBOutlet weak var message: MessageLabel!
     
     var refreshControl = UIRefreshControl()
     var posts: [Post] = [] {
@@ -42,7 +43,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.register(nib, forCellReuseIdentifier: "cell")
         exploreTableView.estimatedRowHeight = 85.0
         exploreTableView.rowHeight = UITableView.automaticDimension
-//        exploreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,11 +76,23 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @objc func refreshPosts() {
         DispatchQueue.global().async {
-            self.posts = API.getAll()
+            let keys = Post.keys
+            self.posts = API.getAll(sort: .descending(keys.departureTime))
         }
     }
     
-    @IBSegueAction func showNewPostViewController(_ coder: NSCoder) -> NewPostViewController? {
+    @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
+    }    
+}
+
+extension ExploreViewController: NewPostViewDelegate {
+    func handleSuccess() {
+        refreshPosts()
+        message.showSuccessMessage()
+    }
+    
+    func handleFailure() {
+        message.showFailureMessage()
     }
 }
