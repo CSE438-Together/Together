@@ -31,6 +31,9 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
 
         registerButton.layer.borderColor = UIColor.systemBlue.cgColor
         registerButton.layer.borderWidth = 1.5
@@ -90,12 +93,32 @@ class RegisterViewController: UIViewController {
             case .success:
                 DispatchQueue.main.async(execute: {
                     print("SignUp Complete")
-                    self.alertJump()
+                    self.confirm()
                     self.spinner.stopAnimating()
                 })
             case .failure(let error):
                 DispatchQueue.main.async(execute: {
                     Alert.showWarning(self, "Failed", "An error occurred while registering a user \(error)")
+                    self.spinner.stopAnimating()
+                    self.removeBlurEffect()
+                })
+            }
+        }
+    }
+    
+    func confirmSignUp(for username: String, with confirmationCode: String) {
+        Amplify.Auth.confirmSignUp(for: username, confirmationCode: confirmationCode) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async(execute: {
+                    print("Confirm signUp succeeded")
+                    self.alertJump()
+                    self.spinner.stopAnimating()
+                })
+            case .failure(let error):
+                DispatchQueue.main.async(execute: {
+                    print("An error occurred while confirming sign up \(error)")
+                    Alert.showWarning(self, "Failed", "An error occurred while confirming sign up \(error)")
                     self.spinner.stopAnimating()
                     self.removeBlurEffect()
                 })
@@ -138,19 +161,30 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    func alertJump(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let CodeConfirmViewController = storyboard.instantiateViewController(withIdentifier: "CodeConfirmViewController") as! CodeConfirmViewController
+    func confirm(){
         let email = emailText.text! + "@wustl.edu"
-        let password = passwordText.text!
-        CodeConfirmViewController.confirmEmail = email
-        CodeConfirmViewController.password = password
-        CodeConfirmViewController.flagCode = self.flagRegister
         let alertController = UIAlertController(title: "SignUp Completed", message: "SignUp completed! The confirmation code will send to your email.", preferredStyle: UIAlertController.Style.alert)
-        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) -> Void in
-            self.show(CodeConfirmViewController, sender: self)
+        alertController.addTextField { (textField: UITextField!) -> Void in
+            textField.placeholder = "Confirm code"
+        }
+        let action = UIAlertAction(title: "Confirm", style: UIAlertAction.Style.default, handler: {(action) -> Void in
+            //self.show(CodeConfirmViewController, sender: self)
+            let code = alertController.textFields![0] as UITextField
+            self.confirmSignUp(for: email, with: code.text!)
         })
         alertController.addAction(action)
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func alertJump() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let email = emailText.text!
+        let password = passwordText.text!
+        LoginViewController.email = email
+        LoginViewController.password = password
+        self.flagRegister = true
+        LoginViewController.flagLogin = self.flagRegister
+        self.show(LoginViewController, sender: self)
     }
 }
