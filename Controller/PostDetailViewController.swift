@@ -173,3 +173,10 @@ extension PostDetailViewController : UITableViewDelegate {
         
     }
 }
+
+
+extension PostDetailViewController: NewPostViewDelegate {
+    func handleSuccess() {}
+    
+    func handleFailure() {}
+}

@@ -215,21 +215,15 @@ extension NewPostViewController: UITableViewDataSource {
             withIdentifier: "autocompleteCell",
             for: indexPath
         )
-        guard let title = cell.textLabel,
-              let subtitle = cell.detailTextLabel
-        else {
-            return cell
-        }
-        title.text = searchResults[indexPath.row].title
-        subtitle.text = searchResults[indexPath.row].subtitle
+        cell.textLabel?.text = searchResults[indexPath.row].title
+        cell.detailTextLabel?.text = searchResults[indexPath.row].subtitle
         return cell
     }
 }
 
 extension NewPostViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results        
-        guard let textView = currentTextView else { return }
-        textView.loadSearchResults()
+        searchResults = completer.results
+        currentTextView?.loadSearchResults()
     }
 }
