@@ -9,11 +9,10 @@ import UIKit
 
 class TextView: UITextView {
     var autocompleteTable: UITableView?
-    var editButton: UIButton?
+    var openMapButton: UIButton?
     
     var placeholder: String? {
         didSet {
-            isEditable = true
             text = placeholder
         }
     }
@@ -36,18 +35,13 @@ class TextView: UITextView {
     
     func removeAutocompleteTable() {
         guard let table = autocompleteTable,
-              let button = editButton
+              let button = openMapButton
         else {
             return
         }
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5) { [self] in
             table.isHidden = true
-        }
-        if text != placeholder {            
-            isEditable = false
-            UIView.animate(withDuration: 0.5) {
-                button.isHidden = false
-            }
+            button.isHidden = hasText && text != placeholder ? false : true
         }
     }
 }
