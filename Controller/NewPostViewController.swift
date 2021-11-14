@@ -20,8 +20,8 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var destination: TextView!
     @IBOutlet weak var destinationAutocomplete: UITableView!
     @IBOutlet weak var departurePlaceAutocomplete: UITableView!
-    @IBOutlet weak var departurePlaceEdit: UIButton!
-    @IBOutlet weak var destinationEdit: UIButton!
+    @IBOutlet weak var departurePlaceOpenInMap: UIButton!
+    @IBOutlet weak var destinationOpenInMap: UIButton!
     @IBOutlet weak var transportation: UISegmentedControl!
     
     private var post: Post!
@@ -53,8 +53,8 @@ class NewPostViewController: UIViewController {
         
         departurePlace.autocompleteTable = departurePlaceAutocomplete
         destination.autocompleteTable = destinationAutocomplete
-        departurePlace.editButton = departurePlaceEdit
-        destination.editButton = destinationEdit
+        departurePlace.openMapButton = departurePlaceOpenInMap
+        destination.openMapButton = destinationOpenInMap
         
         if post != nil {
             loadPost()
@@ -133,19 +133,18 @@ class NewPostViewController: UIViewController {
         minus.isEnabled = true
     }
     
-    @IBAction func departurePlaceEditButtonPressed(_ sender: UIButton) {
-        handleEditButton(sender, departurePlace)
+    @IBAction func openMapButtonPressedForDeparturePlace(_ sender: UIButton) {
+        openInMap(for: departurePlace.text)
     }
     
-    @IBAction func destinationEditButtonPressed(_ sender: UIButton) {
-        handleEditButton(sender, destination)
+    @IBAction func openMapButtonPressedForDestination(_ sender: UIButton) {
+        openInMap(for: destination.text)
     }
     
-    private func handleEditButton(_ button: UIButton, _ textView: TextView) {
-        textView.isEditable = true
-        textView.selectAll(self)
-        UIView.animate(withDuration: 0.5) {
-            button.isHidden = true
+    private func openInMap(for location: String) {
+        CLGeocoder().geocodeAddressString(location) { (placemarks, error) -> Void in
+            guard let placemark = placemarks?.first else { return }
+            MKMapItem(placemark: MKPlacemark(placemark: placemark)).openInMaps(launchOptions: nil)
         }
     }
 }
