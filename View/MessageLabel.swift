@@ -25,12 +25,12 @@ class MessageLabel: UILabel {
         }
     }
     
-    func showSuccessMessage() {
-        showMessage("Post Sent", .systemBlue)
+    func showSuccessMessage(_ message: String) {
+        showMessage(message, .systemBlue)
     }
     
-    func showFailureMessage() {
-        showMessage("Fail to sent message", .systemRed)
+    func showFailureMessage(_ message: String) {
+        showMessage(message, .systemRed)
     }
     
     @objc func fireTimer() {

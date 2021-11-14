@@ -26,7 +26,13 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         
         userImage.layer.cornerRadius = userImage.frame.width/2
         userImage.layer.masksToBounds = true
-        
+
+        DispatchQueue.global().async { [self] in
+            getUserProfileImageKey() {
+                imageKey in
+                downloadUserProfileImage(imageKey)
+            }
+        }
     }
     
     func signOutLocally() {
@@ -48,18 +54,89 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-       guard let selectedImage = info[.originalImage] as? UIImage else {
-        fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        picker.dismiss(animated: true) {
+            DispatchQueue.global().async {
+                guard let selectedImage = info[.originalImage] as? UIImage,
+                      let imageData = selectedImage.jpegData(compressionQuality: 0.5)
+                else {
+                    Alert.showWarning(self, "Failed", "Fail to pick image")
+                    return
+                }
+                let imageKey = UUID().uuidString + ".jpg"
+                Amplify.Storage.uploadData(key: imageKey, data: imageData) { [self]
+                    result in
+                    switch result {
+                    case .success:
+                        saveImageToUserProfile(imageKey, selectedImage)
+                    case .failure(_):
+                        Alert.showWarning(self, "Failed", "Fail to upload image")
+                    }
+                }
+            }
         }
-        
-        userImage.image = selectedImage
-        
-        dismiss(animated:true, completion: nil)
-
-            
     }
     
+    private func saveImageToUserProfile(_ imageKey: String, _ selectedImage: UIImage) {
+        DispatchQueue.global().async { [self] in
+            getUserProfileImageKey() {
+                imageKey in
+                Amplify.Storage.remove(key: imageKey) {
+                    result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(_):
+                        break
+                    }
+                }
+            }
+            let imageAttribute = AuthUserAttribute(.picture, value: imageKey)
+            Amplify.Auth.update(userAttribute: imageAttribute) { [self]
+                result in
+                switch result {
+                case .success:
+                    DispatchQueue.main.async {
+                        userImage.image = selectedImage
+                    }
+                case .failure(_):
+                    Alert.showWarning(self, "Failed", "Fail to upload profile image")
+                }
+            }
+        }
+    }
+    
+    private func getUserProfileImageKey(_ successHandler: @escaping (String) -> Void) {
+        Amplify.Auth.fetchUserAttributes() {
+            result in
+            switch result {
+            case .success(let attributes):
+                for attribute in attributes {
+                    if attribute.key == .picture {
+                        successHandler(attribute.value)
+                        break
+                    }
+                }
+            case .failure(_):
+                Alert.showWarning(self, "Failed", "Fail to download profile image")
+            }
+        }
+    }
+    
+    private func downloadUserProfileImage(_ imageKey: String) {
+        DispatchQueue.global().async {
+            Amplify.Storage.downloadData(key: imageKey) { [self]
+                result in
+                switch result {
+                case .success(let imageData):
+                    DispatchQueue.main.async {
+                        userImage.image = UIImage(data: imageData)
+                    }
+                case .failure(_):
+                    Alert.showWarning(self, "Failed", "Fail to download profile image")
+                }
+            }
+        }
+    }
     
     @IBAction func editUserImage(_ sender: Any) {
         let editImageAlert = UIAlertController(title: "Please choose action", message: "", preferredStyle: UIAlertController.Style.actionSheet)

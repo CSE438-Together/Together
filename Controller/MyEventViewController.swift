@@ -63,13 +63,7 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = storyboard?.instantiateViewController(identifier: "DetailedViewControllerOfmyPost") as? MyPostDetailedViewController
-//
-//        self.navigationController?.pushViewController(vc!, animated: true)
-        
-        //lbx: change to PostDetailViewController
-        let postDetailViewController = PostDetailViewController()
-        self.navigationController?.pushViewController(postDetailViewController, animated: true)
+        showPostDetailViewController(post: myEvents[indexPath.row])
     }
     
     @objc func refreshPosts() {
@@ -88,10 +82,10 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
 extension MyEventViewController: NewPostViewDelegate {
     func handleSuccess() {
         refreshPosts()
-        message.showSuccessMessage()
+        message.showSuccessMessage("Post Sent")
     }
     
     func handleFailure() {
-        message.showFailureMessage()
+        message.showFailureMessage("Fail to send Post")
     }
 }

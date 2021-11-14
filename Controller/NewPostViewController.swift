@@ -62,11 +62,6 @@ class NewPostViewController: UIViewController {
     }
     
     private func loadPost() {
-        postTitle.hidePlaceholder()
-        descriptions.hidePlaceholder()
-        departurePlace.hidePlaceholder()
-        destination.hidePlaceholder()
-        
         postTitle.text = post.title
         transportation.selectedSegmentIndex = Transportation.getIntValue(of: post.transportation)
         departurePlace.text = post.departurePlace
@@ -158,8 +153,8 @@ class NewPostViewController: UIViewController {
 extension NewPostViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
-        if view.isShowingPlaceholder() {
-            view.hidePlaceholder()
+        if view.text == view.placeholder {
+            view.text = ""
         }
         currentTextView = view
     }
@@ -167,7 +162,7 @@ extension NewPostViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
         if !view.hasText {
-            view.showPlaceholder()
+            view.text = view.placeholder
         }
         view.removeAutocompleteTable()
         currentTextView = nil
@@ -215,21 +210,15 @@ extension NewPostViewController: UITableViewDataSource {
             withIdentifier: "autocompleteCell",
             for: indexPath
         )
-        guard let title = cell.textLabel,
-              let subtitle = cell.detailTextLabel
-        else {
-            return cell
-        }
-        title.text = searchResults[indexPath.row].title
-        subtitle.text = searchResults[indexPath.row].subtitle
+        cell.textLabel?.text = searchResults[indexPath.row].title
+        cell.detailTextLabel?.text = searchResults[indexPath.row].subtitle
         return cell
     }
 }
 
 extension NewPostViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results        
-        guard let textView = currentTextView else { return }
-        textView.loadSearchResults()
+        searchResults = completer.results
+        currentTextView?.loadSearchResults()
     }
 }

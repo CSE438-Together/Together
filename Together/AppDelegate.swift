@@ -11,6 +11,7 @@ import Amplify
 import AWSCognitoAuthPlugin
 import AWSAPIPlugin
 import AWSDataStorePlugin
+import AWSS3StoragePlugin
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let datastoreConfiguration = DataStoreConfiguration.custom(authModeStrategy: .default)
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model, configuration: datastoreConfiguration)
-//            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: model)
-
+            
+            try Amplify.add(plugin: AWSS3StoragePlugin())
             try Amplify.add(plugin: APIPlugin)
             try Amplify.add(plugin: dataStorePlugin)
             try Amplify.add(plugin: AWSCognitoAuthPlugin())

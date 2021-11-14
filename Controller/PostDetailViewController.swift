@@ -31,11 +31,15 @@ class PostDetailViewController: UIViewController {
         
         self.navigationItem.title = "Event Details"
         
-        if isOwner() {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
-        } else {
+        if !isOwner() {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
         }
+        
+//        if isOwner() {
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
+//        } else {
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
+//        }
         
         
         view.addSubview(tableView)
@@ -67,8 +71,12 @@ class PostDetailViewController: UIViewController {
         
     }
     
-    @objc func didTapEditButton() {
-//        // edit post
+//    @objc func didTapEditButton() {
+////        // edit post
+//    }
+    
+    @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: PostDetailViewController?) -> NewPostViewController? {
+        return NewPostViewController(coder: coder, delegate: self, post: post)
     }
     
     @objc func didTapJoinButton() {
@@ -172,4 +180,11 @@ extension PostDetailViewController : UITableViewDelegate {
         }
         
     }
+}
+
+
+extension PostDetailViewController: NewPostViewDelegate {
+    func handleSuccess() {}
+    
+    func handleFailure() {}
 }

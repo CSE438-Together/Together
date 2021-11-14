@@ -62,16 +62,7 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        
-//        let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController
-//        self.navigationController?.pushViewController(vc!, animated: true)
-        // lbx: change to PostDetailViewController
-        let postDetailViewController = PostDetailViewController()
-        postDetailViewController.post = posts[indexPath.row]
-        self.navigationController?.pushViewController(postDetailViewController, animated: true)
-        
+        showPostDetailViewController(post: posts[indexPath.row])        
     }    
     
     @objc func refreshPosts() {
@@ -89,10 +80,10 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 extension ExploreViewController: NewPostViewDelegate {
     func handleSuccess() {
         refreshPosts()
-        message.showSuccessMessage()
+        message.showSuccessMessage("Post Sent")
     }
     
     func handleFailure() {
-        message.showFailureMessage()
+        message.showFailureMessage("Fail to Send Post")
     }
 }
