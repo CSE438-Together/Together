@@ -12,9 +12,6 @@
 		0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493166272C61A900DBE3DE /* MeViewController.swift */; };
 		0C493169272C62B700DBE3DE /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493168272C62B700DBE3DE /* ExploreViewController.swift */; };
 		0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49316A272C651800DBE3DE /* MyEventViewController.swift */; };
-		0C49316D272C6B5C00DBE3DE /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49316C272C6B5C00DBE3DE /* PostViewController.swift */; };
-		0C49316F272C6FDA00DBE3DE /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */; };
-		0C493171272C73AF00DBE3DE /* MyPostDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */; };
 		0CA716882736124800E431CF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA716872736124800E431CF /* RegisterViewController.swift */; };
 		50072378272B8F0500F3FF31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50072377272B8F0500F3FF31 /* AppDelegate.swift */; };
 		5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50072379272B8F0500F3FF31 /* SceneDelegate.swift */; };
@@ -58,9 +55,6 @@
 		0C493166272C61A900DBE3DE /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		0C493168272C62B700DBE3DE /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		0C49316A272C651800DBE3DE /* MyEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventViewController.swift; sourceTree = "<group>"; };
-		0C49316C272C6B5C00DBE3DE /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
-		0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
-		0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostDetailedViewController.swift; sourceTree = "<group>"; };
 		0CA716872736124800E431CF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		1B6E68506CF710D3AB0BEFFC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		38664D4C08FA9A877DAC28A1 /* Post+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Post+Schema.swift"; path = "amplify/generated/models/Post+Schema.swift"; sourceTree = "<group>"; };
@@ -163,9 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				50513A442737633C000C245B /* NewPostViewController.swift */,
-				0C493170272C73AF00DBE3DE /* MyPostDetailedViewController.swift */,
-				0C49316E272C6FD900DBE3DE /* DetailedViewController.swift */,
-				0C49316C272C6B5C00DBE3DE /* PostViewController.swift */,
 				0C49316A272C651800DBE3DE /* MyEventViewController.swift */,
 				50DA05F62741827200B34D1E /* PostDetailViewController.swift */,
 				0C493168272C62B700DBE3DE /* ExploreViewController.swift */,
@@ -345,10 +336,8 @@
 				50072378272B8F0500F3FF31 /* AppDelegate.swift in Sources */,
 				51B7CE4A27379DF80055EC2D /* CodeConfirmViewController.swift in Sources */,
 				50DA0606274182CB00B34D1E /* PostDetailTableViewOverViewCell.swift in Sources */,
-				0C49316F272C6FDA00DBE3DE /* DetailedViewController.swift in Sources */,
 				50DA0604274182CB00B34D1E /* PostDetailTableViewPeopleCell.swift in Sources */,
 				72349E7D272CE21900BA23E1 /* API.swift in Sources */,
-				0C49316D272C6B5C00DBE3DE /* PostViewController.swift in Sources */,
 				5044DF3F273D89D90099A4C1 /* Alert.swift in Sources */,
 				50513A452737633C000C245B /* NewPostViewController.swift in Sources */,
 				0CA716882736124800E431CF /* RegisterViewController.swift in Sources */,
@@ -360,7 +349,6 @@
 				50DA0607274182CB00B34D1E /* PostDetailTableViewLocationCell.swift in Sources */,
 				0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */,
 				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
-				0C493171272C73AF00DBE3DE /* MyPostDetailedViewController.swift in Sources */,
 				5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */,
 				50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */,
 				506AC75E273C22E10070667B /* Extension.swift in Sources */,
