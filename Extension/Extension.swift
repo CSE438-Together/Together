@@ -63,3 +63,15 @@ extension Transportation {
         }
     }
 }
+
+extension UIViewController {
+    func showPostDetailViewController(post: Post) {
+        guard let viewController = storyboard?.instantiateViewController(identifier: "PostDetailViewController"),
+              let postDetailViewController = viewController as? PostDetailViewController
+        else {
+            return
+        }
+        postDetailViewController.post = post
+        navigationController?.pushViewController(postDetailViewController, animated: true)
+    }
+}

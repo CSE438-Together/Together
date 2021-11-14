@@ -63,13 +63,7 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = storyboard?.instantiateViewController(identifier: "DetailedViewControllerOfmyPost") as? MyPostDetailedViewController
-//
-//        self.navigationController?.pushViewController(vc!, animated: true)
-        
-        //lbx: change to PostDetailViewController
-        let postDetailViewController = PostDetailViewController()
-        self.navigationController?.pushViewController(postDetailViewController, animated: true)
+        showPostDetailViewController(post: myEvents[indexPath.row])
     }
     
     @objc func refreshPosts() {
