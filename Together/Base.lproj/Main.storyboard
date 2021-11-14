@@ -83,7 +83,6 @@
                     <connections>
                         <outlet property="exploreTableView" destination="DZD-Df-9kf" id="5Zc-RE-LLr"/>
                         <outlet property="message" destination="3NA-zm-vU5" id="uTM-u4-CKf"/>
-                        <segue destination="bR1-NO-gz6" kind="show" identifier="FromExploreToPostDetail" id="2pT-K3-BAU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s4R-R5-Ioc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
