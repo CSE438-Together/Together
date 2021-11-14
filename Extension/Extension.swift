@@ -30,3 +30,36 @@ extension Optional where Wrapped == Temporal.DateTime {
         return formatter.string(from: date.foundationDate)
     }
 }
+
+extension Transportation {
+    public static func getInstance(of num: Int) -> Transportation {
+        switch num {
+        case 1:
+            return .walk
+        case 2:
+            return .tram
+        case 3:
+            return .bike
+        case 4:
+            return .taxi
+        default:
+            return .car
+        }
+    }
+    
+    public static func getIntValue(of type: Transportation?) -> Int {
+        guard let transportation = type else { return 0 }
+        switch transportation {
+        case .car:
+            return 0
+        case .walk:
+            return 1
+        case .tram:
+            return 2
+        case .bike:
+            return 3
+        case .taxi:
+            return 4
+        }
+    }
+}

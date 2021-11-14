@@ -24,14 +24,15 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var destinationEdit: UIButton!
     @IBOutlet weak var transportation: UISegmentedControl!
     
-    private var post: Post?
-    private let delegate: ExploreViewController
+    private var post: Post!
+    private let delegate: NewPostViewDelegate
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
     
-    init?(coder: NSCoder, delegate: ExploreViewController) {
+    init?(coder: NSCoder, delegate: NewPostViewDelegate, post: Post? = nil) {
         self.delegate = delegate
+        self.post = post
         super.init(coder: coder)
     }
     
@@ -41,19 +42,56 @@ class NewPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
+        searchCompleter.delegate = self
+        datePicker.minimumDate = datePicker.date
+        
         postTitle.placeholder = "Title"
         descriptions.placeholder = "Description"
         departurePlace.placeholder = "Choose a departure place"
         destination.placeholder = "Choose a destination"
+        
         departurePlace.autocompleteTable = departurePlaceAutocomplete
         destination.autocompleteTable = destinationAutocomplete
         departurePlace.editButton = departurePlaceEdit
         destination.editButton = destinationEdit
         
-        datePicker.minimumDate = datePicker.date
+        if post != nil {
+            loadPost()
+        }
+    }
+    
+    private func loadPost() {
+        postTitle.hidePlaceholder()
+        descriptions.hidePlaceholder()
+        departurePlace.hidePlaceholder()
+        destination.hidePlaceholder()
         
-        // Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
-        searchCompleter.delegate = self
+        postTitle.text = post.title
+        transportation.selectedSegmentIndex = Transportation.getIntValue(of: post.transportation)
+        departurePlace.text = post.departurePlace
+        destination.text = post.destination
+        if let AWSDate = post.departureTime {
+            datePicker.date = AWSDate.foundationDate
+        }
+        descriptions.text = post.description
+        maxParticipants.text = "\(post.maxMembers ?? 2)"
+        if maxParticipants.toInt() > 2 {
+            minus.isEnabled = true
+        }
+        if maxParticipants.toInt() == 20 {
+            plus.isEnabled = false
+        }
+    }
+    
+    private func updatePost() {
+        post.title = self.postTitle.text
+        post.departurePlace = self.departurePlace.text
+        post.destination = self.destination.text
+        post.transportation = Transportation.getInstance(of: self.transportation.selectedSegmentIndex)
+        post.departureTime = Temporal.DateTime(self.datePicker.date)
+        post.maxMembers = self.maxParticipants.toInt()
+        post.description = self.descriptions.text
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -61,29 +99,24 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func sendButtonPressed(_ sender: Any) {
-        let item = Post(
-            title: postTitle.text,
-            departurePlace: departurePlace.text,
-            destination: destination.text,
-            //lbx: tmp change set it always with car
-            //transportation: Transportation.getInstance(of: transportation.selectedSegmentIndex),
-            //to:
-            transportation: Transportation.init(rawValue: "CAR"),
-            departureTime: Temporal.DateTime(datePicker.date),
-            maxMembers: maxParticipants.toInt(),
-            description: descriptions.text
-        )        
-        Amplify.DataStore.save(item) {
-            result in
-            switch(result) {
-            case .success(let savedItem):
-                print("Saved item: \(savedItem.id)")
-            case .failure(let error):
-                print("Could not save item to DataStore: \(error)")
-            }
+        guard let user = Amplify.Auth.getCurrentUser() else { return }
+        if post == nil {
+            post = Post(owner: user.username, members: [user.username])
         }
+        updatePost()
+        
         self.dismiss(animated: true) {
-            self.delegate.posts.insert(item, at: 0)
+            DispatchQueue.global().async {
+                Amplify.DataStore.save(self.post) { [self]
+                    result in
+                    switch(result) {
+                    case .success:
+                        delegate.handleSuccess()
+                    case .failure:
+                        delegate.handleFailure()
+                    }
+                }
+            }
         }
     }
     

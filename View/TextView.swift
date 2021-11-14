@@ -13,6 +13,7 @@ class TextView: UITextView {
     
     var placeholder: String? {
         didSet {
+            isEditable = true
             showPlaceholder()
         }
     }
