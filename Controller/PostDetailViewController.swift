@@ -29,6 +29,8 @@ class PostDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        self.navigationItem.title = "Event Details"
+        
         if isOwner() {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
         } else {
@@ -50,27 +52,23 @@ class PostDetailViewController: UIViewController {
         return true
         
         // logic:
-        guard let currentUser = Amplify.Auth.getCurrentUser() else {
-            print("Error: should not have a user hasn't signed in.")
-            return false
-        }
-        guard let owner = post.owner else {
-            print("Error: a post should have a owner")
-            return false
-        }
-        if currentUser.userId == owner {
-            return true
-        }
-        return false
+//        guard let currentUser = Amplify.Auth.getCurrentUser() else {
+//            print("Error: should not have a user hasn't signed in.")
+//            return false
+//        }
+//        guard let owner = post.owner else {
+//            print("Error: a post should have a owner")
+//            return false
+//        }
+//        if currentUser.userId == owner {
+//            return true
+//        }
+//        return false
         
     }
     
     @objc func didTapEditButton() {
-        // edit post
-        let editPostVC = EditPostViewController()
-        //editPostVC.postTitle.text = "test"
-        navigationController?.pushViewController(editPostVC, animated: true)
-        
+//        // edit post
     }
     
     @objc func didTapJoinButton() {
@@ -144,9 +142,9 @@ extension PostDetailViewController : UITableViewDataSource {
         case 0:
             return 200
         case 1:
-            return 20
+            return 30
         case 2:
-            return 200
+            return 220
         case 3:
             return 40
         default:
@@ -159,6 +157,19 @@ extension PostDetailViewController : UITableViewDataSource {
 
 extension PostDetailViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section Title \(section)"
+        switch section {
+        case 0:
+            return "OverView"
+        case 1:
+            return "Time"
+        case 2:
+            return "Location"
+        case 3:
+            return "People"
+        default:
+            print("Warnnning: has section 4")
+            return ""
+        }
+        
     }
 }
