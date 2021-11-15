@@ -186,7 +186,7 @@
                                                                 <rect key="frame" x="15" y="285.66666666666669" width="360" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auu-qr-PX6">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="20.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="35.333333333333336" height="20.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="oVj-gW-nJY"/>
                                                                         </constraints>
@@ -195,7 +195,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a departure place" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-0C-xtD" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                        <rect key="frame" x="155" y="-5" width="205" height="33"/>
+                                                                        <rect key="frame" x="35.333333333333343" y="-5" width="324.66666666666663" height="33"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <color key="textColor" systemColor="placeholderTextColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -262,7 +262,7 @@
                                                                 <rect key="frame" x="15" y="323.66666666666669" width="360" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-bY-qqu">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="20.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="17.333333333333332" height="20.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="gIj-aS-R77"/>
                                                                         </constraints>
@@ -271,7 +271,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a destination" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MDa-rC-El2" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                        <rect key="frame" x="94" y="-5" width="266" height="33"/>
+                                                                        <rect key="frame" x="17.333333333333343" y="-5" width="342.66666666666663" height="33"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <color key="textColor" systemColor="placeholderTextColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -565,13 +565,13 @@
                                 <rect key="frame" x="75" y="170" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eij-if-9LL">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eij-if-9LL">
                                 <rect key="frame" x="75" y="347" width="149" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kYL-oa-Zax">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kYL-oa-Zax">
                                 <rect key="frame" x="75" y="422" width="240" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -641,7 +641,7 @@
                                                 <rect key="frame" x="75" y="33" width="240" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Td-OL-zhV">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Td-OL-zhV">
                                                 <rect key="frame" x="75" y="183" width="142" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -651,7 +651,7 @@
                                                     <action selector="userNameChanged:" destination="oRk-vr-H1F" eventType="editingChanged" id="g6o-aP-KAU"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ddB-FT-whn">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ddB-FT-whn">
                                                 <rect key="frame" x="75" y="247" width="240" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -661,7 +661,7 @@
                                                     <action selector="password:" destination="hfU-e1-DkG" eventType="editingDidEnd" id="7nH-BB-yyO"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Repeat password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JfL-Kf-MBk">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JfL-Kf-MBk">
                                                 <rect key="frame" x="75" y="313" width="240" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -671,7 +671,7 @@
                                                     <action selector="userNameChanged:" destination="oRk-vr-H1F" eventType="editingChanged" id="a85-f8-edq"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Given Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLt-rB-yEU">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Given Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLt-rB-yEU">
                                                 <rect key="frame" x="76" y="380" width="240" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -680,7 +680,7 @@
                                                     <action selector="userNameChanged:" destination="oRk-vr-H1F" eventType="editingChanged" id="u37-BP-x4j"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Family Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ejR-Jn-q5q">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Family Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ejR-Jn-q5q">
                                                 <rect key="frame" x="75" y="446" width="240" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -689,7 +689,7 @@
                                                     <action selector="passWordChanged:" destination="oRk-vr-H1F" eventType="editingChanged" id="ThQ-UP-zbu"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Phone Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fp9-dR-P5U">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fp9-dR-P5U">
                                                 <rect key="frame" x="76" y="513" width="240" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -698,7 +698,7 @@
                                                     <action selector="userNameChanged:" destination="oRk-vr-H1F" eventType="editingChanged" id="zHE-If-Wux"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Nickname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4ib-IJ-eIA">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nickname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4ib-IJ-eIA">
                                                 <rect key="frame" x="76" y="581" width="240" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>

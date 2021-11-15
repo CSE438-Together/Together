@@ -12,7 +12,7 @@ class MessageLabel: UILabel {
         DispatchQueue.main.async {
             self.backgroundColor = color
             self.text = text
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.3) {
                 self.isHidden = false
             }
             Timer.scheduledTimer(
@@ -34,7 +34,7 @@ class MessageLabel: UILabel {
     }
     
     @objc func fireTimer() {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.isHidden = true
         }
     }

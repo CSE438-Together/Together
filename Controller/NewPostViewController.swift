@@ -105,6 +105,9 @@ class NewPostViewController: UIViewController {
     @IBAction func sendButtonPressed(_ sender: Any) {
         for (view, error) in requiredInputs {
             if view.text == "" || view.text == view.placeholder {
+                view.layer.borderWidth = 1
+                view.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
+                view.layer.cornerRadius = 10
                 message.showFailureMessage(error, timeInterval: 3.0)
                 return
             }
@@ -192,6 +195,9 @@ extension NewPostViewController: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         guard let view = textView as? TextView else { return }
+        if view.text != "" {
+            view.layer.borderWidth = 0
+        }
         if view == destination || view == departurePlace {
             if view.text == "" {
                 view.removeAutocompleteTable()
