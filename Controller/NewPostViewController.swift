@@ -104,7 +104,7 @@ class NewPostViewController: UIViewController {
     @IBAction func sendButtonPressed(_ sender: Any) {
         for (view, error) in requiredInputs {
             if view.text == "" || view.text == view.placeholder {
-                Alert.showWarning(self, error, "")
+                Alert.showWarning(self, error)
                 return
             }
         }
