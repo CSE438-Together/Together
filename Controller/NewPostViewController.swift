@@ -30,6 +30,18 @@ class NewPostViewController: UIViewController {
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
     private var requiredInputs = [TextView:String]()
+    private lazy var warning: UILabel = {
+        let label = UILabel()
+        
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.layer.masksToBounds = true
+        label.textAlignment = .center
+        label.textColor = .systemBackground
+        label.backgroundColor = .black
+        label.layer.opacity = 0.7
+        label.layer.cornerRadius = 10
+        return label
+    } ()
     
     init?(coder: NSCoder, delegate: NewPostViewDelegate, post: Post? = nil) {
         self.delegate = delegate
@@ -101,10 +113,28 @@ class NewPostViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc func fireTimer() {
+        warning.removeFromSuperview()
+    }
+    
     @IBAction func sendButtonPressed(_ sender: Any) {
         for (view, error) in requiredInputs {
             if view.text == "" || view.text == view.placeholder {
-                Alert.showWarning(self, error)
+                warning.text = error
+                warning.frame = CGRect(
+                    x: self.view.frame.midX - warning.intrinsicContentSize.width / 2 - 10,
+                    y: self.view.frame.midY - warning.intrinsicContentSize.height / 2 - 10,
+                    width: warning.intrinsicContentSize.width + 20,
+                    height: warning.intrinsicContentSize.height + 20
+                )
+                self.view.addSubview(warning)
+                Timer.scheduledTimer(
+                    timeInterval: 3.0,
+                    target: self,
+                    selector: #selector(self.fireTimer),
+                    userInfo: nil,
+                    repeats: false
+                )
                 return
             }
         }
