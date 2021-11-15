@@ -30,7 +30,7 @@ class MessageLabel: UILabel {
     }
     
     func showFailureMessage(_ message: String) {
-        showMessage(message, .systemRed)
+        showMessage(message, .systemPink)
     }
     
     @objc func fireTimer() {

@@ -29,6 +29,7 @@ class NewPostViewController: UIViewController {
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
+    private var requiredInputs = [TextView:String]()
     
     init?(coder: NSCoder, delegate: NewPostViewDelegate, post: Post? = nil) {
         self.delegate = delegate
@@ -42,10 +43,13 @@ class NewPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requiredInputs = [
+            postTitle: "Title Required",
+            departurePlace : "Departure Place Required",
+            destination : "Destination Required"
+        ]
         // Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
         searchCompleter.delegate = self
-        datePicker.minimumDate = datePicker.date
-        
         postTitle.placeholder = "Title"
         descriptions.placeholder = "Description"
         departurePlace.placeholder = "Choose a departure place"
@@ -58,6 +62,8 @@ class NewPostViewController: UIViewController {
         
         if post != nil {
             loadPost()
+        } else {
+            datePicker.minimumDate = datePicker.date
         }
     }
     
@@ -67,6 +73,7 @@ class NewPostViewController: UIViewController {
         departurePlace.text = post.departurePlace
         destination.text = post.destination
         if let AWSDate = post.departureTime {
+            datePicker.minimumDate = AWSDate.foundationDate
             datePicker.date = AWSDate.foundationDate
         }
         descriptions.text = post.description
@@ -80,13 +87,14 @@ class NewPostViewController: UIViewController {
     }
     
     private func updatePost() {
-        post.title = self.postTitle.text
-        post.departurePlace = self.departurePlace.text
-        post.destination = self.destination.text
-        post.transportation = Transportation.getInstance(of: self.transportation.selectedSegmentIndex)
-        post.departureTime = Temporal.DateTime(self.datePicker.date)
-        post.maxMembers = self.maxParticipants.toInt()
-        post.description = self.descriptions.text
+        post.title = postTitle.text
+        post.departurePlace = departurePlace.text
+        post.destination = destination.text
+        post.transportation = Transportation.getInstance(of: transportation.selectedSegmentIndex)
+        post.departureTime = Temporal.DateTime(datePicker.date)
+        post.maxMembers = maxParticipants.toInt()
+        
+        post.description = descriptions.text == descriptions.placeholder ? "" : descriptions.text
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -94,6 +102,13 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func sendButtonPressed(_ sender: Any) {
+        for (view, error) in requiredInputs {
+            if view.text == "" || view.text == view.placeholder {
+                Alert.showWarning(self, error, "")
+                return
+            }
+        }
+        
         guard let user = Amplify.Auth.getCurrentUser() else { return }
         if post == nil {
             post = Post(owner: user.username, members: [user.username])
@@ -175,8 +190,13 @@ extension NewPostViewController: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        if textView == destination || textView == departurePlace {
-            searchCompleter.queryFragment = textView.text
+        guard let view = textView as? TextView else { return }
+        if view == destination || view == departurePlace {
+            if view.text == "" {
+                view.removeAutocompleteTable()
+            } else {
+                searchCompleter.queryFragment = textView.text
+            }
         }
     }
 }
