@@ -8,7 +8,7 @@
 import UIKit
 
 class MessageLabel: UILabel {
-    private func showMessage(_ text: String, _ color: UIColor) {
+    private func showMessage(_ text: String, _ color: UIColor, _ timeInterval: TimeInterval) {
         DispatchQueue.main.async {
             self.backgroundColor = color
             self.text = text
@@ -16,7 +16,7 @@ class MessageLabel: UILabel {
                 self.isHidden = false
             }
             Timer.scheduledTimer(
-                timeInterval: 2.0,
+                timeInterval: timeInterval,
                 target: self,
                 selector: #selector(self.fireTimer),
                 userInfo: nil,
@@ -25,12 +25,12 @@ class MessageLabel: UILabel {
         }
     }
     
-    func showSuccessMessage(_ message: String) {
-        showMessage(message, .systemBlue)
+    func showSuccessMessage(_ message: String, timeInterval: TimeInterval = 2.0) {
+        showMessage(message, .systemBlue, timeInterval)
     }
     
-    func showFailureMessage(_ message: String) {
-        showMessage(message, .systemPink)
+    func showFailureMessage(_ message: String, timeInterval: TimeInterval = 2.0) {
+        showMessage(message, .systemRed, timeInterval)
     }
     
     @objc func fireTimer() {
