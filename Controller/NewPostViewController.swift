@@ -160,7 +160,7 @@ class NewPostViewController: UIViewController {
     private func openInMap(for location: String) {
         CLGeocoder().geocodeAddressString(location) { (placemarks, error) -> Void in
             guard let placemark = placemarks?.first else { return }
-            MKMapItem(placemark: MKPlacemark(placemark: placemark)).openInMaps(launchOptions: nil)
+            MKMapItem(placemark: MKPlacemark(placemark: placemark)).openInMaps()
         }
     }
 }
@@ -213,10 +213,10 @@ extension NewPostViewController: UITableViewDelegate {
     }
     
     private func autocompleteSelected(_ textView: TextView, _ text: String) {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             textView.text = text
         }
-        textView.endEditing(true)
+        textView.resignFirstResponder()
     }
 }
 
