@@ -30,7 +30,14 @@ class NewPostViewController: UIViewController {
     private var currentTextView: TextView?
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
-    private var requiredInputs = [TextView:String]()
+    
+    private lazy var requiredInputs: [TextView:String] = {
+        return [
+            postTitle: "Title Required",
+            departurePlace: "Departure Place Required",
+            destination: "Destination Required"
+        ]
+    } ()
     
     init?(coder: NSCoder, delegate: NewPostViewDelegate, post: Post? = nil) {
         self.delegate = delegate
@@ -44,11 +51,6 @@ class NewPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requiredInputs = [
-            postTitle: "Title Required",
-            departurePlace : "Departure Place Required",
-            destination : "Destination Required"
-        ]
         // Learned from https://dev.to/jeff_codes/swift-5-location-search-with-auto-complete-location-suggestions-20a1
         searchCompleter.delegate = self
         postTitle.placeholder = "Title"
@@ -94,7 +96,6 @@ class NewPostViewController: UIViewController {
         post.transportation = Transportation.getInstance(of: transportation.selectedSegmentIndex)
         post.departureTime = Temporal.DateTime(datePicker.date)
         post.maxMembers = maxParticipants.toInt()
-        
         post.description = descriptions.text == descriptions.placeholder ? "" : descriptions.text
     }
     
