@@ -16,18 +16,25 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoE-TB-ZIa">
-                        <rect key="frame" x="16" y="0.0" width="288" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pLm-vv-9BW">
+                        <rect key="frame" x="20" y="31" width="280" height="4"/>
+                    </progressView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoE-TB-ZIa">
+                        <rect key="frame" x="20" y="5" width="280" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pLm-vv-9BW">
-                        <rect key="frame" x="16" y="28" width="288" height="4"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </progressView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="pLm-vv-9BW" secondAttribute="bottom" constant="5" id="7Fd-F4-4Iq"/>
+                    <constraint firstItem="XoE-TB-ZIa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="KHV-ob-DzB"/>
+                    <constraint firstItem="pLm-vv-9BW" firstAttribute="top" secondItem="XoE-TB-ZIa" secondAttribute="bottom" constant="5" id="OE5-tQ-dNa"/>
+                    <constraint firstAttribute="trailing" secondItem="XoE-TB-ZIa" secondAttribute="trailing" constant="20" symbolic="YES" id="Qqv-gA-7Ch"/>
+                    <constraint firstItem="XoE-TB-ZIa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bl5-bu-8Pm"/>
+                    <constraint firstItem="pLm-vv-9BW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="kP3-5D-sK2"/>
+                    <constraint firstAttribute="trailing" secondItem="pLm-vv-9BW" secondAttribute="trailing" constant="20" symbolic="YES" id="xvk-KK-tDR"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
