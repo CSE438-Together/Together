@@ -11,18 +11,11 @@ import Amplify
 class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var takePicButton: UIButton!
-    @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        logoutButton.layer.borderWidth = 1.5
-        logoutButton.layer.cornerRadius = 10
-        takePicButton.layer.borderWidth = 1.5
-        takePicButton.layer.cornerRadius = 10
         
         userImage.layer.cornerRadius = userImage.frame.width/2
         userImage.layer.masksToBounds = true
@@ -138,7 +131,8 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         }
     }
     
-    @IBAction func editUserImage(_ sender: Any) {
+    
+    @IBAction func editUserPic(_ sender: Any) {
         let editImageAlert = UIAlertController(title: "Please choose action", message: "", preferredStyle: UIAlertController.Style.actionSheet)
            
         let chooseFromPhotoLibrary = UIAlertAction(title: "Choose From Photo Library", style: UIAlertAction.Style.default, handler: ChooseFromPhotoLibrary)
@@ -155,6 +149,7 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
            
         self.present(editImageAlert, animated: true, completion: nil)
     }
+    
     
     func ChooseFromPhotoLibrary(avc:UIAlertAction)-> Void{
         let picker = UIImagePickerController()
@@ -187,8 +182,10 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         }
     }
     
-    @IBAction func LogOutPressed(_ sender: Any) {
+    
+    @IBAction func logOutButton(_ sender: Any) {
         signOutLocally()
     }
+    
     
 }
