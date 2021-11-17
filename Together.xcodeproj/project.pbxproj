@@ -23,6 +23,7 @@
 		50513A452737633C000C245B /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A442737633C000C245B /* NewPostViewController.swift */; };
 		50513A482737758E000C245B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A472737758E000C245B /* TextView.swift */; };
 		506AC75E273C22E10070667B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AC75D273C22E10070667B /* Extension.swift */; };
+		5073A43A274492D000F6B7C4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5073A439274492D000F6B7C4 /* SignUpView.swift */; };
 		50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */; };
 		50AEED5B27402A80009D08D0 /* AWSS3StoragePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 50AEED5A27402A80009D08D0 /* AWSS3StoragePlugin */; };
 		50DA05F72741827200B34D1E /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DA05F62741827200B34D1E /* PostDetailViewController.swift */; };
@@ -68,6 +69,7 @@
 		50513A442737633C000C245B /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		50513A472737758E000C245B /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		506AC75D273C22E10070667B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		5073A439274492D000F6B7C4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewDelegate.swift; sourceTree = "<group>"; };
 		50DA05F62741827200B34D1E /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		50DA05FB274182CB00B34D1E /* PostDetailTableViewTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewTimeCell.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 		50513A4627377526000C245B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5073A438274492AE00F6B7C4 /* SwiftUI */,
 				72349E7E272CECDA00BA23E1 /* CustomUI */,
 				50513A472737758E000C245B /* TextView.swift */,
 				5044DF62273F05920099A4C1 /* MessageLabel.swift */,
@@ -181,6 +184,14 @@
 				506AC75D273C22E10070667B /* Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		5073A438274492AE00F6B7C4 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				5073A439274492D000F6B7C4 /* SignUpView.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		50AEED56273F63F8009D08D0 /* Protocol */ = {
@@ -344,6 +355,7 @@
 				50513A482737758E000C245B /* TextView.swift in Sources */,
 				50DA0607274182CB00B34D1E /* PostDetailTableViewLocationCell.swift in Sources */,
 				0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */,
+				5073A43A274492D000F6B7C4 /* SignUpView.swift in Sources */,
 				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
 				5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */,
 				50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */,
