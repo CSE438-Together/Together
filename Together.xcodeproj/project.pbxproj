@@ -35,8 +35,8 @@
 		50DA0608274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DA0600274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib */; };
 		50DA0609274182CB00B34D1E /* PostDetailTableViewLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DA0601274182CB00B34D1E /* PostDetailTableViewLocationCell.xib */; };
 		50DA060A274182CB00B34D1E /* PostDetailTableViewTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DA0602274182CB00B34D1E /* PostDetailTableViewTimeCell.xib */; };
-		512CDFA32741C1C0008CB55B /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 512CDFA22741C1C0008CB55B /* amplifyconfiguration.json */; };
-		512CDFA52741C1C5008CB55B /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 512CDFA42741C1C5008CB55B /* awsconfiguration.json */; };
+		516A18E02744B67E00E6B687 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 516A18DF2744B67E00E6B687 /* amplifyconfiguration.json */; };
+		516A18E22744B68300E6B687 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 516A18E12744B68300E6B687 /* awsconfiguration.json */; };
 		577AA8B4071B454D3E0A5D57 /* Post+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38664D4C08FA9A877DAC28A1 /* Post+Schema.swift */; };
 		642102E9FE4550AEE13307D5 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DFD74478BF6351E12A0161 /* AmplifyModels.swift */; };
 		72349E7D272CE21900BA23E1 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72349E7C272CE21900BA23E1 /* API.swift */; };
@@ -80,8 +80,8 @@
 		50DA0600274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDetailTableViewPeopleCell.xib; sourceTree = "<group>"; };
 		50DA0601274182CB00B34D1E /* PostDetailTableViewLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDetailTableViewLocationCell.xib; sourceTree = "<group>"; };
 		50DA0602274182CB00B34D1E /* PostDetailTableViewTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDetailTableViewTimeCell.xib; sourceTree = "<group>"; };
-		512CDFA22741C1C0008CB55B /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
-		512CDFA42741C1C5008CB55B /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		516A18DF2744B67E00E6B687 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		516A18E12744B68300E6B687 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		72349E7C272CE21900BA23E1 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		72349E87272CF44D00BA23E1 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		72349E88272CF44D00BA23E1 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
@@ -238,8 +238,8 @@
 		AED75D90E2FA95E5AB9E200C /* AmplifyConfig */ = {
 			isa = PBXGroup;
 			children = (
-				512CDFA22741C1C0008CB55B /* amplifyconfiguration.json */,
-				512CDFA42741C1C5008CB55B /* awsconfiguration.json */,
+				516A18DF2744B67E00E6B687 /* amplifyconfiguration.json */,
+				516A18E12744B68300E6B687 /* awsconfiguration.json */,
 			);
 			name = AmplifyConfig;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				512CDFA52741C1C5008CB55B /* awsconfiguration.json in Resources */,
+				516A18E22744B68300E6B687 /* awsconfiguration.json in Resources */,
 				50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */,
 				50DA0608274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib in Resources */,
 				50DA0609274182CB00B34D1E /* PostDetailTableViewLocationCell.xib in Resources */,
@@ -319,7 +319,7 @@
 				50072381272B8F0500F3FF31 /* Assets.xcassets in Resources */,
 				72349E8A272CF44D00BA23E1 /* PostTableViewCell.xib in Resources */,
 				50DA0605274182CB00B34D1E /* PostDetailTableViewOverViewCell.xib in Resources */,
-				512CDFA32741C1C0008CB55B /* amplifyconfiguration.json in Resources */,
+				516A18E02744B67E00E6B687 /* amplifyconfiguration.json in Resources */,
 				5007237F272B8F0500F3FF31 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
