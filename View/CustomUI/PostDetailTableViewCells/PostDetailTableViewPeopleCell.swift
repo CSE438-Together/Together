@@ -31,6 +31,7 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
     
     public func configure( with joinedPeopleNum : Int , with maxPeopleNum : Int) {
         self.statusView.text = "\(joinedPeopleNum)/\(maxPeopleNum)"
+        self.progressView.progress = Float(joinedPeopleNum)/Float(maxPeopleNum)
     }
     
 }

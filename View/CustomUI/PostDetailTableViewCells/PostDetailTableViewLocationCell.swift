@@ -36,8 +36,13 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     }
     
     public func configure( with departurePlace : String , with destination : String) {
-        self.departurePlaceView.text = "Departure Place: " + departurePlace
-        self.destionationView.text = "Destination: " + destination
+        self.departurePlaceView.lineBreakMode = NSLineBreakMode.byWordWrapping
+        self.departurePlaceView.numberOfLines = 0
+        self.departurePlaceView.text = "Departure Place: \n" + departurePlace
+        
+        self.destionationView.lineBreakMode = NSLineBreakMode.byWordWrapping
+        self.destionationView.numberOfLines = 0
+        self.destionationView.text = "Destination: \n" + destination
         
         // set up mapview
         
