@@ -22,6 +22,7 @@ enum UserInfoStatus: String {
     case emptyEmail = "Email must not be empty"
     case emptyPhone = "Phone number should not be empty"
     case emptyNickname = "Username should not be empty"
+    case invalidPhoneNumber = "Phone number must be 10 digits"
     case valid = ""
 }
 
@@ -86,6 +87,9 @@ class NewUserViewModel: ObservableObject {
                 }
                 if $1.isEmpty {
                     return .emptyPhone
+                }
+                if $1.count != 10 {
+                    return .invalidPhoneNumber
                 }
                 if $2.isEmpty {
                     return .emptyNickname
