@@ -6,99 +6,97 @@
 //
 
 import SwiftUI
-import Combine
 
-class NewUserViewModel: ObservableObject {
-    @Published var firstName = ""
-    @Published var lastName = ""
-    @Published var password = ""
-    @Published var confirmedPassword = ""
+struct UserProfileField: View {
+    let placeholder: String
+    @Binding var text: String
+    var leftItem: Text? = nil
+    var rightItem: Text? = nil
     
-    var nameValidation = ""
-    
-    private var cancellables = Set<AnyCancellable> ()
-    
-    private var isNameValidPublisher: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest($firstName, $lastName)
-            .map { !$0.isEmpty && !$1.isEmpty }
-            .eraseToAnyPublisher()
+    var body: some View {
+        HStack {
+            leftItem
+            TextField(placeholder, text: $text)
+                .autocapitalization(.none)
+            rightItem
+            if !text.isEmpty {
+                Image(systemName: "checkmark.circle")
+                    .foregroundColor(.green)
+            }
+        }
     }
+}
+
+struct PasswordField: View {
+    let placeholder: String
+    @Binding var text: String
+    let switchCondition: () -> Bool
     
-    private var isPasswordMatchesPublisher: AnyPublisher<Bool, Never> {
-        
-    }
-    
-    private var isPasswordValidPublisher: AnyPublisher<Bool, Never> {
-        
-    }
-    
-    init() {
-        isNameValidPublisher
-            .dropFirst()
-            .receive(on: RunLoop.main)
-            .map { isValid in isValid ? "" : "Name should not be empty"}
-            .assign(to: \.nameValidation, on: self)
-            .store(in: &cancellables)
-        
+    var body: some View {
+        HStack {
+            SecureField(placeholder, text: $text)
+            if !text.isEmpty {
+                switchCondition() ?
+                Image(systemName: "checkmark.circle")
+                    .foregroundColor(.green) :
+                Image(systemName: "exclamationmark.circle")
+                    .foregroundColor(.red)
+            }
+        }
     }
 }
 
 struct SignUpView: View {
     @StateObject private var newUser = NewUserViewModel()
-    @State var password = ""
-    @State var confirmedPassword = ""
-    @State var email = ""
-    @State var phoneNumber = ""
-    @State var nickName = ""
-    @State var gender = "Male"
-
+    
     var body: some View {
         NavigationView {
             Form {
                 Section(footer: Text(newUser.nameValidation).foregroundColor(.red)) {
-                    HStack {
-                        TextField("First Name", text: $newUser.firstName)
-                        if !newUser.firstName.isEmpty {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(.green)
-                        }
-                    }
-                    HStack {
-                        TextField("Last Name", text: $newUser.lastName)
-                        if !newUser.lastName.isEmpty {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(.green)
-                        }
-                    }
+                    UserProfileField(placeholder: "First Name", text: $newUser.firstName)
+                    UserProfileField(placeholder: "Last Name", text: $newUser.lastName)
                 }
-                Section(footer: Text("Password must be at least 1 uppercase, 1 lowercase, 1 number, 1 special character, 8 characters long")) {
-                    SecureField("Create Password", text: $password)
-                    SecureField("Confirm Password", text: $confirmedPassword)
+                Section(
+                    footer: (newUser.passwordVlidation == .valid ? Text("") : Text(newUser.passwordVlidation.rawValue).foregroundColor(.red) + Text("\n"))
+                        + Text("Password must have at least 1 uppercase, 1 lowercase, 1 number, 1 special character, 8 characters long")
+                ) {
+                    PasswordField(
+                        placeholder: "Create Password",
+                        text: $newUser.password,
+                        switchCondition: {
+                            newUser.passwordVlidation == .valid ||
+                            newUser.passwordVlidation == .notMatch
+                        }
+                    )
+                    PasswordField(
+                        placeholder: "Confirm Password",
+                        text: $newUser.confirmedPassword,
+                        switchCondition: {
+                            newUser.passwordVlidation == .valid
+                        }
+                    )
+                }
+                Section(footer: Text(newUser.userInfoVlidation).foregroundColor(.red)) {
+                    UserProfileField(placeholder: "Email", text: $newUser.email, rightItem: Text("@wustl.edu"))
+                    UserProfileField(placeholder: "Phone Number", text: $newUser.phone, leftItem: Text("+1"))
+                    UserProfileField(placeholder: "Username", text: $newUser.nickname)
                 }
                 Section {
-                    TextField("Email", text: $email)
-                    TextField("Phone Number", text: $phoneNumber)
-                    HStack {
-                        TextField("Username", text: $nickName)
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(.green)
-                    }
-                }
-                Section {
-                    Picker(selection: $gender, label: Text("Gender")) {
+                    Picker(selection: $newUser.gender, label: Text("Gender")) {
                         Text("Male").tag("Male")
                         Text("Female").tag("Female")
                     }
                 }
                 
                 Section(header: Button(action: {}, label: {
-                    Text("Sign Up")
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, maxHeight: .infinity, alignment: .center)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                        .font(.body)
-                })) {}
+                    RoundedRectangle(cornerRadius: 8)
+                        .frame(height: 40)
+                        .overlay(
+                            Text("Sign Up")
+                                .foregroundColor(.white)
+                                .font(.body)
+                        )
+                }).disabled(!newUser.isUserProfileValid)) {}
                 .textCase(nil)
                 
                 Section(header: Button(action: {}, label: {
