@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import Amplify
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,7 +20,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        
+        
+        
         window?.rootViewController = UIHostingController(rootView: SignUpView())
+        
+//        Amplify.Auth.fetchAuthSession { (result) in
+//            do {
+//                print("===============================")
+//                let session = try result.get()
+//                if session.isSignedIn {
+//                    print("signed in")
+//                } else {
+//                    print("not signed in")
+//                }
+//            } catch {
+//                print("Fetch auth session failed with error - \(error)")
+//            }
+//        }
+        
+        
+        
 
             // if user is logged in before
 //            if let loggedUsername = UserDefaults.standard.string(forKey: "username") {

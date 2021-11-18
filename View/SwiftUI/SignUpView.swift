@@ -58,10 +58,12 @@ struct BlurView: UIViewRepresentable {
 
 struct SignUpView: View {
     @StateObject private var newUser = NewUserViewModel()
-    @State private var showBlurView = false
-    
+    @State private var isSigningUp = false
+    @State private var needVerification = false
+    @State private var showLoginSheet = false
+
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             NavigationView {
                 Form {
                     Section(
@@ -106,7 +108,7 @@ struct SignUpView: View {
                     Section(
                         header: Button(
                             action: {
-                                showBlurView = true
+                                isSigningUp = true
                                 signUp()
                             },
                             label: {
@@ -119,24 +121,39 @@ struct SignUpView: View {
                                     )
                             }
                         ).disabled(!newUser.isUserProfileValid)
-                    ) {}.textCase(nil)
+                    ) {}.textCase(.none)
                     
-                    Section(header: Button(action: {}, label: {
+                    Section(header: Button(action: {
+                        showLoginSheet.toggle()
+                    }, label: {
                         Text("Already have an account? Login here")
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                             .font(.subheadline)
-                    })) {}
-                    .textCase(nil)
+                    }).sheet(isPresented: $showLoginSheet, content: {
+                        LoginView()
+                    })
+                    ) {}
+                    .textCase(.none)
                     
                 }
                 .navigationTitle("Create Account")
             }
-            .disabled(false)
-            if showBlurView {
+            .disabled(needVerification)
+            .zIndex(1.0)
+            
+            if isSigningUp {
                 BlurView(style: .light)
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                     .scaleEffect(2.5)
+            }
+            if needVerification {
+                VerificationView(email: newUser.email + "@wustl.edu", password: newUser.password)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+                    .cornerRadius(30)
+                    .transition(.move(edge: .bottom))
+                    .animation(.easeInOut)
+                    .zIndex(4)
             }
         }
         .ignoresSafeArea(.all, edges: .all)
@@ -160,28 +177,12 @@ struct SignUpView: View {
                 switch result {
                 case .success:
                     DispatchQueue.main.async {
-                        showBlurView = false
+                        isSigningUp = false
+                        needVerification = true
                     }
                 case .failure(let error):
                     print(error)
-//                    DispatchQueue.main.async(execute: {
-    //                    Alert.showWarning(self, "Failed", "An error occurred while registering a user \(error)")
-    //                    self.spinner.stopAnimating()
-    //                    self.removeBlurEffect()
-//                    })
                 }
-            }
-        }
-    }
-    
-    private func confirmSignUp(for username: String, with confirmationCode: String) {
-        Amplify.Auth.confirmSignUp(for: username, confirmationCode: confirmationCode) {
-            result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                print(error)
             }
         }
     }
