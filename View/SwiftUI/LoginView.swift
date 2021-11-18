@@ -34,6 +34,7 @@ struct LoginView: View {
                     TextField("Eamil", text: $email)
                         .font(.body)
                         .foregroundColor(.primary)
+                        .autocapitalization(.none)
                     SecureField("Password", text: $password)
                         .font(.body)
                         .foregroundColor(.primary)
@@ -41,6 +42,7 @@ struct LoginView: View {
                 Section(
                     header: Button(
                         action: {
+                            API.signIn(email, password)
                         },
                         label: {
                             RoundedRectangle(cornerRadius: 8)

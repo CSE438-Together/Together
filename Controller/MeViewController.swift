@@ -7,6 +7,7 @@
 
 import UIKit
 import Amplify
+import SwiftUI
 
 class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -39,16 +40,13 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         Amplify.Auth.signOut() { result in
             switch result {
             case .success:
-                DispatchQueue.main.async(execute: {
-                    print("Successfully signed out")
-            
-                    let LoginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                    self.show(LoginViewController, sender: self)
-                })
+                DispatchQueue.main.async {
+                    UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: SignUpView())
+                }
             case .failure(let error):
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     Alert.showWarning(self, "Failed", "Sign out failed with error \(error)")
-                })
+                }
             }
         }
     }
