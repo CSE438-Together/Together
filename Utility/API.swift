@@ -24,7 +24,7 @@ class API {
         return posts
     }
 
-    public static func signIn(_ email: String, _ password: String) {
+    public static func signIn(_ email: String, _ password: String, _ handleFailure: ((String) -> Void)? = nil) {
         DispatchQueue.global().async {
             Amplify.Auth.signIn(username: email, password: password) {
                 result in
@@ -36,7 +36,15 @@ class API {
                         UIApplication.shared.windows.first?.rootViewController = controller
                     }
                 case .failure(let error):
-                    print(error)
+                    var message: String
+                    if let underlyingError = error.underlyingError {
+                        message = underlyingError.localizedDescription
+                    } else {
+                        message = error.errorDescription
+                    }
+                    if let handler = handleFailure {
+                        handler(message)
+                    }
                 }
             }
         }

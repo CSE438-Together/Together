@@ -10,6 +10,8 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    @State private var hasError = false
+    @State private var error = ""
     
     var body: some View {
         VStack {
@@ -30,6 +32,19 @@ struct LoginView: View {
                     .foregroundColor(.primary)
                 }
                 ) {}
+                
+                if hasError {
+                    Section(header: HStack(alignment: .top) {
+                            Image(systemName: "exclamationmark.icloud")
+                                .foregroundColor(.red)
+                                .font(.title)
+                            Text(error)
+                                .foregroundColor(.red)
+                                .textCase(.none)
+                                .font(.body)
+                        }
+                    ) {}
+                }
                 Section {
                     TextField("Eamil", text: $email)
                         .font(.body)
@@ -42,7 +57,11 @@ struct LoginView: View {
                 Section(
                     header: Button(
                         action: {
-                            API.signIn(email, password)
+                            API.signIn(email, password) {
+                                message in
+                                self.error = message
+                                self.hasError = true
+                            }
                         },
                         label: {
                             RoundedRectangle(cornerRadius: 8)
