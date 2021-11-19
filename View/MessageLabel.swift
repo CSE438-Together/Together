@@ -8,34 +8,26 @@
 import UIKit
 
 class MessageLabel: UILabel {
-    private func showMessage(_ text: String, _ color: UIColor) {
+    private func showMessage(_ text: String, _ color: UIColor, _ timeInterval: TimeInterval) {
         DispatchQueue.main.async {
             self.backgroundColor = color
             self.text = text
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.3) {
                 self.isHidden = false
             }
-            Timer.scheduledTimer(
-                timeInterval: 2.0,
-                target: self,
-                selector: #selector(self.fireTimer),
-                userInfo: nil,
-                repeats: false
-            )
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeInterval) {
+                UIView.animate(withDuration: 0.3) {
+                    self.isHidden = true
+                }
+            }
         }
     }
     
-    func showSuccessMessage(_ message: String) {
-        showMessage(message, .systemBlue)
+    func showSuccessMessage(_ message: String, timeInterval: TimeInterval = 2.0) {
+        showMessage(message, .systemBlue, timeInterval)
     }
     
-    func showFailureMessage(_ message: String) {
-        showMessage(message, .systemRed)
-    }
-    
-    @objc func fireTimer() {
-        UIView.animate(withDuration: 0.5) {
-            self.isHidden = true
-        }
+    func showFailureMessage(_ message: String, timeInterval: TimeInterval = 2.0) {
+        showMessage(message, .systemRed, timeInterval)
     }
 }

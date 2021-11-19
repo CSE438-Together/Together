@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class Alert {
-    public static func showWarning(_ viewController: UIViewController, _ title: String, _ message: String) {
+    public static func showWarning(_ viewController: UIViewController, _ title: String, _ message: String? = nil) {
         let alert = UIAlertController(
             title: title,
             message: message,
