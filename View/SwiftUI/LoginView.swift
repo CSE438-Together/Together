@@ -33,7 +33,8 @@ struct LoginView: View {
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
                 if hasError {
-                    Section(header: HStack(alignment: .top) {
+                    Section {
+                        HStack {
                             Image(systemName: "exclamationmark.icloud")
                                 .foregroundColor(.red)
                                 .font(.title)
@@ -42,7 +43,9 @@ struct LoginView: View {
                                 .textCase(.none)
                                 .font(.body)
                         }
-                    ) {}
+                        .listRowBackground(Color(.systemGroupedBackground))
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    }
                 }
                 Section {
                     TextField("Eamil", text: $email)
