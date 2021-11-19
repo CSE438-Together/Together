@@ -48,6 +48,7 @@ class PostDetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     func isOwner() -> Bool {
@@ -144,21 +145,23 @@ extension PostDetailViewController : UITableViewDataSource {
             return cell
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return 200
-        case 1:
-            return 30
-        case 2:
-            return 220
-        case 3:
-            return 40
-        default:
-            return 0
-        }
-    }
+
+    // keep the code but deprecate this function, using tableView.rowHeight = UITableView.automaticDimension instead
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+////        switch indexPath.section {
+////        case 0:
+////            
+////        case 1:
+////            return 30
+////        case 2:
+////            return 220
+////        case 3:
+////            return 40
+////        default:
+////            return 0
+////        }
+//    
+//    }
     
 }
 
