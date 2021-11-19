@@ -108,7 +108,7 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
                     }
                 }
             case .failure(_):
-                Alert.showWarning(self, "Failed", "Fail to download profile image")
+                break
             }
         }
     }
