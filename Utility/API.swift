@@ -8,6 +8,7 @@
 import Foundation
 import Amplify
 import UIKit
+import SwiftUI
 
 class API {
     public static func getAll(where: QueryPredicate? = nil, sort: QuerySortInput? = nil) -> [Post] {
@@ -36,14 +37,8 @@ class API {
                         UIApplication.shared.windows.first?.rootViewController = controller
                     }
                 case .failure(let error):
-                    var message: String
-                    if let underlyingError = error.underlyingError {
-                        message = underlyingError.localizedDescription
-                    } else {
-                        message = error.errorDescription
-                    }
                     if let handler = handleFailure {
-                        handler(message)
+                        handler(error.errorDescription)
                     }
                 }
             }
