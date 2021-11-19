@@ -61,7 +61,7 @@ struct SignUpView: View {
     @State private var isSigningUp = false
     @State private var needVerification = false
     @State private var showLoginSheet = false
-
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             NavigationView {
@@ -105,36 +105,35 @@ struct SignUpView: View {
                             Text("Female").tag("Female")
                         }
                     }
-                    Section(
-                        header: Button(
-                            action: {
-                                isSigningUp = true
-                                signUp()
-                            },
-                            label: {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .frame(height: 40)
-                                    .overlay(
-                                        Text("Sign Up")
-                                            .foregroundColor(.white)
-                                            .font(.body)
-                                    )
+                    Section(footer: Button(action: {
+                            showLoginSheet.toggle()
+                        }) {
+                            HStack {
+                                Spacer()
+                                Text("Already have an account? Login here")
+                                    .font(.body)
+                                Spacer()
                             }
-                        ).disabled(!newUser.isUserProfileValid)
-                    ) {}.textCase(.none)
-                    
-                    Section(header: Button(action: {
-                        showLoginSheet.toggle()
-                    }, label: {
-                        Text("Already have an account? Login here")
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-                            .font(.subheadline)
-                    }).sheet(isPresented: $showLoginSheet, content: {
-                        LoginView()
-                    })
-                    ) {}
-                    .textCase(.none)
-                    
+                            .padding([.top], 10)
+                        }
+                        .sheet(isPresented: $showLoginSheet, content: {
+                            LoginView()
+                        })
+                    ) {
+                        Button(action: {
+                            isSigningUp = true
+                            signUp()
+                        }) {
+                            HStack {
+                                Spacer()
+                                Text("Sign Up")
+                                Spacer()
+                            }
+                        }
+                        .disabled(!newUser.isUserProfileValid)
+                        .accentColor(.white)
+                        .listRowBackground(Color.blue.opacity(!newUser.isUserProfileValid ? 0.5 : 1))
+                    }
                 }
                 .navigationTitle("Create Account")
             }
