@@ -12,9 +12,10 @@ struct LoginView: View {
     @State private var password = ""
     @State private var hasError = false
     @State private var error = ""
-    
+    @State private var isSigningIn = false
+
     var body: some View {
-        VStack {
+        ZStack {
             HStack {
                 Spacer()
                 Image(systemName: "minus")
@@ -23,6 +24,11 @@ struct LoginView: View {
                 Spacer()
             }
             .zIndex(1)
+            .position(x: UIScreen.main.bounds.midX, y: 10)
+            
+            if isSigningIn {
+                Spinner().zIndex(5)
+            }
             
             Form {
                 Section {
@@ -33,19 +39,7 @@ struct LoginView: View {
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
                 if hasError {
-                    Section {
-                        HStack {
-                            Image(systemName: "exclamationmark.icloud")
-                                .foregroundColor(.red)
-                                .font(.title)
-                            Text(error)
-                                .foregroundColor(.red)
-                                .textCase(.none)
-                                .font(.body)
-                        }
-                        .listRowBackground(Color(.systemGroupedBackground))
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    }
+                    ErrorSectionView(error: $error)
                 }
                 Section {
                     TextField("Eamil", text: $email)
@@ -58,7 +52,12 @@ struct LoginView: View {
                 }
                 Section {
                     Button(action: {
-                        API.signIn(email, password) {
+                        self.isSigningIn.toggle()
+                        API.signIn(
+                            email,
+                            password,
+                            completion: { self.isSigningIn.toggle() }
+                        ) {
                             message in
                             self.error = message
                             self.hasError = true
@@ -77,6 +76,7 @@ struct LoginView: View {
                 }
             }
         }
+        .disabled(isSigningIn)
     }
 }
 

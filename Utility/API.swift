@@ -25,7 +25,7 @@ class API {
         return posts
     }
 
-    public static func signIn(_ email: String, _ password: String, _ handleFailure: ((String) -> Void)? = nil) {
+    public static func signIn(_ email: String, _ password: String, completion: (() -> Void)? = nil, _ handleFailure: ((String) -> Void)? = nil) {
         DispatchQueue.global().async {
             Amplify.Auth.signIn(username: email, password: password) {
                 result in
@@ -40,6 +40,11 @@ class API {
                     if let handler = handleFailure {
                         handler(error.errorDescription)
                     }
+                }
+            }
+            DispatchQueue.main.async {
+                if let handler = completion {
+                    handler()
                 }
             }
         }
