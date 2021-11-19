@@ -32,9 +32,24 @@ class LoginViewController: UIViewController {
         self.spinner.color = UIColor.black
         self.spinner.layer.zPosition = 200
         
-        loginButton.layer.borderColor = UIColor.systemBlue.cgColor
+        loginButton.layer.borderColor = UIColor.systemGray4.cgColor
         loginButton.layer.borderWidth = 1.5
         loginButton.layer.cornerRadius = 10
+        
+        let userBottomLine = CALayer()
+        
+        userBottomLine.frame = CGRect(x: 0.0, y: userNameText.frame.height - 1, width: 149, height: 1.0)
+        userBottomLine.backgroundColor = UIColor.gray.cgColor
+        userNameText.borderStyle = UITextField.BorderStyle.none
+        userNameText.layer.addSublayer(userBottomLine)
+        
+        let passwordBottomLine = CALayer()
+        
+        passwordBottomLine.frame = CGRect(x: 0.0, y: passWordText.frame.height - 1, width: 240, height: 1.0)
+        passwordBottomLine.backgroundColor = UIColor.gray.cgColor
+        passWordText.borderStyle = UITextField.BorderStyle.none
+        passWordText.layer.addSublayer(passwordBottomLine)
+        
         
         if flagLogin == true {
             userNameText.text = email
@@ -67,6 +82,80 @@ class LoginViewController: UIViewController {
                 print("Fetch auth session failed with error - \(error)")
             }
         }
+    }
+    
+    @IBAction func passwordForget(_ sender: Any) {
+        let username = userNameText.text! + "@wustl.edu"
+        self.resetPassword(username: username)
+    }
+    
+    func resetPassword(username: String) {
+        Amplify.Auth.resetPassword(for: username) { result in
+            do {
+                let resetResult = try result.get()
+                switch resetResult.nextStep {
+                case .confirmResetPasswordWithCode(let deliveryDetails, let info):
+                    DispatchQueue.main.async(execute: {
+                        print("Confirm reset password with code send to - \(deliveryDetails) \(String(describing: info))")
+                        self.confirm()
+                    })
+                case .done:
+                    DispatchQueue.main.async(execute: {
+                        print("Reset completed")
+                    })
+                }
+            } catch {
+                DispatchQueue.main.async(execute: {
+                    print("Reset password failed with error \(error)")
+                    Alert.showWarning(self, "Error", "Reset password failed with error \(error)")
+                })
+            }
+        }
+    }
+    
+    func confirmResetPassword(
+        username: String,
+        newPassword: String,
+        confirmationCode: String
+    ) {
+        Amplify.Auth.confirmResetPassword(
+            for: username,
+            with: newPassword,
+            confirmationCode: confirmationCode
+        ) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async(execute: {
+                    print("Password reset confirmed")
+                    self.passWordText.text = newPassword
+                })
+            case .failure(let error):
+                DispatchQueue.main.async(execute: {
+                    print("Reset password failed with error \(error)")
+                    Alert.showWarning(self, "Error", "Reset password failed with error \(error)")
+                })
+            }
+        }
+    }
+    
+    func confirm(){
+        let alertController = UIAlertController(title: "Forget Password", message: "Please enter your new password and confirmation code!", preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField { (textField: UITextField!) -> Void in
+            textField.placeholder = "New Password"
+            textField.isSecureTextEntry = true
+        }
+        alertController.addTextField { (textField: UITextField!) -> Void in
+            textField.placeholder = "Confirm code"
+        }
+        let action = UIAlertAction(title: "Confirm", style: UIAlertAction.Style.default, handler: {(action) -> Void in
+            let newPassword = alertController.textFields![0] as UITextField
+            let code = alertController.textFields![1] as UITextField
+            let username = self.userNameText.text! + "@wustl.edu"
+            self.confirmResetPassword(username: username, newPassword: newPassword.text!, confirmationCode: code.text!)
+        })
+        alertController.addAction(action)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func setBlurEffect() {
@@ -126,3 +215,4 @@ class LoginViewController: UIViewController {
         self.show(RegisterViewController, sender: self)
     }
 }
+
