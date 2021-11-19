@@ -119,26 +119,6 @@
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8r-Nm-Fwt" customClass="MessageLabel" customModule="Together" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="390" height="40"/>
                                                         <color key="backgroundColor" systemColor="systemRedColor"/>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="mpl-0w-5Tb">
-                                                        <rect key="frame" x="15" y="79.666666666666657" width="360" height="150"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departure Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBx-5m-d0a">
-                                                                <rect key="frame" x="0.0" y="0.0" width="119" height="150"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="dpJ-Bq-w2u">
-                                                                <rect key="frame" x="164.66666666666663" y="0.0" width="195.33333333333337" height="150"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" priority="250" constant="188" id="3iC-1o-Sy3"/>
-                                                                </constraints>
-                                                            </datePicker>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGW-2A-9uF" userLabel="Divider">
-                                                        <rect key="frame" x="15" y="242.66666666666669" width="360" height="1"/>
-                                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="4le-DT-yxL"/>
                                                         </constraints>
@@ -151,18 +131,9 @@
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AKB-nQ-RWg" customClass="TextView" customModule="Together" customModuleProvider="target">
                                                                 <rect key="frame" x="15" y="14.999999999999996" width="360" height="37.666666666666657"/>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auu-qr-PX6">
-                                                                <rect key="frame" x="0.0" y="0.0" width="35.333333333333336" height="20.333333333333332"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="250" constant="20" id="ECn-n9-3c5"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a departure place" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-0C-xtD" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                <rect key="frame" x="35.333333333333343" y="-5" width="324.66666666666663" height="33"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <color key="textColor" systemColor="placeholderTextColor"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
@@ -197,60 +168,6 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGW-2A-9uF" userLabel="Divider">
                                                                 <rect key="frame" x="15" y="233.66666666666669" width="360" height="1"/>
                                                                 <color key="backgroundColor" systemColor="systemGray3Color"/>
-                                                                <state key="normal" image="openInMap"/>
-                                                                <connections>
-                                                                    <action selector="openMapButtonPressedForDeparturePlace:" destination="ery-IW-a08" eventType="touchUpInside" id="U6K-sm-ITQ"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xxb-6x-4kA">
-                                                        <rect key="frame" x="15" y="333.66666666666669" width="360" height="200.00000000000006"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="200" id="WJE-wx-94t"/>
-                                                        </constraints>
-                                                        <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="autocompleteCell" textLabel="M7f-GQ-ycs" detailTextLabel="QmL-su-mkk" imageView="HLL-fH-N6T" style="IBUITableViewCellStyleSubtitle" id="bnE-Ee-iI6">
-                                                                <rect key="frame" x="0.0" y="24.333333969116211" width="360" height="43.666667938232422"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
-                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bnE-Ee-iI6" id="c29-cK-spP">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="360" height="43.666667938232422"/>
-                                                                    <autoresizingMask key="autoresizingMask"/>
-                                                                    <subviews>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M7f-GQ-ycs">
-                                                                            <rect key="frame" x="60" y="7.0000000000000009" width="25" height="14.333333333333334"/>
-                                                                            <autoresizingMask key="autoresizingMask"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                                            <nil key="textColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QmL-su-mkk">
-                                                                            <rect key="frame" x="60" y="23.333333333333336" width="40.666666666666664" height="13.333333333333334"/>
-                                                                            <autoresizingMask key="autoresizingMask"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                                            <color key="textColor" systemColor="systemGrayColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
-                                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="map" id="HLL-fH-N6T">
-                                                                            <rect key="frame" x="20" y="9.3333333333333357" width="25" height="25"/>
-                                                                            <autoresizingMask key="autoresizingMask"/>
-                                                                            <color key="tintColor" systemColor="systemPinkColor"/>
-                                                                        </imageView>
-                                                                    </subviews>
-                                                                </tableViewCellContentView>
-                                                            </tableViewCell>
-                                                        </prototypes>
-                                                        <connections>
-                                                            <outlet property="dataSource" destination="ery-IW-a08" id="VHy-QA-h4d"/>
-                                                            <outlet property="delegate" destination="ery-IW-a08" id="ZMa-dt-ljA"/>
-                                                        </connections>
-                                                    </tableView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="Pfv-UD-imU">
-                                                        <rect key="frame" x="15" y="341.33333333333331" width="360" height="28"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-bY-qqu">
-                                                                <rect key="frame" x="0.0" y="0.0" width="17.333333333333332" height="20.333333333333332"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="Aei-xN-v5S"/>
                                                                 </constraints>
@@ -303,12 +220,6 @@
                                                             </stackView>
                                                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xxb-6x-4kA">
                                                                 <rect key="frame" x="15" y="318.66666666666669" width="360" height="200.00000000000006"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a destination" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MDa-rC-El2" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                <rect key="frame" x="17.333333333333343" y="-5" width="342.66666666666663" height="33"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="200" id="WJE-wx-94t"/>
