@@ -15,13 +15,11 @@ class MessageLabel: UILabel {
             UIView.animate(withDuration: 0.3) {
                 self.isHidden = false
             }
-            Timer.scheduledTimer(
-                timeInterval: timeInterval,
-                target: self,
-                selector: #selector(self.fireTimer),
-                userInfo: nil,
-                repeats: false
-            )
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeInterval) {
+                UIView.animate(withDuration: 0.3) {
+                    self.isHidden = true
+                }
+            }
         }
     }
     
@@ -31,11 +29,5 @@ class MessageLabel: UILabel {
     
     func showFailureMessage(_ message: String, timeInterval: TimeInterval = 2.0) {
         showMessage(message, .systemRed, timeInterval)
-    }
-    
-    @objc func fireTimer() {
-        UIView.animate(withDuration: 0.3) {
-            self.isHidden = true
-        }
     }
 }
