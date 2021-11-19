@@ -37,7 +37,7 @@
 		50DA0608274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DA0600274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib */; };
 		50DA0609274182CB00B34D1E /* PostDetailTableViewLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DA0601274182CB00B34D1E /* PostDetailTableViewLocationCell.xib */; };
 		50DA060A274182CB00B34D1E /* PostDetailTableViewTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DA0602274182CB00B34D1E /* PostDetailTableViewTimeCell.xib */; };
-		50E7ABBC274848A000C778EE /* ErrorSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7ABBB274848A000C778EE /* ErrorSectionView.swift */; };
+		50E7ABBC274848A000C778EE /* ErrorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7ABBB274848A000C778EE /* ErrorSection.swift */; };
 		50E7ABBE274850DA00C778EE /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7ABBD274850DA00C778EE /* Spinner.swift */; };
 		50EEEB542746B6F8009F53C3 /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EEEB532746B6F8009F53C3 /* VerificationView.swift */; };
 		50EEEB562746D789009F53C3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EEEB552746D789009F53C3 /* LoginView.swift */; };
@@ -88,7 +88,7 @@
 		50DA0600274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDetailTableViewPeopleCell.xib; sourceTree = "<group>"; };
 		50DA0601274182CB00B34D1E /* PostDetailTableViewLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDetailTableViewLocationCell.xib; sourceTree = "<group>"; };
 		50DA0602274182CB00B34D1E /* PostDetailTableViewTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDetailTableViewTimeCell.xib; sourceTree = "<group>"; };
-		50E7ABBB274848A000C778EE /* ErrorSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSectionView.swift; sourceTree = "<group>"; };
+		50E7ABBB274848A000C778EE /* ErrorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSection.swift; sourceTree = "<group>"; };
 		50E7ABBD274850DA00C778EE /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		50EEEB532746B6F8009F53C3 /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
 		50EEEB552746D789009F53C3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 		50E7ABBA2748485F00C778EE /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				50E7ABBB274848A000C778EE /* ErrorSectionView.swift */,
+				50E7ABBB274848A000C778EE /* ErrorSection.swift */,
 				50E7ABBD274850DA00C778EE /* Spinner.swift */,
 			);
 			path = Component;
@@ -392,7 +392,7 @@
 				50513A482737758E000C245B /* TextView.swift in Sources */,
 				50DA0607274182CB00B34D1E /* PostDetailTableViewLocationCell.swift in Sources */,
 				0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */,
-				50E7ABBC274848A000C778EE /* ErrorSectionView.swift in Sources */,
+				50E7ABBC274848A000C778EE /* ErrorSection.swift in Sources */,
 				5073A43A274492D000F6B7C4 /* SignUpView.swift in Sources */,
 				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
 				5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */,

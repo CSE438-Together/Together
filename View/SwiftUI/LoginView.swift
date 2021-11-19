@@ -39,7 +39,7 @@ struct LoginView: View {
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
                 if hasError {
-                    ErrorSectionView(error: $error)
+                    ErrorSection(error: $error)
                 }
                 Section {
                     TextField("Eamil", text: $email)

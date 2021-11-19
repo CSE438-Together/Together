@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ErrorSectionView: View {
+struct ErrorSection: View {
     @Binding var error: String
     
     var body: some View {
@@ -27,8 +27,8 @@ struct ErrorSectionView: View {
     }
 }
 
-struct ErrorSectionView_Previews: PreviewProvider {
+struct ErrorSection_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorSectionView(error: .constant("some error"))
+        ErrorSection(error: .constant("some error"))
     }
 }
