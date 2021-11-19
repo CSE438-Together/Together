@@ -14,67 +14,61 @@ struct LoginView: View {
     @State private var error = ""
     
     var body: some View {
-        VStack {
-            Form {
-                Section(
-                    header: HStack {
-                        Spacer()
-                        Image(systemName: "minus")
-                        .font(.custom("SuperLarge", size: 75))
-                        .foregroundColor(.blue)
-                        Spacer()
+        Form {
+            Section(
+                header: HStack {
+                    Spacer()
+                    Image(systemName: "minus")
+                    .font(.custom("SuperLarge", size: 75))
+                    .foregroundColor(.blue)
+                    Spacer()
+                }
+            ) {}
+            Section {
+                Text("Login")
+                    .listRowBackground(Color(.systemGroupedBackground))
+                    .font(.largeTitle.bold())
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            }
+            
+            if hasError {
+                Section(header: HStack(alignment: .top) {
+                        Image(systemName: "exclamationmark.icloud")
+                            .foregroundColor(.red)
+                            .font(.title)
+                        Text(error)
+                            .foregroundColor(.red)
+                            .textCase(.none)
+                            .font(.body)
                     }
                 ) {}
-                Section(header: HStack {
-                    Text("Login")
-                    .font(.largeTitle.bold())
-                    .textCase(.none)
+            }
+            Section {
+                TextField("Eamil", text: $email)
+                    .font(.body)
                     .foregroundColor(.primary)
+                    .autocapitalization(.none)
+                SecureField("Password", text: $password)
+                    .font(.body)
+                    .foregroundColor(.primary)
+            }
+            Section {
+                Button(action: {
+                    API.signIn(email, password) {
+                        message in
+                        error = message
+                        hasError = true
+                    }
+                }) {
+                    HStack {
+                        Spacer()
+                        Text("Login")
+                        Spacer()
+                    }
                 }
-                ) {}
-                
-                if hasError {
-                    Section(header: HStack(alignment: .top) {
-                            Image(systemName: "exclamationmark.icloud")
-                                .foregroundColor(.red)
-                                .font(.title)
-                            Text(error)
-                                .foregroundColor(.red)
-                                .textCase(.none)
-                                .font(.body)
-                        }
-                    ) {}
-                }
-                Section {
-                    TextField("Eamil", text: $email)
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .autocapitalization(.none)
-                    SecureField("Password", text: $password)
-                        .font(.body)
-                        .foregroundColor(.primary)
-                }
-                Section(
-                    header: Button(
-                        action: {
-                            API.signIn(email, password) {
-                                message in
-                                self.error = message
-                                self.hasError = true
-                            }
-                        },
-                        label: {
-                            RoundedRectangle(cornerRadius: 8)
-                                .frame(height: 40)
-                                .overlay(
-                                    Text("Login")
-                                        .foregroundColor(.white)
-                                        .font(.body)
-                                        .textCase(.none)
-                                )
-                        }
-                    ).disabled(email.isEmpty || password.isEmpty)
-                ) {}
+                .accentColor(.white)
+                .listRowBackground(Color.blue.opacity(email.isEmpty || password.isEmpty ? 0.5 : 1))
+                .disabled(email.isEmpty || password.isEmpty)
             }
         }
     }
