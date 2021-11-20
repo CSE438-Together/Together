@@ -374,12 +374,12 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         picker.dismiss(animated: true) {
             DispatchQueue.global().async {
                 guard let selectedImage = info[.originalImage] as? UIImage,
-                      let imageData = selectedImage.jpegData(compressionQuality: 0.5)
+                      let imageData = selectedImage.jpegData(compressionQuality: 0.5),
+                      let imageKey = Amplify.Auth.getCurrentUser()?.username
                 else {
                     Alert.showWarning(self, "Failed", "Fail to pick image")
                     return
                 }
-                let imageKey = UUID().uuidString + ".jpg"
                 Amplify.Storage.uploadData(key: imageKey, data: imageData) { [self]
                     result in
                     switch result {

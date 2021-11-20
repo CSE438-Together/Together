@@ -12,8 +12,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var exploreTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
     
-    var refreshControl = UIRefreshControl()
-    var posts: [Post] = [] {
+    private var refreshControl = UIRefreshControl()
+    private var posts: [Post] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.exploreTableView.reloadData()
@@ -21,7 +21,9 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    private var profilePhotoCache: [UIImage?] = []
     private let searchController = UISearchController()
+    private let defaultImage = UIImage(systemName: "person")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +60,23 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         postCell.to.text = posts[indexPath.row].destination
         postCell.numOfMembers.text = "\(posts[indexPath.row].maxMembers ?? 2)"
         postCell.when.text = posts[indexPath.row].departureTime.toString()
+        profilePhotoCache.append(defaultImage)
+        postCell.userAvatar.image = defaultImage
+        guard let owner = posts[indexPath.row].owner else { return postCell }
+
+        Amplify.Storage.downloadData(key: owner) {
+            result in
+            switch result {
+            case .success(let data):
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    postCell.userAvatar.image = image
+                }
+                self.profilePhotoCache[indexPath.row] = image
+            case .failure(_):
+                break
+            }
+        }
         return postCell
     }
     
@@ -66,9 +85,11 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     }    
     
     @objc func refreshPosts() {
-        DispatchQueue.global().async {
+        self.refreshControl.beginRefreshing()
+        DispatchQueue.global().async { [self] in
             let keys = Post.keys
-            self.posts = API.getAll(sort: .descending(keys.departureTime))
+            posts = API.getAll(sort: .descending(keys.departureTime))
+            profilePhotoCache = [UIImage?](repeating: defaultImage, count: posts.count)
         }
     }
     
