@@ -51,6 +51,7 @@
 		728E3399272BB52900D30F02 /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 728E3398272BB52900D30F02 /* AWSAPIPlugin */; };
 		728E339B272BB52900D30F02 /* AWSDataStorePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 728E339A272BB52900D30F02 /* AWSDataStorePlugin */; };
 		8DB86CA4C842D67461AE5C30 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E8FCD677A9CCE78228DE0 /* Post.swift */; };
+		C7121C802748B2FE00C9D86C /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +96,7 @@
 		72349E88272CF44D00BA23E1 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		75DFD74478BF6351E12A0161 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		8F4E8FCD677A9CCE78228DE0 /* Post.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Post.swift; path = amplify/generated/models/Post.swift; sourceTree = "<group>"; };
+		C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				0C493164272C5B6700DBE3DE /* LoginViewController.swift */,
 				0CA716872736124800E431CF /* RegisterViewController.swift */,
 				0C493166272C61A900DBE3DE /* MeViewController.swift */,
+				C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				5073A43A274492D000F6B7C4 /* SignUpView.swift in Sources */,
 				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
 				5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */,
+				C7121C802748B2FE00C9D86C /* MembersViewController.swift in Sources */,
 				50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */,
 				50EEEB562746D789009F53C3 /* LoginView.swift in Sources */,
 				506AC75E273C22E10070667B /* Extension.swift in Sources */,

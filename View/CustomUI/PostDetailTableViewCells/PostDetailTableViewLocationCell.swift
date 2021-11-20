@@ -148,7 +148,11 @@ class PostDetailTableViewLocationCell: UITableViewCell {
 
 extension PostDetailTableViewLocationCell : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations)
+        // You can print location like this
+        // an output example:
+        // [<+37.78583400,-122.40641700> +/- 5.00m (speed -1.00 mps / course -1.00) @ 11/19/21, 11:43:18 PM Central Standard Time]
+        
+        //print(locations)
     }
 }
 

@@ -7,6 +7,7 @@
 
 import UIKit
 import Amplify
+import AWSPluginsCore
 
 class PostDetailViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class PostDetailViewController: UIViewController {
         table.register(PostDetailTableViewPeopleCell.nib(), forCellReuseIdentifier: PostDetailTableViewPeopleCell.identifier)
             return table
         }()
+    
+    private var userId: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,20 +32,27 @@ class PostDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        view.addSubview(tableView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Event Details"
         
-        if !isOwner() {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
+        
+        guard let id = Amplify.Auth.getCurrentUser()?.userId else {
+            print("Error: UserId is not existed")
+            return
         }
         
-//        if isOwner() {
-//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
-//        } else {
-//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
-//        }
+        userId = id
         
-        
-        view.addSubview(tableView)
+        if isOwner() {
+            print("add Edit button")
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
+        } else {
+            print("add join button")
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,27 +64,16 @@ class PostDetailViewController: UIViewController {
     func isOwner() -> Bool {
         // TODO: check
         // for test just return true or false
-        return true
-        
-        // logic:
-//        guard let currentUser = Amplify.Auth.getCurrentUser() else {
-//            print("Error: should not have a user hasn't signed in.")
-//            return false
-//        }
-//        guard let owner = post.owner else {
-//            print("Error: a post should have a owner")
-//            return false
-//        }
-//        if currentUser.userId == owner {
-//            return true
-//        }
-//        return false
+        guard let user = Amplify.Auth.getCurrentUser() else { return false}
+        guard let owner = post.owner else { return false}
+        if user.userId == owner { return true }
+        return false
         
     }
     
-//    @objc func didTapEditButton() {
-////        // edit post
-//    }
+    @objc func didTapEditButton() {
+//        // edit post
+    }
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: PostDetailViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self, post: post)
@@ -82,6 +81,42 @@ class PostDetailViewController: UIViewController {
     
     @objc func didTapJoinButton() {
         // add self to waitlist
+        // check if already is a member
+        print("Tapped Join")
+        guard let members = post.members else {
+            print("No members")
+            return }
+        guard let userId = userId else {
+            print("No userId")
+            return }
+        
+        if post.applicants == nil {
+            print("handle nil")
+            post.applicants = [String]()
+        } else {
+            print("handle not nil")
+            for m in post.applicants! {
+                print(m)
+            }
+        }
+        
+        if ( members.contains(userId) || post.applicants!.contains(userId) ) {
+            print("A member try to join again")
+        } else {
+            post.applicants!.append(userId)
+            print("add to applicants")
+            Amplify.DataStore.save(self.post) { [self]
+                result in
+                switch(result) {
+                case .success:
+                    print("update successfully")
+                case .failure:
+                    print("update failed")
+                }
+            }
+            
+        }
+        
     }
 
     /*
