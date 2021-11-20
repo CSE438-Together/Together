@@ -24,31 +24,6 @@ class API {
         }
         return posts
     }
-
-    public static func signIn(_ email: String, _ password: String, completion: (() -> Void)? = nil, _ handleFailure: ((String) -> Void)? = nil) {
-        DispatchQueue.global().async {
-            Amplify.Auth.signIn(username: email, password: password) {
-                result in
-                switch result {
-                case .success:
-                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                    DispatchQueue.main.async {
-                        let controller = storyboard.instantiateViewController(identifier: "MainTabBarController")
-                        UIApplication.shared.windows.first?.rootViewController = controller
-                    }
-                case .failure(let error):
-                    if let handler = handleFailure {
-                        handler(error.errorDescription)
-                    }
-                }
-            }
-            DispatchQueue.main.async {
-                if let handler = completion {
-                    handler()
-                }
-            }
-        }
-    }
     
     public static func signIn(_ email: String, _ password: String, completion: @escaping ((Result<Never, AuthError>) -> Void)) {
         DispatchQueue.global().async {
