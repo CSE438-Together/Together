@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "WechatIMG124-1.jpeg",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
@@ -11,6 +12,7 @@
       "size" : "20x20"
     },
     {
+      "filename" : "WechatIMG124-2.jpeg",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
@@ -21,6 +23,7 @@
       "size" : "29x29"
     },
     {
+      "filename" : "WechatIMG124.jpeg",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"

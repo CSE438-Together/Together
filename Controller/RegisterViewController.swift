@@ -33,11 +33,55 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         
         self.tabBarController?.tabBar.isHidden = true
-        self.navigationController?.navigationBar.isHidden = true
 
-        registerButton.layer.borderColor = UIColor.systemBlue.cgColor
+        registerButton.layer.borderColor = UIColor.systemGray4.cgColor
         registerButton.layer.borderWidth = 1.5
         registerButton.layer.cornerRadius = 10
+        
+        let emailBottomLine = CALayer()
+        
+        emailBottomLine.frame = CGRect(x: 0.0, y: emailText.frame.height - 1, width: 149, height: 1.0)
+        emailBottomLine.backgroundColor = UIColor.gray.cgColor
+        emailText.borderStyle = UITextField.BorderStyle.none
+        emailText.layer.addSublayer(emailBottomLine)
+        
+        let passwordBottomLine = CALayer()
+        passwordText.borderStyle = UITextField.BorderStyle.none
+        passwordBottomLine.frame = CGRect(x: 0.0, y: emailText.frame.height - 1, width: 240, height: 1.0)
+        passwordBottomLine.backgroundColor = UIColor.gray.cgColor
+        passwordText.layer.addSublayer(passwordBottomLine)
+        
+        let repeatPasswordBottomLine = CALayer()
+        passwordRepeatText.borderStyle = UITextField.BorderStyle.none
+        repeatPasswordBottomLine.frame = CGRect(x: 0.0, y: emailText.frame.height - 1, width: 240, height: 1.0)
+        repeatPasswordBottomLine.backgroundColor = UIColor.gray.cgColor
+        passwordRepeatText.layer.addSublayer(repeatPasswordBottomLine)
+
+        
+        let givenNameBottomLine = CALayer()
+        givenName.borderStyle = UITextField.BorderStyle.none
+        givenNameBottomLine.frame = CGRect(x: 0.0, y: emailText.frame.height - 1, width: 240, height: 1.0)
+        givenNameBottomLine.backgroundColor = UIColor.gray.cgColor
+        givenName.layer.addSublayer(givenNameBottomLine)
+        
+        let familyNameBottomLine = CALayer()
+        familyName.borderStyle = UITextField.BorderStyle.none
+        familyNameBottomLine.frame = CGRect(x: 0.0, y: emailText.frame.height - 1, width: 240, height: 1.0)
+        familyNameBottomLine.backgroundColor = UIColor.gray.cgColor
+        familyName.layer.addSublayer(familyNameBottomLine)
+        
+        let phoneNumBottomLine = CALayer()
+        phoneNum.borderStyle = UITextField.BorderStyle.none
+        phoneNumBottomLine.frame = CGRect(x: 0.0, y: emailText.frame.height - 1, width: 240, height: 1.0)
+        phoneNumBottomLine.backgroundColor = UIColor.gray.cgColor
+        phoneNum.layer.addSublayer(phoneNumBottomLine)
+        
+        let nicknameBottomLine = CALayer()
+        nickName.borderStyle = UITextField.BorderStyle.none
+        nicknameBottomLine.frame = CGRect(x: 0.0, y: emailText.frame.height - 1, width: 240, height: 1.0)
+        nicknameBottomLine.backgroundColor = UIColor.gray.cgColor
+        nickName.layer.addSublayer(nicknameBottomLine)
+        
         
         self.spinner.hidesWhenStopped = true
         self.spinner.layer.zPosition = 200
