@@ -37,5 +37,6 @@ struct ErrorSection: View {
 struct ErrorSection_Previews: PreviewProvider {
     static var previews: some View {
         ErrorSection(error: .constant("some error"))
+            .previewLayout(.sizeThatFits)
     }
 }

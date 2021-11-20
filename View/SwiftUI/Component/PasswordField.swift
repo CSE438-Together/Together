@@ -29,5 +29,6 @@ struct PasswordField: View {
 struct PasswordField_Previews: PreviewProvider {
     static var previews: some View {
         PasswordField(placeholder: "Placeholder", text: .constant("Text"), switchCondition: { true })
+            .previewLayout(.sizeThatFits)
     }
 }

@@ -30,5 +30,6 @@ struct UserProfileField: View {
 struct UserProfileField_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileField(placeholder: "Placeholder", text: .constant("Text"))
+            .previewLayout(.sizeThatFits)
     }
 }
