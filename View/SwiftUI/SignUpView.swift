@@ -8,48 +8,9 @@
 import SwiftUI
 import Amplify
 
-struct UserProfileField: View {
-    let placeholder: String
-    @Binding var text: String
-    var leftItem: Text? = nil
-    var rightItem: Text? = nil
-    
-    var body: some View {
-        HStack {
-            leftItem
-            TextField(placeholder, text: $text)
-                .autocapitalization(.none)
-            rightItem
-            if !text.isEmpty {
-                Image(systemName: "checkmark.circle")
-                    .foregroundColor(.green)
-            }
-        }
-    }
-}
-
-struct PasswordField: View {
-    let placeholder: String
-    @Binding var text: String
-    let switchCondition: () -> Bool
-    
-    var body: some View {
-        HStack {
-            SecureField(placeholder, text: $text)
-            if !text.isEmpty {
-                switchCondition() ?
-                Image(systemName: "checkmark.circle")
-                    .foregroundColor(.green) :
-                Image(systemName: "exclamationmark.circle")
-                    .foregroundColor(.red)
-            }
-        }
-    }
-}
-
 struct BlurView: UIViewRepresentable {
     let style: UIBlurEffect.Style
-    
+
     func makeUIView(context: Context) -> UIVisualEffectView {
         return UIVisualEffectView(effect: UIBlurEffect(style: style))
     }
