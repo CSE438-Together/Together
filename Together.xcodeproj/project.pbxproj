@@ -41,6 +41,7 @@
 		50E7ABBE274850DA00C778EE /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7ABBD274850DA00C778EE /* Spinner.swift */; };
 		50E7ABC027488C1A00C778EE /* UserProfileField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7ABBF27488C1A00C778EE /* UserProfileField.swift */; };
 		50E7ABC227488CA000C778EE /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7ABC127488CA000C778EE /* PasswordField.swift */; };
+		50E7ABC627489BA700C778EE /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7ABC527489BA700C778EE /* BlurView.swift */; };
 		50EEEB542746B6F8009F53C3 /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EEEB532746B6F8009F53C3 /* VerificationView.swift */; };
 		50EEEB562746D789009F53C3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EEEB552746D789009F53C3 /* LoginView.swift */; };
 		512CDFA32741C1C0008CB55B /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 512CDFA22741C1C0008CB55B /* amplifyconfiguration.json */; };
@@ -94,6 +95,7 @@
 		50E7ABBD274850DA00C778EE /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		50E7ABBF27488C1A00C778EE /* UserProfileField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileField.swift; sourceTree = "<group>"; };
 		50E7ABC127488CA000C778EE /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
+		50E7ABC527489BA700C778EE /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		50EEEB532746B6F8009F53C3 /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
 		50EEEB552746D789009F53C3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		512CDFA22741C1C0008CB55B /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				50E7ABBD274850DA00C778EE /* Spinner.swift */,
 				50E7ABBF27488C1A00C778EE /* UserProfileField.swift */,
 				50E7ABC127488CA000C778EE /* PasswordField.swift */,
+				50E7ABC527489BA700C778EE /* BlurView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				5089C9252745DB42000C057F /* NewUserViewModel.swift in Sources */,
 				0C001EBD2743685700B2CD82 /* TabViewController.swift in Sources */,
 				0CA716882736124800E431CF /* RegisterViewController.swift in Sources */,
+				50E7ABC627489BA700C778EE /* BlurView.swift in Sources */,
 				72349E89272CF44D00BA23E1 /* PostTableViewCell.swift in Sources */,
 				5044DF63273F05920099A4C1 /* MessageLabel.swift in Sources */,
 				50DA0603274182CB00B34D1E /* PostDetailTableViewTimeCell.swift in Sources */,

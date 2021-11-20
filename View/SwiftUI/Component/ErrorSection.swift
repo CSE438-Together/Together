@@ -11,19 +11,26 @@ struct ErrorSection: View {
     @Binding var error: String
     
     var body: some View {
-        Section {
-            HStack {
-                Image(systemName: "exclamationmark.icloud")
-                    .foregroundColor(.red)
-                    .font(.title)
-                Text(error)
-                    .foregroundColor(.red)
-                    .textCase(.none)
-                    .font(.body)
-            }
-            .listRowBackground(Color(.systemGroupedBackground))
-            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        if error.isEmpty {
+            return AnyView(EmptyView())
+        } else {
+            return AnyView(
+                Section {
+                    HStack {
+                        Image(systemName: "exclamationmark.icloud")
+                            .foregroundColor(.red)
+                            .font(.title)
+                        Text(error)
+                            .foregroundColor(.red)
+                            .textCase(.none)
+                            .font(.body)
+                    }
+                    .listRowBackground(Color(.systemGroupedBackground))
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                }
+            )
         }
+        
     }
 }
 

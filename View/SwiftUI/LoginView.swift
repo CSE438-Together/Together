@@ -10,7 +10,6 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var hasError = false
     @State private var error = ""
     @State private var isSigningIn = false
 
@@ -38,9 +37,8 @@ struct LoginView: View {
                         .font(.largeTitle.bold())
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
-                if hasError {
-                    ErrorSection(error: $error)
-                }
+                ErrorSection(error: $error)
+                
                 Section {
                     TextField("Eamil", text: $email)
                         .font(.body)
@@ -60,7 +58,6 @@ struct LoginView: View {
                                 break
                             case .failure(let error):
                                 self.error = error.errorDescription
-                                self.hasError = true
                             }
                             self.isSigningIn.toggle()
                         }

@@ -8,54 +8,57 @@
 import SwiftUI
 import Amplify
 
-struct BlurView: UIViewRepresentable {
-    let style: UIBlurEffect.Style
-
-    func makeUIView(context: Context) -> UIVisualEffectView {
-        return UIVisualEffectView(effect: UIBlurEffect(style: style))
-    }
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
-}
-
 struct SignUpView: View {
     @StateObject private var newUser = NewUserViewModel()
     @State private var isSigningUp = false
     @State private var needVerification = false
     @State private var showLoginSheet = false
+    @State private var error = ""
     
     var body: some View {
         ZStack(alignment: .bottom) {
+            if isSigningUp {                
+                Spinner()
+                    .zIndex(7)
+                    .position(
+                        x: UIScreen.main.bounds.midX,
+                        y: UIScreen.main.bounds.midY
+                    )
+            }
+            
             NavigationView {
                 Form {
-                    Section(
-                        footer: Text(newUser.nameValidation).foregroundColor(.red),
-                        content: {
-                            UserProfileField(placeholder: "First Name", text: $newUser.firstName)
-                            UserProfileField(placeholder: "Last Name", text: $newUser.lastName)
+                    ErrorSection(error: $error)
+                    Section(footer:
+                        Text(newUser.nameValidation).foregroundColor(.red)
+                    ) {
+                        UserProfileField(placeholder: "First Name", text: $newUser.firstName)
+                        UserProfileField(placeholder: "Last Name", text: $newUser.lastName)
+                    }
+                    Section(footer:
+                        (newUser.passwordVlidation == .valid ?
+                            Text("") :
+                            Text(newUser.passwordVlidation.rawValue).foregroundColor(.red) + Text("\n"))
+                            + Text("Password must have at least 1 uppercase, 1 lowercase, 1 number, 1 special character, 8 characters long")
+                    ) {
+                        PasswordField(
+                            placeholder: "Create Password",
+                            text: $newUser.password,
+                            switchCondition: {
+                                newUser.passwordVlidation == .valid ||
+                                newUser.passwordVlidation == .notMatch
                             }
-                    )
-                    Section(
-                        footer: (newUser.passwordVlidation == .valid ? Text("") : Text(newUser.passwordVlidation.rawValue).foregroundColor(.red) + Text("\n"))
-                            + Text("Password must have at least 1 uppercase, 1 lowercase, 1 number, 1 special character, 8 characters long"),
-                        content: {
-                            PasswordField(
-                                placeholder: "Create Password",
-                                text: $newUser.password,
-                                switchCondition: {
-                                    newUser.passwordVlidation == .valid ||
-                                    newUser.passwordVlidation == .notMatch
-                                }
-                            )
-                            PasswordField(
-                                placeholder: "Confirm Password",
-                                text: $newUser.confirmedPassword,
-                                switchCondition: {
-                                    newUser.passwordVlidation == .valid
-                                }
-                            )
-                        }
-                    )
-                    Section(footer: Text(newUser.userInfoVlidation).foregroundColor(.red)) {
+                        )
+                        PasswordField(
+                            placeholder: "Confirm Password",
+                            text: $newUser.confirmedPassword,
+                            switchCondition: {
+                                newUser.passwordVlidation == .valid
+                            }
+                        )
+                    }
+                    Section(footer: Text(newUser.userInfoVlidation).foregroundColor(.red)
+                    ) {
                         UserProfileField(placeholder: "Email", text: $newUser.email, rightItem: Text("@wustl.edu"))
                         UserProfileField(placeholder: "Phone Number", text: $newUser.phone, leftItem: Text("+1"))
                         UserProfileField(placeholder: "Username", text: $newUser.nickname)
@@ -66,9 +69,8 @@ struct SignUpView: View {
                             Text("Female").tag("Female")
                         }
                     }
-                    Section(footer: Button(action: {
-                            showLoginSheet.toggle()
-                        }) {
+                    Section(footer:
+                        Button(action: { showLoginSheet.toggle() }) {
                             HStack {
                                 Spacer()
                                 Text("Already have an account? Login here")
@@ -101,19 +103,13 @@ struct SignUpView: View {
             .disabled(needVerification)
             .zIndex(1.0)
             
-            if isSigningUp {
-                BlurView(style: .light)
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .scaleEffect(2.5)
-            }
             if needVerification {
                 VerificationView(email: newUser.email + "@wustl.edu", password: newUser.password)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
                     .cornerRadius(30)
                     .transition(.move(edge: .bottom))
                     .animation(.easeInOut)
-                    .zIndex(4)
+                    .zIndex(10)
             }
         }
         .ignoresSafeArea(.all, edges: .all)
@@ -136,12 +132,10 @@ struct SignUpView: View {
                 result in
                 switch result {
                 case .success:
-                    DispatchQueue.main.async {
-                        isSigningUp = false
-                        needVerification = true
-                    }
+                    isSigningUp = false
+                    needVerification = true
                 case .failure(let error):
-                    print(error)
+                    self.error = error.errorDescription
                 }
             }
         }
