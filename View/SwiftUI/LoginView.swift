@@ -53,14 +53,16 @@ struct LoginView: View {
                 Section {
                     Button(action: {
                         self.isSigningIn.toggle()
-                        API.signIn(
-                            email,
-                            password,
-                            completion: { self.isSigningIn.toggle() }
-                        ) {
-                            message in
-                            self.error = message
-                            self.hasError = true
+                        API.signIn(email, password) {
+                            result in
+                            switch result {
+                            case .success:
+                                break
+                            case .failure(let error):
+                                self.error = error.errorDescription
+                                self.hasError = true
+                            }
+                            self.isSigningIn.toggle()
                         }
                     }) {
                         HStack {
