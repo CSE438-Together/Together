@@ -10,66 +10,77 @@ import Amplify
 
 struct VerificationView: View {
     @State private var verificationCode = ""
+    @State private var isVerifying = false
+    @State private var error = ""
     private let email: String
     private let password: String
-    @State private var isVerifying = false
     
     init (email: String, password: String) {
         self.email = email
         self.password = password
-        print(email)
         UITableView.appearance().backgroundColor = .clear
     }
     
     var body: some View {
         ZStack {
             BlurView(style: .systemUltraThinMaterial)
-            VStack {
-                Text("Verification")
-                    .font(.title)
-                    .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
+            if isVerifying {
+                Spinner().zIndex(15)
+            }
+            VStack(alignment: .leading) {
+                HStack {
+                    Spacer()
+                    Text("Verification")
+                        .font(.title)
+                    Spacer()
+                }
+                .padding()
                 Divider()
-                Text("Please enter verification code we sent to your email address")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
+                HStack {
+                    Spacer()
+                    Text("Please enter verification code we sent to your email address")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                }
+                ErrorSection(error: $error)
+                    .padding()
                 Form {
                     Section {
                         TextField("Verification Code", text: $verificationCode)
                     }
-                    Section(
-                        header: Button(
-                            action: {
-                                isVerifying = true
-                                confirmSignUp()
-                            },
-                            label: {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .frame(height: 40)
-                                    .overlay(
-                                        Text("Verify")
-                                            .foregroundColor(.white)
-                                            .font(.body)
-                                    )
+                    Section(footer:
+                        Button(action: {}) {
+                            HStack {
+                                Spacer()
+                                Text("Resend Code")
+                                    .font(.body)
+                                Spacer()
                             }
-                        ).disabled(verificationCode.isEmpty)
-                    ) {}.textCase(nil)
-                    Section(header: Button(action: {}, label: {
-                        Text("Resend Code")
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-                            .font(.subheadline)
-                    })) {}
-                    .textCase(nil)
+                            .padding([.top], 10)
+                        }
+                        .animation(.none)
+                    ) {
+                        Button(action: {
+                            isVerifying = true
+                            confirmSignUp()
+                        }) {
+                            HStack {
+                                Spacer()
+                                Text("Verify")
+                                Spacer()
+                            }
+                        }
+                        .disabled(verificationCode.isEmpty)
+                        .accentColor(.white)
+                        .listRowBackground(Color.blue.opacity(verificationCode.isEmpty ? 0.5 : 1))
+                    }
                 }
                 .animation(.easeInOut)
                 .padding(EdgeInsets(top: -65, leading: 0, bottom: 0, trailing: 0))
             }
-            if isVerifying {
-                BlurView(style: .light)
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .scaleEffect(2)
-            }
+            .disabled(isVerifying)
         }
     }
     
@@ -79,10 +90,19 @@ struct VerificationView: View {
                 result in
                 switch result {
                 case .success:
-                    API.signIn(email, password)
+                    API.signIn(email, password) {
+                        result in
+                        switch result {
+                        case .success:
+                            break
+                        case .failure(let error):
+                            self.error = error.errorDescription
+                        }
+                    }
                 case .failure(let error):
-                    print(error)
+                    self.error = error.errorDescription
                 }
+                isVerifying = false
             }
         }
     }

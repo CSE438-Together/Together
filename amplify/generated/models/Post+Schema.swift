@@ -16,6 +16,8 @@ extension Post {
     case owner
     case members
     case applicants
+    case createdAt
+    case updatedAt
   }
   
   public static let keys = CodingKeys.self
@@ -25,7 +27,7 @@ extension Post {
     let post = Post.keys
     
     model.authRules = [
-      rule(allow: .owner, ownerField: "owner", identityClaim: "cognito:username", operations: [.create, .update, .delete])
+      rule(allow: .owner, ownerField: "owner", identityClaim: "cognito:username", provider: .userPools, operations: [.create, .delete])
     ]
     
     model.pluralName = "Posts"
@@ -41,7 +43,9 @@ extension Post {
       .field(post.description, is: .optional, ofType: .string),
       .field(post.owner, is: .optional, ofType: .string),
       .field(post.members, is: .optional, ofType: .embeddedCollection(of: String.self)),
-      .field(post.applicants, is: .optional, ofType: .embeddedCollection(of: String.self))
+      .field(post.applicants, is: .optional, ofType: .embeddedCollection(of: String.self)),
+      .field(post.createdAt, is: .optional, isReadOnly: true, ofType: .dateTime),
+      .field(post.updatedAt, is: .optional, isReadOnly: true, ofType: .dateTime)
     )
     }
 }

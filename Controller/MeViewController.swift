@@ -34,11 +34,8 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         userImage.layer.cornerRadius = userImage.frame.width/2
         userImage.layer.masksToBounds = true
 
-        DispatchQueue.global().async { [self] in
-            getUserProfileImageKey() {
-                imageKey in
-                downloadUserProfileImage(imageKey)
-            }
+        if let user = Amplify.Auth.getCurrentUser() {
+            downloadUserProfileImage(user.username)
         }
         
         let nicknameTap = UITapGestureRecognizer(target: self, action: #selector(MeViewController.nicknameTapFunction))
@@ -374,67 +371,24 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         picker.dismiss(animated: true) {
             DispatchQueue.global().async {
                 guard let selectedImage = info[.originalImage] as? UIImage,
-                      let imageData = selectedImage.jpegData(compressionQuality: 0.5)
+                      let imageData = selectedImage.jpegData(compressionQuality: 0.5),
+                      let imageKey = Amplify.Auth.getCurrentUser()?.username
                 else {
                     Alert.showWarning(self, "Failed", "Fail to pick image")
                     return
                 }
-                let imageKey = UUID().uuidString + ".jpg"
                 Amplify.Storage.uploadData(key: imageKey, data: imageData) { [self]
                     result in
                     switch result {
                     case .success:
-                        saveImageToUserProfile(imageKey, selectedImage)
+                        DispatchQueue.main.async {
+                            userImage.image = selectedImage
+                        }
+                        break
                     case .failure(_):
                         Alert.showWarning(self, "Failed", "Fail to upload image")
                     }
                 }
-            }
-        }
-    }
-    
-    private func saveImageToUserProfile(_ imageKey: String, _ selectedImage: UIImage) {
-        DispatchQueue.global().async { [self] in
-            getUserProfileImageKey() {
-                imageKey in
-                Amplify.Storage.remove(key: imageKey) {
-                    result in
-                    switch result {
-                    case .success:
-                        break
-                    case .failure(_):
-                        break
-                    }
-                }
-            }
-            let imageAttribute = AuthUserAttribute(.picture, value: imageKey)
-            Amplify.Auth.update(userAttribute: imageAttribute) { [self]
-                result in
-                switch result {
-                case .success:
-                    DispatchQueue.main.async {
-                        userImage.image = selectedImage
-                    }
-                case .failure(_):
-                    Alert.showWarning(self, "Failed", "Fail to upload profile image")
-                }
-            }
-        }
-    }
-    
-    private func getUserProfileImageKey(_ successHandler: @escaping (String) -> Void) {
-        Amplify.Auth.fetchUserAttributes() {
-            result in
-            switch result {
-            case .success(let attributes):
-                for attribute in attributes {
-                    if attribute.key == .picture {
-                        successHandler(attribute.value)
-                        break
-                    }
-                }
-            case .failure(_):
-                break
             }
         }
     }

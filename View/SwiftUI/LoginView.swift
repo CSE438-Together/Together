@@ -10,67 +10,72 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var hasError = false
     @State private var error = ""
-    
+    @State private var isSigningIn = false
+
     var body: some View {
-        Form {
-            Section(
-                header: HStack {
-                    Spacer()
-                    Image(systemName: "minus")
-                    .font(.custom("SuperLarge", size: 75))
+        ZStack {
+            HStack {
+                Spacer()
+                Image(systemName: "minus")
                     .foregroundColor(.blue)
-                    Spacer()
-                }
-            ) {}
-            Section {
-                Text("Login")
-                    .listRowBackground(Color(.systemGroupedBackground))
-                    .font(.largeTitle.bold())
-                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .font(.custom("SuperLarge", size: 75))
+                Spacer()
+            }
+            .zIndex(1)
+            .position(x: UIScreen.main.bounds.midX, y: 10)
+            
+            if isSigningIn {
+                Spinner().zIndex(5)
             }
             
-            if hasError {
-                Section(header: HStack(alignment: .top) {
-                        Image(systemName: "exclamationmark.icloud")
-                            .foregroundColor(.red)
-                            .font(.title)
-                        Text(error)
-                            .foregroundColor(.red)
-                            .textCase(.none)
-                            .font(.body)
-                    }
-                ) {}
-            }
-            Section {
-                TextField("Eamil", text: $email)
-                    .font(.body)
-                    .foregroundColor(.primary)
-                    .autocapitalization(.none)
-                SecureField("Password", text: $password)
-                    .font(.body)
-                    .foregroundColor(.primary)
-            }
-            Section {
-                Button(action: {
-                    API.signIn(email, password) {
-                        message in
-                        error = message
-                        hasError = true
-                    }
-                }) {
-                    HStack {
-                        Spacer()
-                        Text("Login")
-                        Spacer()
-                    }
+            Form {
+                Section {
+                    Text("Login")
+                        .foregroundColor(.primary)
+                        .listRowBackground(Color(.systemGroupedBackground))
+                        .font(.largeTitle.bold())
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
-                .accentColor(.white)
-                .listRowBackground(Color.blue.opacity(email.isEmpty || password.isEmpty ? 0.5 : 1))
-                .disabled(email.isEmpty || password.isEmpty)
+                ErrorSection(error: $error)
+                
+                Section {
+                    TextField("Eamil", text: $email)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .autocapitalization(.none)
+                    SecureField("Password", text: $password)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                }
+                Section {
+                    Button(action: {
+                        self.isSigningIn.toggle()
+                        API.signIn(email, password) {
+                            result in
+                            switch result {
+                            case .success:
+                                break
+                            case .failure(let error):
+                                self.error = error.errorDescription
+                            }
+                            self.isSigningIn.toggle()
+                        }
+                    }) {
+                        HStack {
+                            Spacer()
+                            Text("Login")
+                                .font(.body)
+                            Spacer()
+                        }
+                    }
+                    .accentColor(.white)
+                    .listRowBackground(Color.blue.opacity(email.isEmpty || password.isEmpty ? 0.5 : 1))
+                    .disabled(email.isEmpty || password.isEmpty)
+                }
             }
         }
+        .disabled(isSigningIn)
     }
 }
 

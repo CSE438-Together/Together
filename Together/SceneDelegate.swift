@@ -22,16 +22,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         Amplify.Auth.fetchAuthSession {
             result in
-            do {
-                let session = try result.get()
+            switch result {
+            case .success(let session):
                 if session.isSignedIn {
                     DispatchQueue.main.async {
                         self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: "MainTabBarController")
                     }
                     return
                 }
-            } catch {
-                print("Fetch auth session failed with error - \(error)")
+            case .failure(_):
+                break
             }
         }
         window?.rootViewController = UIHostingController(rootView: SignUpView())
