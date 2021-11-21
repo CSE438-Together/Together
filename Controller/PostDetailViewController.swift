@@ -12,6 +12,9 @@ import AWSPluginsCore
 class PostDetailViewController: UIViewController {
     
     var post : Post!
+    var isCreator : Bool!
+    var isMember : Bool!
+    var isApplicants : Bool!
     
     private let tableView : UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -38,6 +41,22 @@ class PostDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Event Details"
         
+        // TODO: this should not exist
+        // remove in future
+        Amplify.DataStore.query(Post.self, byId: self.post.id) {
+            switch $0 {
+                case .success(let result):
+                    // result will be a single object of type Post?
+                    print("Posts: \(result)")
+                    self.post = result
+                case .failure(let error):
+                    print("Error on query() for type Post - \(error.localizedDescription)")
+                }
+        }
+        
+        self.tableView.reloadData()
+
+        
         
         guard let id = Amplify.Auth.getCurrentUser()?.userId else {
             print("Error: UserId is not existed")
@@ -46,12 +65,38 @@ class PostDetailViewController: UIViewController {
         
         userId = id
         
-        if isOwner() {
+        isCreator = isOwner()
+        
+        if isCreator {
             print("add Edit button")
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
         } else {
-            print("add join button")
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
+            // check if has applied an applicants or joined
+            guard let members = self.post.members else {
+                print("Error: doesn't have members")
+                return
+            }
+            self.isMember = members.contains(userId!)
+            if self.post.applicants == nil {
+                self.isApplicants = false
+            } else if ( self.post.applicants!.contains(userId!) ) {
+                self.isApplicants = true
+            } else {
+                self.isApplicants = false
+            }
+            
+            if (self.isMember && self.isApplicants) {
+                print("Warning: is memeber and also is applicant")
+                return
+            } else if ( self.isMember || self.isApplicants) {
+                print("add leave button")
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leave", style: .plain, target: self, action: #selector(didTapLeaveButton))
+            } else {
+                print("add join button")
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
+            }
+            
+            
         }
     }
     
@@ -68,11 +113,40 @@ class PostDetailViewController: UIViewController {
         guard let owner = post.owner else { return false}
         if user.userId == owner { return true }
         return false
-        
     }
     
     @objc func didTapEditButton() {
 //        // edit post
+    }
+    
+    @objc func didTapLeaveButton() {
+        if self.isMember {
+            if self.isCreator {return}
+            if self.post.members == nil {return}
+            if let index = self.post.members!.firstIndex(of: userId!) {
+                self.post.members!.remove(at: index)
+            }
+            
+        } else if self.isApplicants {
+            if self.post.applicants == nil {return}
+            if let index = self.post.applicants!.firstIndex(of: userId!) {
+                self.post.applicants!.remove(at: index)
+            }
+        } else {
+            print("Error: neither a member nor a applicants")
+        }
+        
+        
+        Amplify.DataStore.save(self.post) { [self]
+            result in
+            switch(result) {
+            case .success:
+                print("update successfully")
+            case .failure:
+                print("update failed")
+            }
+        }
+        
     }
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: PostDetailViewController?) -> NewPostViewController? {
@@ -171,13 +245,31 @@ extension PostDetailViewController : UITableViewDataSource {
             return cell
             
         case 3:
+            guard let members = post.members else {
+                print("Error: this post doesn't have members")
+                let cell = UITableViewCell()
+                return cell
+            }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewPeopleCell.identifier, for: indexPath) as! PostDetailTableViewPeopleCell
-            cell.configure(with: 0, with: post.maxMembers ?? 1)
+            cell.configure(with: members.count, with: post.maxMembers ?? 1)
             return cell
         default:
             //TODO: check error
             let cell = UITableViewCell()
             return cell
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 3:
+            let membersViewController = MembersViewController()
+            membersViewController.isOwner = self.isCreator
+            membersViewController.post = self.post
+            navigationController?.pushViewController(membersViewController, animated: true)
+        default:
+            return
         }
     }
 
