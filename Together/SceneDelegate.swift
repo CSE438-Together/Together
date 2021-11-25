@@ -20,21 +20,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         guard let _ = (scene as? UIWindowScene) else { return }
-        Amplify.Auth.fetchAuthSession {
+        Amplify.Auth.fetchAuthSession { [self]
             result in
             switch result {
             case .success(let session):
                 if session.isSignedIn {
                     DispatchQueue.main.async {
-                        self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: "MainTabBarController")
+                        window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: "MainTabBarController")
                     }
-                    return
+                } else {
+                    window?.rootViewController = UIHostingController(rootView: SignUpView())
                 }
             case .failure(_):
-                break
+                window?.rootViewController = UIHostingController(rootView: SignUpView())
             }
         }
-        window?.rootViewController = UIHostingController(rootView: SignUpView())
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
