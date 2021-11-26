@@ -7,6 +7,7 @@
 
 import UIKit
 import Amplify
+import Combine
 
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var exploreTableView: UITableView!
@@ -15,6 +16,7 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     private lazy var postManager: PostManager = {
         return PostManager(table: exploreTableView, sort: .descending(Post.keys.departureTime))
     } ()
+    var postsSubscription: AnyCancellable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,21 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         setupTableView()
+        postsSubscription = Amplify.DataStore.publisher(for: Post.self)
+            .sink {
+                if case let .failure(error) = $0 {
+                    print("Subscription received error - \(error.localizedDescription)")
+                }
+            }
+            receiveValue: { changes in
+                // handle incoming changes
+                print("=====================================================================================")
+                print("Subscription received mutation: \(changes)")
+                DispatchQueue.main.async {
+                    Alert.showWarning(self, "new message")
+                }
+                
+            }
     }
     
     func setupTableView(){
