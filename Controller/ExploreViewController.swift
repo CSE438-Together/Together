@@ -30,10 +30,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
                     print("Subscription received error - \(error.localizedDescription)")
                 }
             }
-            receiveValue: { changes in
-                // handle incoming changes
-                print("=====================================================================================")
-                print("Subscription received mutation: \(changes)")
+            receiveValue: {
+                changes in
                 DispatchQueue.main.async {
                     Alert.showWarning(self, "new message")
                 }

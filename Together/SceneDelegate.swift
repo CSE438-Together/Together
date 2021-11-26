@@ -26,13 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             case .success(let session):
                 if session.isSignedIn {
                     DispatchQueue.main.async {
-                        window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: "MainTabBarController")
+                        window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
                     }
-                } else {
-                    window?.rootViewController = UIHostingController(rootView: SignUpView())
                 }
             case .failure(_):
-                window?.rootViewController = UIHostingController(rootView: SignUpView())
+                break
             }
         }
     }

@@ -36,10 +36,10 @@ class NewUserViewModel: ObservableObject {
     @Published var nickname = ""
     @Published var gender = "Male"
     
-    var nameValidation = ""
-    var passwordVlidation = PasswordStatus.valid
-    var userInfoVlidation = ""
-    var isUserProfileValid = false
+    @Published var nameValidation = ""
+    @Published var passwordVlidation = PasswordStatus.valid
+    @Published var userInfoVlidation = ""
+    @Published var isUserProfileValid = false
     
     private var cancellables = Set<AnyCancellable> ()
     private let lowercasePredicate = NSPredicate(format:"SELF MATCHES %@", ".*[a-z]+.*")
