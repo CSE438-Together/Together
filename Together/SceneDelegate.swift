@@ -19,24 +19,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        Amplify.DataStore.start { _ in }
+        
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
-        Amplify.Auth.fetchAuthSession { [self]
-            result in
-            switch result {
-            case .success(let session):
-                if session.isSignedIn {
-                    DispatchQueue.main.async {
-                        window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
+        
+        _ = Amplify.Hub.listen(to: .dataStore) { [self] in
+            if $0.eventName == HubPayload.EventName.DataStore.ready {
+                Amplify.Auth.fetchAuthSession {
+                    switch $0 {
+                    case .success(let session):
+                        if session.isSignedIn {
+                            DispatchQueue.main.async {
+                                window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
+                            }
+                            return
+                        }
+                    case .failure(_):
+                        break
                     }
-                    return
+                    DispatchQueue.main.async {
+                        window?.rootViewController = UIHostingController(rootView: SignUpView())
+                    }
                 }
-            case .failure(_):
-                break
-            }
-            DispatchQueue.main.async {
-                window?.rootViewController = UIHostingController(rootView: SignUpView())
             }
         }
     }

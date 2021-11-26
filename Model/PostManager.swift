@@ -8,6 +8,7 @@
 import UIKit
 import Amplify
 import Combine
+//import AWSDataStorePlugin
 
 class PostManager {
     private var posts = [Post]()
@@ -31,16 +32,23 @@ class PostManager {
         self.table.refreshControl = UIRefreshControl()
         self.table.refreshControl?.addTarget(self, action: #selector(reloadPosts), for: .valueChanged)
         self.table.refreshControl?.attributedTitle = NSAttributedString(string: "loading...")
-        self.reloadPosts()
-        postsSubscription = Amplify.DataStore.publisher(for: Post.self)
-            .sink {
-                if case let .failure(error) = $0 {
-                    print("Subscription received error - \(error.localizedDescription)")
-                }
-            }
-            receiveValue: {
-                changes in
-            }
+        reloadPosts()
+//        _ = Amplify.Hub.listen(to: .dataStore) {
+//            event in
+//            if event.eventName == HubPayload.EventName.DataStore.ready {
+////                self.postsSubscription?.cancel()
+//                self.reloadPosts()
+//            }
+//        }
+//        postsSubscription = Amplify.DataStore.publisher(for: Post.self)
+//            .sink {
+//                if case let .failure(error) = $0 {
+//                    print("Subscription received error - \(error.localizedDescription)")
+//                }
+//            }
+//            receiveValue: { [self]
+//                changes in
+//            }
     }
     
     @objc func reloadPosts() {
@@ -52,14 +60,7 @@ class PostManager {
             imageCache.removeAll()
             DispatchQueue.main.async {
                 table.refreshControl?.endRefreshing()
-                print("reloading==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================")
-                print(posts.count)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    print("chekingcount==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================")
-                    print(posts.count)
-                }
                 table.reloadData()
-                print("finishReloading==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================")
             }
         }
     }
