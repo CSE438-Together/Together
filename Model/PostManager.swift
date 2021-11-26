@@ -7,6 +7,7 @@
 
 import UIKit
 import Amplify
+import Combine
 
 class PostManager {
     private var posts = [Post]()
@@ -15,7 +16,8 @@ class PostManager {
     private let predicate: QueryPredicate?
     private var table: UITableView
     private let defaultImage = UIImage(systemName: "person")
-    
+    private var postsSubscription: AnyCancellable?
+
     var postCount: Int {
         get {
             return posts.count
@@ -30,6 +32,15 @@ class PostManager {
         self.table.refreshControl?.addTarget(self, action: #selector(reloadPosts), for: .valueChanged)
         self.table.refreshControl?.attributedTitle = NSAttributedString(string: "loading...")
         self.reloadPosts()
+        postsSubscription = Amplify.DataStore.publisher(for: Post.self)
+            .sink {
+                if case let .failure(error) = $0 {
+                    print("Subscription received error - \(error.localizedDescription)")
+                }
+            }
+            receiveValue: {
+                changes in
+            }
     }
     
     @objc func reloadPosts() {
@@ -41,7 +52,14 @@ class PostManager {
             imageCache.removeAll()
             DispatchQueue.main.async {
                 table.refreshControl?.endRefreshing()
+                print("reloading==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================")
+                print(posts.count)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    print("chekingcount==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================")
+                    print(posts.count)
+                }
                 table.reloadData()
+                print("finishReloading==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================")
             }
         }
     }
@@ -49,7 +67,6 @@ class PostManager {
     func getCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         guard let postCell = cell as? PostTableViewCell else { return cell }
-        
         postCell.postTitle.text = posts[indexPath.row].title
         postCell.from.text = posts[indexPath.row].departurePlace
         postCell.to.text = posts[indexPath.row].destination

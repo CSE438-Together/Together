@@ -13,10 +13,7 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var exploreTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
     private let searchController = UISearchController()
-    private lazy var postManager: PostManager = {
-        return PostManager(table: exploreTableView, sort: .descending(Post.keys.departureTime))
-    } ()
-    var postsSubscription: AnyCancellable?
+    private var postManager: PostManager!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,25 +21,10 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         setupTableView()
-        postsSubscription = Amplify.DataStore.publisher(for: Post.self)
-            .sink {
-                if case let .failure(error) = $0 {
-                    print("Subscription received error - \(error.localizedDescription)")
-                }
-            }
-            receiveValue: {
-                changes in
-                DispatchQueue.main.async {
-                    Alert.showWarning(self, "new message")
-                }
-                
-            }
+        postManager = PostManager(table: exploreTableView, sort: .descending(Post.keys.departureTime))
     }
     
     func setupTableView(){
-        exploreTableView.dataSource = self
-        exploreTableView.delegate = self
-        
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         exploreTableView.register(nib, forCellReuseIdentifier: "cell")
         exploreTableView.estimatedRowHeight = 85.0
