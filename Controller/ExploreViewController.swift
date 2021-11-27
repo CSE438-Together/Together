@@ -58,7 +58,13 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         postCell.postTitle.text = posts[indexPath.row].title
         postCell.from.text = posts[indexPath.row].departurePlace
         postCell.to.text = posts[indexPath.row].destination
-        postCell.numOfMembers.text = "\(posts[indexPath.row].maxMembers ?? 2)"
+        postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
+        if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
+            postCell.numOfMembers.textColor = UIColor.systemRed
+        }else {
+            postCell.numOfMembers.textColor = UIColor.systemGreen
+        }
+
         postCell.when.text = posts[indexPath.row].departureTime.toString()
         profilePhotoCache.append(defaultImage)
         postCell.userAvatar.image = defaultImage
