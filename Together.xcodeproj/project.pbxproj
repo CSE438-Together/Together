@@ -55,6 +55,9 @@
 		728E3399272BB52900D30F02 /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 728E3398272BB52900D30F02 /* AWSAPIPlugin */; };
 		728E339B272BB52900D30F02 /* AWSDataStorePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 728E339A272BB52900D30F02 /* AWSDataStorePlugin */; };
 		8DB86CA4C842D67461AE5C30 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E8FCD677A9CCE78228DE0 /* Post.swift */; };
+		C7121C802748B2FE00C9D86C /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */; };
+		C7DDAB1E2749B80600D89785 /* MembersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDAB1C2749B80600D89785 /* MembersTableViewCell.swift */; };
+		C7DDAB1F2749B80600D89785 /* MembersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7DDAB1D2749B80600D89785 /* MembersTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +106,9 @@
 		72349E88272CF44D00BA23E1 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		75DFD74478BF6351E12A0161 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		8F4E8FCD677A9CCE78228DE0 /* Post.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Post.swift; path = amplify/generated/models/Post.swift; sourceTree = "<group>"; };
+		C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
+		C7DDAB1C2749B80600D89785 /* MembersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersTableViewCell.swift; sourceTree = "<group>"; };
+		C7DDAB1D2749B80600D89785 /* MembersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MembersTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +194,7 @@
 				0C001EBC2743685700B2CD82 /* TabViewController.swift */,
 				0C493168272C62B700DBE3DE /* ExploreViewController.swift */,
 				0C493166272C61A900DBE3DE /* MeViewController.swift */,
+				C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -284,6 +291,7 @@
 		72349E7E272CECDA00BA23E1 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				C7DDAB172749A2DB00D89785 /* MembersTableViewCells */,
 				50DA05FA274182AA00B34D1E /* PostDetailTableViewCells */,
 				72349E87272CF44D00BA23E1 /* PostTableViewCell.swift */,
 				72349E88272CF44D00BA23E1 /* PostTableViewCell.xib */,
@@ -298,6 +306,15 @@
 				512CDFA42741C1C5008CB55B /* awsconfiguration.json */,
 			);
 			name = AmplifyConfig;
+			sourceTree = "<group>";
+		};
+		C7DDAB172749A2DB00D89785 /* MembersTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				C7DDAB1C2749B80600D89785 /* MembersTableViewCell.swift */,
+				C7DDAB1D2749B80600D89785 /* MembersTableViewCell.xib */,
+			);
+			path = MembersTableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +391,7 @@
 				50DA060A274182CB00B34D1E /* PostDetailTableViewTimeCell.xib in Resources */,
 				50072381272B8F0500F3FF31 /* Assets.xcassets in Resources */,
 				72349E8A272CF44D00BA23E1 /* PostTableViewCell.xib in Resources */,
+				C7DDAB1F2749B80600D89785 /* MembersTableViewCell.xib in Resources */,
 				50DA0605274182CB00B34D1E /* PostDetailTableViewOverViewCell.xib in Resources */,
 				512CDFA32741C1C0008CB55B /* amplifyconfiguration.json in Resources */,
 				5007237F272B8F0500F3FF31 /* Main.storyboard in Resources */,
@@ -410,6 +428,8 @@
 				5073A43A274492D000F6B7C4 /* SignUpView.swift in Sources */,
 				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
 				5007237A272B8F0500F3FF31 /* SceneDelegate.swift in Sources */,
+				C7121C802748B2FE00C9D86C /* MembersViewController.swift in Sources */,
+				C7DDAB1E2749B80600D89785 /* MembersTableViewCell.swift in Sources */,
 				50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */,
 				50EEEB562746D789009F53C3 /* LoginView.swift in Sources */,
 				506AC75E273C22E10070667B /* Extension.swift in Sources */,
