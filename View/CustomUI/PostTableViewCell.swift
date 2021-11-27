@@ -26,7 +26,14 @@ class PostTableViewCell: UITableViewCell {
         shadowView.layer.shadowRadius = 3
         shadowView.layer.masksToBounds = false
         shadowView.layer.cornerRadius = 10
-        contentView.backgroundColor = #colorLiteral(red: 1, green: 0.9850923419, blue: 0.8796316385, alpha: 1)
+        
+        let gradientlayer = CAGradientLayer()
+        gradientlayer.frame = contentView.bounds
+        gradientlayer.colors = [UIColor.white.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
+        gradientlayer.locations = [0, 1]
+        gradientlayer.startPoint = CGPoint(x: 1.0, y: 0.0)
+        gradientlayer.endPoint = CGPoint(x: 0.0, y: 0.0)
+        contentView.layer.insertSublayer(gradientlayer, at: 0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

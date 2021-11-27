@@ -157,6 +157,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="vCG-iM-b9u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="193-WQ-dbF"/>
                     <constraint firstItem="vCG-iM-b9u" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="An0-rX-AX4"/>

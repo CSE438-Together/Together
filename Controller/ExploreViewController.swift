@@ -27,14 +27,21 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let purpleToPink = CAGradientLayer()
+        purpleToPink.frame = tabBarController!.tabBar.bounds
+        purpleToPink.colors = [UIColor(named: "bgPurple")!.cgColor, UIColor(named: "bgPink")!.cgColor]
+        purpleToPink.locations = [0, 1]
+        purpleToPink.startPoint = CGPoint(x: 1.0, y: 0.0)
+        purpleToPink.endPoint = CGPoint(x: 0.0, y: 0.0)
+        tabBarController!.tabBar.layer.insertSublayer(purpleToPink, at: 0)
         
 //        let layer = CAGradientLayer()
 //        layer.frame = (navigationController?.navigationBar.bounds)!
 //        layer.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
-//        let image = GradientColor.image(fromLayer: layer)
-//        self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+//        self.navigationController?.navigationBar.layer.insertSublayer(layer, at: 0)
+//        self.navigationController?.navigationBar.setBackgroundImage(GradientColor.image(fromLayer: layer), for: .default)
         
-//        navigationController?.navigationBar.backgroundColor = UIColor(named: "bgYellow")
+        navigationController?.navigationBar.backgroundColor = UIColor(named: "bgYellow")
         
         navigationItem.searchController = searchController
         searchController.hidesNavigationBarDuringPresentation = false
@@ -55,7 +62,14 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.estimatedRowHeight = 85.0
         exploreTableView.rowHeight = UITableView.automaticDimension
         exploreTableView.separatorColor = UIColor.clear
-        exploreTableView.backgroundColor = #colorLiteral(red: 1, green: 0.9850923419, blue: 0.8796316385, alpha: 1)
+        
+        let gradientlayer = CAGradientLayer()
+        gradientlayer.frame = exploreTableView.bounds
+        gradientlayer.colors = [UIColor.white.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
+        gradientlayer.locations = [0, 1]
+        gradientlayer.startPoint = CGPoint(x: 1.0, y: 0.0)
+        gradientlayer.endPoint = CGPoint(x: 0.0, y: 0.0)
+        exploreTableView.backgroundView = UIImageView(image: GradientColor.image(fromLayer: gradientlayer))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

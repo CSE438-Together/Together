@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 class GradientColor{
     static func image(fromLayer layer: CALayer) -> UIImage {
         
