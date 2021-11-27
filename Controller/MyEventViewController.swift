@@ -11,17 +11,6 @@ import Amplify
 class MyEventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var myEventTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
-    private var profilePhotoCache: [UIImage?] = []
-    private let defaultImage = UIImage(systemName: "person")
-    var refreshControl = UIRefreshControl()
-    var myEvents: [Post] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.myEventTableView.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-        }
-    }
     private let searchController = UISearchController()
     private var eventManager: PostManager!
     
