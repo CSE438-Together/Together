@@ -64,8 +64,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         }else {
             postCell.numOfMembers.textColor = UIColor.systemGreen
         }
-
         postCell.when.text = posts[indexPath.row].departureTime.toString()
+        
         profilePhotoCache.append(defaultImage)
         postCell.userAvatar.image = defaultImage
         guard let owner = posts[indexPath.row].owner else { return postCell }

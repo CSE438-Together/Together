@@ -18,7 +18,8 @@ class PostTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        userAvatar.layer.cornerRadius = userAvatar.frame.width * 0.2
+        userAvatar.layer.cornerRadius = userAvatar.frame.width/2
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
