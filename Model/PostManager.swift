@@ -56,7 +56,17 @@ class PostManager {
         postCell.postTitle.text = posts[indexPath.row].title
         postCell.from.text = posts[indexPath.row].departurePlace
         postCell.to.text = posts[indexPath.row].destination
-        postCell.numOfMembers.text = "\(posts[indexPath.row].maxMembers ?? 2)"
+        postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
+        if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
+            postCell.numOfMembers.textColor = UIColor.systemRed
+        }
+        if let setTime = posts[indexPath.row].departureTime {
+            if(setTime > Temporal.DateTime(Date())){
+                postCell.shadowView.backgroundColor = UIColor(named: "bgGreen")
+            }else {
+                postCell.shadowView.backgroundColor = UIColor(named: "bgRed")
+            }
+        }
         postCell.when.text = posts[indexPath.row].departureTime.toString()
         guard let owner = posts[indexPath.row].owner else { return postCell }
         if imageCache[owner] == nil {

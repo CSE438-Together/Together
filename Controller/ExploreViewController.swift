@@ -100,43 +100,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return postManager.getCell(forRowAt: indexPath)
-        let cell = exploreTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        guard let postCell = cell as? PostTableViewCell else { return cell }
-        
-        postCell.postTitle.text = posts[indexPath.row].title
-        postCell.from.text = posts[indexPath.row].departurePlace
-        postCell.to.text = posts[indexPath.row].destination
-        postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
-        if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
-            postCell.numOfMembers.textColor = UIColor.systemRed
-        }
-        if let setTime = posts[indexPath.row].departureTime {
-            if(setTime > Temporal.DateTime(Date())){
-                postCell.shadowView.backgroundColor = UIColor(named: "bgGreen")
-            }else {
-                postCell.shadowView.backgroundColor = UIColor(named: "bgRed")
-        }
-        
-        }
-        postCell.when.text = posts[indexPath.row].departureTime.toString()
-        profilePhotoCache.append(defaultImage)
-        postCell.userAvatar.image = defaultImage
-        guard let owner = posts[indexPath.row].owner else { return postCell }
-
-        Amplify.Storage.downloadData(key: owner) {
-            result in
-            switch result {
-            case .success(let data):
-                let image = UIImage(data: data)
-                DispatchQueue.main.async {
-                    postCell.userAvatar.image = image
-                }
-                self.profilePhotoCache[indexPath.row] = image
-            case .failure(_):
-                break
-            }
-        }
-        return postCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -162,7 +125,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 
 extension ExploreViewController: NewPostViewDelegate {
     func handleSuccess() {
-//        message.showSuccessMessage("Post Sent")
         DispatchQueue.main.async { [self] in
             UIView.animate(withDuration: 0.6) {
                 label.center = CGPoint(x: view.center.x, y: (topPadding ?? 50) + label.frame.height / 2)
@@ -173,12 +135,6 @@ extension ExploreViewController: NewPostViewDelegate {
                 }
             }
         }
-//        DispatchQueue.main.async { [self] in
-//            view.addSubview(label)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                label.removeFromSuperview()
-//            }
-//        }
     }
     
     func handleFailure() {

@@ -64,44 +64,6 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return eventManager.getCell(forRowAt: indexPath)
-        let cell = myEventTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        guard let postCell = cell as? PostTableViewCell else { return cell }
-        
-        postCell.postTitle.text = myEvents[indexPath.row].title
-        postCell.from.text = myEvents[indexPath.row].departurePlace
-        postCell.to.text = myEvents[indexPath.row].destination
-        postCell.numOfMembers.text = "\(myEvents[indexPath.row].members!.count) / \(myEvents[indexPath.row].maxMembers!)"
-        if(myEvents[indexPath.row].members!.count == myEvents[indexPath.row].maxMembers!){
-            postCell.numOfMembers.textColor = UIColor.systemRed
-        }
-        if let setTime = myEvents[indexPath.row].departureTime {
-            if(setTime > Temporal.DateTime(Date())){
-                postCell.shadowView.backgroundColor = UIColor(named: "bgGreen")
-            }else {
-                postCell.shadowView.backgroundColor = UIColor(named: "bgRed")
-        }
-        
-        }
-        postCell.when.text = myEvents[indexPath.row].departureTime.toString()
-        profilePhotoCache.append(defaultImage)
-        postCell.userAvatar.image = defaultImage
-        guard let owner = myEvents[indexPath.row].owner else { return postCell }
-
-        Amplify.Storage.downloadData(key: owner) {
-            result in
-            switch result {
-            case .success(let data):
-                let image = UIImage(data: data)
-                DispatchQueue.main.async {
-                    postCell.userAvatar.image = image
-                }
-                self.profilePhotoCache[indexPath.row] = image
-            case .failure(_):
-                break
-            }
-        }
-        return postCell
-
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
