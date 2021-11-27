@@ -14,11 +14,26 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var to: UILabel!
     @IBOutlet weak var when: UILabel!
     @IBOutlet weak var numOfMembers: UILabel!
+    @IBOutlet weak var shadowView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        userAvatar.layer.cornerRadius = userAvatar.frame.width * 0.2
+        userAvatar.layer.cornerRadius = userAvatar.frame.width/2
+        shadowView.layer.shadowColor = UIColor.gray.cgColor;
+        shadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        shadowView.layer.shadowOpacity = 0.8
+        shadowView.layer.shadowRadius = 3
+        shadowView.layer.masksToBounds = false
+        shadowView.layer.cornerRadius = 10
+        
+        let gradientlayer = CAGradientLayer()
+        gradientlayer.frame = contentView.bounds
+        gradientlayer.colors = [UIColor.white.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
+        gradientlayer.locations = [0, 1]
+        gradientlayer.startPoint = CGPoint(x: 1.0, y: 0.0)
+        gradientlayer.endPoint = CGPoint(x: 0.0, y: 0.0)
+        contentView.layer.insertSublayer(gradientlayer, at: 0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

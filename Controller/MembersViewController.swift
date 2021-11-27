@@ -101,7 +101,7 @@ extension MembersViewController : UITableViewDataSource {
                 print("Error: this post doesn't have members or this index is out of index bound")
                 return cell
             }
-            cell.configure(with: members[indexPath.row])
+            cell.configure(with: members[indexPath.row]!)
             return cell
         case 1:
             if self.post.applicants == nil {
@@ -109,7 +109,7 @@ extension MembersViewController : UITableViewDataSource {
                 cell.configure(with: "")
                 return cell
             } else {
-                cell.configure(with: self.post.applicants![indexPath.row])
+                cell.configure(with: self.post.applicants![indexPath.row]!)
                 return cell
             }
         default:

@@ -17,6 +17,7 @@ import AWSS3StoragePlugin
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UINavigationBar.appearance().backgroundColor = UIColor(named: "bgLightPurple")
         // Override point for customization after application launch.
         do {
             let model = AmplifyModels()
