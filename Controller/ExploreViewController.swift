@@ -27,6 +27,15 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let layer = CAGradientLayer()
+//        layer.frame = (navigationController?.navigationBar.bounds)!
+//        layer.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
+//        let image = GradientColor.image(fromLayer: layer)
+//        self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+        
+//        navigationController?.navigationBar.backgroundColor = UIColor(named: "bgYellow")
+        
         navigationItem.searchController = searchController
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
@@ -45,6 +54,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.register(nib, forCellReuseIdentifier: "cell")
         exploreTableView.estimatedRowHeight = 85.0
         exploreTableView.rowHeight = UITableView.automaticDimension
+        exploreTableView.separatorColor = UIColor.clear
+        exploreTableView.backgroundColor = #colorLiteral(red: 1, green: 0.9850923419, blue: 0.8796316385, alpha: 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,11 +72,16 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
         if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
             postCell.numOfMembers.textColor = UIColor.systemRed
-        }else {
-            postCell.numOfMembers.textColor = UIColor.systemGreen
+        }
+        if let setTime = posts[indexPath.row].departureTime {
+            if(setTime > Temporal.DateTime(Date())){
+                postCell.shadowView.backgroundColor = UIColor(named: "bgGreen")
+            }else {
+                postCell.shadowView.backgroundColor = UIColor(named: "bgRed")
+        }
+        
         }
         postCell.when.text = posts[indexPath.row].departureTime.toString()
-        
         profilePhotoCache.append(defaultImage)
         postCell.userAvatar.image = defaultImage
         guard let owner = posts[indexPath.row].owner else { return postCell }

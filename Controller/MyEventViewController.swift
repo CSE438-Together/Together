@@ -12,7 +12,8 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var myEventTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
-    
+    private var profilePhotoCache: [UIImage?] = []
+    private let defaultImage = UIImage(systemName: "person")
     var refreshControl = UIRefreshControl()
     var myEvents: [Post] = [] {
         didSet {
@@ -44,6 +45,8 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         myEventTableView.register(nib, forCellReuseIdentifier: "cell")
         myEventTableView.estimatedRowHeight = 85.0
         myEventTableView.rowHeight = UITableView.automaticDimension
+        myEventTableView.separatorColor = UIColor.clear
+        myEventTableView.backgroundColor = #colorLiteral(red: 1, green: 0.9850923419, blue: 0.8796316385, alpha: 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,9 +60,38 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         postCell.postTitle.text = myEvents[indexPath.row].title
         postCell.from.text = myEvents[indexPath.row].departurePlace
         postCell.to.text = myEvents[indexPath.row].destination
-        postCell.numOfMembers.text = "\(myEvents[indexPath.row].maxMembers ?? 2)"
+        postCell.numOfMembers.text = "\(myEvents[indexPath.row].members!.count) / \(myEvents[indexPath.row].maxMembers!)"
+        if(myEvents[indexPath.row].members!.count == myEvents[indexPath.row].maxMembers!){
+            postCell.numOfMembers.textColor = UIColor.systemRed
+        }
+        if let setTime = myEvents[indexPath.row].departureTime {
+            if(setTime > Temporal.DateTime(Date())){
+                postCell.shadowView.backgroundColor = UIColor(named: "bgGreen")
+            }else {
+                postCell.shadowView.backgroundColor = UIColor(named: "bgRed")
+        }
+        
+        }
         postCell.when.text = myEvents[indexPath.row].departureTime.toString()
+        profilePhotoCache.append(defaultImage)
+        postCell.userAvatar.image = defaultImage
+        guard let owner = myEvents[indexPath.row].owner else { return postCell }
+
+        Amplify.Storage.downloadData(key: owner) {
+            result in
+            switch result {
+            case .success(let data):
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    postCell.userAvatar.image = image
+                }
+                self.profilePhotoCache[indexPath.row] = image
+            case .failure(_):
+                break
+            }
+        }
         return postCell
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
