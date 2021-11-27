@@ -7,21 +7,59 @@
 
 import UIKit
 import Amplify
-import Combine
 
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var exploreTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
+    @IBOutlet weak var newPostsReminder: UIButton!
     private let searchController = UISearchController()
     private var postManager: PostManager!
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 8
+        label.text = "Post Sent"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.backgroundColor = .systemBlue
+        label.frame = CGRect(x: 15, y: 47,
+                             width: view.frame.width - 30,
+                             height: label.intrinsicContentSize.height + 30
+        )
+        label.center = CGPoint(x: view.center.x, y: -label.frame.height)
+        return label
+    } ()
+    private let topPadding = UIApplication.shared.windows.first?.safeAreaInsets.top
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.view.addSubview(label)
+        exploreTableView.scrollsToTop = false
+        newPostsReminder.layer.cornerRadius = 15
         navigationItem.searchController = searchController
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         setupTableView()
-        postManager = PostManager(table: exploreTableView, sort: .descending(Post.keys.departureTime))
+        postManager = PostManager(
+            table: exploreTableView,
+            sort: .descending(Post.keys.departureTime),
+            reloadCompletion: { self.newPostsReminder.isHidden = true }
+        )
+
+        _ = Amplify.Hub.listen(to: .dataStore) {
+            if $0.eventName == HubPayload.EventName.DataStore.syncReceived {
+                guard let mutationEvent = $0.data as? MutationEvent,
+                      mutationEvent.mutationType == GraphQLMutationType.create.rawValue,
+                      let item = try? mutationEvent.decodeModel(as: Post.self)
+                else {
+                    return
+                }
+                self.postManager.posts.insert(item, at: 0)
+                DispatchQueue.main.async { [self] in
+                    self.newPostsReminder.isHidden = false
+                }
+            }
+        }
     }
     
     func setupTableView(){
@@ -43,15 +81,42 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         postManager.showPostDetailViewController(controller: self, indexPath: indexPath)
     }
     
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        newPostsReminder.isHidden = true
+        exploreTableView.scrollsToTop = false
+    }
+    
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
-    }    
+    }
+    
+    @IBAction func newPostsButtonPressed(_ sender: UIButton) {
+        sender.isHidden = true
+        exploreTableView.reloadData()
+        exploreTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        exploreTableView.scrollsToTop = true
+    }
 }
 
 extension ExploreViewController: NewPostViewDelegate {
     func handleSuccess() {
-        postManager.reloadPosts()
-        message.showSuccessMessage("Post Sent")
+//        message.showSuccessMessage("Post Sent")
+        DispatchQueue.main.async { [self] in
+            UIView.animate(withDuration: 0.6) {
+                label.center = CGPoint(x: view.center.x, y: (topPadding ?? 50) + label.frame.height / 2)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                UIView.animate(withDuration: 0.6) {
+                    label.center = CGPoint(x: view.center.x, y: -label.frame.height)
+                }
+            }
+        }
+//        DispatchQueue.main.async { [self] in
+//            view.addSubview(label)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                label.removeFromSuperview()
+//            }
+//        }
     }
     
     func handleFailure() {

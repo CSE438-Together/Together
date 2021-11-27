@@ -7,17 +7,15 @@
 
 import UIKit
 import Amplify
-import Combine
-//import AWSDataStorePlugin
 
 class PostManager {
-    private var posts = [Post]()
+    var posts = [Post]()
     private var imageCache = [String:UIImage]()
     private let sort: QuerySortInput?
     private let predicate: QueryPredicate?
     private var table: UITableView
     private let defaultImage = UIImage(systemName: "person")
-    private var postsSubscription: AnyCancellable?
+    private var reloadCompletion: (() -> Void)?
 
     var postCount: Int {
         get {
@@ -25,7 +23,8 @@ class PostManager {
         }
     }
     
-    init(table: UITableView, predicate: QueryPredicate? = nil, sort: QuerySortInput? = nil) {        
+    init(table: UITableView, predicate: QueryPredicate? = nil, sort: QuerySortInput? = nil, reloadCompletion: (() -> Void)? = nil) {
+        self.reloadCompletion = reloadCompletion
         self.predicate = predicate
         self.sort = sort
         self.table = table
@@ -33,22 +32,6 @@ class PostManager {
         self.table.refreshControl?.addTarget(self, action: #selector(reloadPosts), for: .valueChanged)
         self.table.refreshControl?.attributedTitle = NSAttributedString(string: "loading...")
         reloadPosts()
-//        _ = Amplify.Hub.listen(to: .dataStore) {
-//            event in
-//            if event.eventName == HubPayload.EventName.DataStore.ready {
-////                self.postsSubscription?.cancel()
-//                self.reloadPosts()
-//            }
-//        }
-//        postsSubscription = Amplify.DataStore.publisher(for: Post.self)
-//            .sink {
-//                if case let .failure(error) = $0 {
-//                    print("Subscription received error - \(error.localizedDescription)")
-//                }
-//            }
-//            receiveValue: { [self]
-//                changes in
-//            }
     }
     
     @objc func reloadPosts() {
@@ -57,10 +40,12 @@ class PostManager {
         }
         DispatchQueue.global().async { [self] in
             posts = API.getAll(where: predicate, sort: sort)
-            imageCache.removeAll()
             DispatchQueue.main.async {
                 table.refreshControl?.endRefreshing()
                 table.reloadData()
+                if let completion = reloadCompletion {
+                    completion()
+                }
             }
         }
     }
@@ -80,10 +65,10 @@ class PostManager {
                 switch result {
                 case .success(let data):
                     let image = UIImage(data: data)
-                    DispatchQueue.main.async {
-                        postCell.userAvatar.image = image
-                    }
                     imageCache[owner] = image
+                    DispatchQueue.main.async {
+                        postCell.userAvatar.image = imageCache[owner]
+                    }
                 case .failure(_):
                     imageCache[owner] = defaultImage
                 }

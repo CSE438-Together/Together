@@ -69,11 +69,24 @@
                                     <constraint firstItem="ezo-A1-5FB" firstAttribute="top" secondItem="8G1-yM-uCy" secondAttribute="top" id="QTF-7f-83K"/>
                                 </constraints>
                             </stackView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6B-Nd-Lxx">
+                                <rect key="frame" x="144.66666666666666" y="88" width="101" height="38"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" title="↑ New Post">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="newPostsButtonPressed:" destination="sRN-s1-BZS" eventType="touchUpInside" id="vKc-TG-SCE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aK7-dg-9J1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="u6B-Nd-Lxx" firstAttribute="top" secondItem="aK7-dg-9J1" secondAttribute="top" id="WHw-dh-rtN"/>
                             <constraint firstItem="aK7-dg-9J1" firstAttribute="trailing" secondItem="8G1-yM-uCy" secondAttribute="trailing" id="bU5-AH-Ixo"/>
+                            <constraint firstItem="u6B-Nd-Lxx" firstAttribute="centerX" secondItem="aK7-dg-9J1" secondAttribute="centerX" id="hoj-dx-mkc"/>
                             <constraint firstItem="8G1-yM-uCy" firstAttribute="leading" secondItem="aK7-dg-9J1" secondAttribute="leading" id="jUR-HT-ILH"/>
                             <constraint firstItem="aK7-dg-9J1" firstAttribute="bottom" secondItem="8G1-yM-uCy" secondAttribute="bottom" id="mlI-hf-Ogj"/>
                             <constraint firstItem="8G1-yM-uCy" firstAttribute="top" secondItem="aK7-dg-9J1" secondAttribute="top" id="xfH-TI-Bg4"/>
@@ -89,6 +102,7 @@
                     <connections>
                         <outlet property="exploreTableView" destination="DZD-Df-9kf" id="5Zc-RE-LLr"/>
                         <outlet property="message" destination="3NA-zm-vU5" id="uTM-u4-CKf"/>
+                        <outlet property="newPostsReminder" destination="u6B-Nd-Lxx" id="WH6-6y-Pku"/>
                         <segue destination="bR1-NO-gz6" kind="show" identifier="FromExploreToPostDetail" id="2pT-K3-BAU"/>
                     </connections>
                 </viewController>
@@ -192,7 +206,7 @@
                                                                 <rect key="frame" x="15" y="285.66666666666669" width="360" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auu-qr-PX6">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="20.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="35.333333333333336" height="20.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="oVj-gW-nJY"/>
                                                                         </constraints>
@@ -201,7 +215,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a departure place" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-0C-xtD" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                        <rect key="frame" x="155" y="-5" width="205" height="33"/>
+                                                                        <rect key="frame" x="35.333333333333343" y="-5" width="324.66666666666663" height="33"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <color key="textColor" systemColor="placeholderTextColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -268,7 +282,7 @@
                                                                 <rect key="frame" x="15" y="323.66666666666669" width="360" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-bY-qqu">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="20.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="17.333333333333332" height="20.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="gIj-aS-R77"/>
                                                                         </constraints>
@@ -277,7 +291,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a destination" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MDa-rC-El2" customClass="TextView" customModule="Together" customModuleProvider="target">
-                                                                        <rect key="frame" x="94" y="-5" width="266" height="33"/>
+                                                                        <rect key="frame" x="17.333333333333343" y="-5" width="342.66666666666663" height="33"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <color key="textColor" systemColor="placeholderTextColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -816,6 +830,9 @@
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

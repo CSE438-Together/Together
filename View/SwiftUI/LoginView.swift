@@ -40,7 +40,7 @@ struct LoginView: View {
                 ErrorSection(error: $error)
                 
                 Section {
-                    TextField("Eamil", text: $email)
+                    TextField("Email", text: $email)
                         .font(.body)
                         .foregroundColor(.primary)
                         .autocapitalization(.none)
