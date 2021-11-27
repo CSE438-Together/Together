@@ -18,23 +18,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-
-        guard let _ = (scene as? UIWindowScene) else { return }
-        Amplify.Auth.fetchAuthSession {
-            result in
-            switch result {
-            case .success(let session):
-                if session.isSignedIn {
-                    DispatchQueue.main.async {
-                        self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: "MainTabBarController")
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        Amplify.DataStore.start { _ in }
+        
+        window = UIWindow(windowScene: windowScene)
+        window?.backgroundColor = .systemBackground
+        window?.makeKeyAndVisible()
+        
+        _ = Amplify.Hub.listen(to: .dataStore) { [self] in
+            if $0.eventName == HubPayload.EventName.DataStore.ready {
+                Amplify.Auth.fetchAuthSession {
+                    switch $0 {
+                    case .success(let session):
+                        if session.isSignedIn {
+                            DispatchQueue.main.async {
+                                window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
+                            }
+                            return
+                        }
+                    case .failure(_):
+                        break
                     }
-                    return
+                    DispatchQueue.main.async {
+                        window?.rootViewController = UIHostingController(rootView: SignUpView())
+                    }
                 }
-            case .failure(_):
-                break
             }
         }
-        window?.rootViewController = UIHostingController(rootView: SignUpView())
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -11,36 +11,58 @@ import Amplify
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var exploreTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
-    
-    private var refreshControl = UIRefreshControl()
-    private var posts: [Post] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.exploreTableView.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-        }
-    }
-    private var profilePhotoCache: [UIImage?] = []
+    @IBOutlet weak var newPostsReminder: UIButton!
     private let searchController = UISearchController()
-    private let defaultImage = UIImage(systemName: "person")
-    
+    private var postManager: PostManager!
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 8
+        label.text = "Post Sent"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.backgroundColor = .systemBlue
+        label.frame = CGRect(x: 15, y: 47,
+                             width: view.frame.width - 30,
+                             height: label.intrinsicContentSize.height + 30
+        )
+        label.center = CGPoint(x: view.center.x, y: -label.frame.height)
+        return label
+    } ()
+    private let topPadding = UIApplication.shared.windows.first?.safeAreaInsets.top
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.view.addSubview(label)
+        exploreTableView.scrollsToTop = false
+        newPostsReminder.layer.cornerRadius = 15
         navigationItem.searchController = searchController
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         setupTableView()
-        refreshControl.attributedTitle = NSAttributedString(string: "refreshing...")
-        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
-        exploreTableView.refreshControl = refreshControl
-        refreshPosts()
+        postManager = PostManager(
+            table: exploreTableView,
+            sort: .descending(Post.keys.departureTime),
+            reloadCompletion: { self.newPostsReminder.isHidden = true }
+        )
+
+        _ = Amplify.Hub.listen(to: .dataStore) {
+            if $0.eventName == HubPayload.EventName.DataStore.syncReceived {
+                guard let mutationEvent = $0.data as? MutationEvent,
+                      mutationEvent.mutationType == GraphQLMutationType.create.rawValue,
+                      let item = try? mutationEvent.decodeModel(as: Post.self)
+                else {
+                    return
+                }
+                self.postManager.posts.insert(item, at: 0)
+                DispatchQueue.main.async { [self] in
+                    self.newPostsReminder.isHidden = false
+                }
+            }
+        }
     }
     
     func setupTableView(){
-        exploreTableView.dataSource = self
-        exploreTableView.delegate = self
-        
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         exploreTableView.register(nib, forCellReuseIdentifier: "cell")
         exploreTableView.estimatedRowHeight = 85.0
@@ -48,60 +70,53 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return postManager.postCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = exploreTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        guard let postCell = cell as? PostTableViewCell else { return cell }
-        
-        postCell.postTitle.text = posts[indexPath.row].title
-        postCell.from.text = posts[indexPath.row].departurePlace
-        postCell.to.text = posts[indexPath.row].destination
-        postCell.numOfMembers.text = "\(posts[indexPath.row].maxMembers ?? 2)"
-        postCell.when.text = posts[indexPath.row].departureTime.toString()
-        profilePhotoCache.append(defaultImage)
-        postCell.userAvatar.image = defaultImage
-        guard let owner = posts[indexPath.row].owner else { return postCell }
-
-        Amplify.Storage.downloadData(key: owner) {
-            result in
-            switch result {
-            case .success(let data):
-                let image = UIImage(data: data)
-                DispatchQueue.main.async {
-                    postCell.userAvatar.image = image
-                }
-                self.profilePhotoCache[indexPath.row] = image
-            case .failure(_):
-                break
-            }
-        }
-        return postCell
+        return postManager.getCell(forRowAt: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showPostDetailViewController(post: posts[indexPath.row])        
-    }    
+        postManager.showPostDetailViewController(controller: self, indexPath: indexPath)
+    }
     
-    @objc func refreshPosts() {
-        self.refreshControl.beginRefreshing()
-        DispatchQueue.global().async { [self] in
-            let keys = Post.keys
-            posts = API.getAll(sort: .descending(keys.departureTime))
-            profilePhotoCache = [UIImage?](repeating: defaultImage, count: posts.count)
-        }
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        newPostsReminder.isHidden = true
+        exploreTableView.scrollsToTop = false
     }
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
-    }    
+    }
+    
+    @IBAction func newPostsButtonPressed(_ sender: UIButton) {
+        sender.isHidden = true
+        exploreTableView.reloadData()
+        exploreTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        exploreTableView.scrollsToTop = true
+    }
 }
 
 extension ExploreViewController: NewPostViewDelegate {
     func handleSuccess() {
-        refreshPosts()
-        message.showSuccessMessage("Post Sent")
+//        message.showSuccessMessage("Post Sent")
+        DispatchQueue.main.async { [self] in
+            UIView.animate(withDuration: 0.6) {
+                label.center = CGPoint(x: view.center.x, y: (topPadding ?? 50) + label.frame.height / 2)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                UIView.animate(withDuration: 0.6) {
+                    label.center = CGPoint(x: view.center.x, y: -label.frame.height)
+                }
+            }
+        }
+//        DispatchQueue.main.async { [self] in
+//            view.addSubview(label)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                label.removeFromSuperview()
+//            }
+//        }
     }
     
     func handleFailure() {
