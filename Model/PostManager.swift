@@ -84,9 +84,8 @@ class PostManager {
                 result in
                 switch result {
                 case .success(let data):
-                    let image = UIImage(data: data)
                     DispatchQueue.main.async {
-                        imageCache[owner] = image
+                        imageCache[owner] = UIImage(data: data)
                         postCell.userAvatar.image = imageCache[owner]
                     }
                 case .failure(_):
