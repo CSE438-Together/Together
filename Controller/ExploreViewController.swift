@@ -36,9 +36,10 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         navigationController?.view.addSubview(label)
         exploreTableView.scrollsToTop = false
         newPostsReminder.layer.cornerRadius = 15
+        
         let purpleToPink = CAGradientLayer()
         purpleToPink.frame = tabBarController!.tabBar.bounds
-        purpleToPink.colors = [UIColor(named: "bgPink")!.cgColor, UIColor(named: "bgPurple")!.cgColor]
+        purpleToPink.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor(named: "bgPink")!.cgColor]
         purpleToPink.locations = [0, 1]
         purpleToPink.startPoint = CGPoint(x: 0.0, y: 0.0)
         purpleToPink.endPoint = CGPoint(x: 1.0, y: 0.0)
@@ -85,13 +86,13 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.rowHeight = UITableView.automaticDimension
         exploreTableView.separatorColor = UIColor.clear
         
-        let gradientlayer = CAGradientLayer()
-        gradientlayer.frame = exploreTableView.bounds
-        gradientlayer.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor.white.cgColor]
-        gradientlayer.locations = [0, 1]
-        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
-        exploreTableView.backgroundView = UIImageView(image: GradientColor.image(fromLayer: gradientlayer))
+//        let gradientlayer = CAGradientLayer()
+//        gradientlayer.frame = exploreTableView.bounds
+//        gradientlayer.colors = [UIColor(named: "bgOrange")!.cgColor, UIColor.white.cgColor]
+//        gradientlayer.locations = [0, 1]
+//        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+//        exploreTableView.backgroundView = UIImageView(image: UIImage(named: "loginLogo"))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

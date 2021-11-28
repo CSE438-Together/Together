@@ -17,8 +17,22 @@ import AWSS3StoragePlugin
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UINavigationBar.appearance().backgroundColor = UIColor(named: "bgLightPurple")
+        
         // Override point for customization after application launch.
+//        let gradientlayer = CAGradientLayer()
+//        gradientlayer.frame = UINavigationBar.appearance().bounds
+//        gradientlayer.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor.white.cgColor]
+//        gradientlayer.locations = [0, 1]
+//        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+//        let nvAppearance = UINavigationBarAppearance()
+//        nvAppearance.configureWithOpaqueBackground()
+//        nvAppearance.backgroundImage = GradientColor.image(fromLayer: gradientlayer)
+//        nvAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+//        nvAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//        UINavigationBar.appearance().standardAppearance = nvAppearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = nvAppearance
+        
         do {
             let model = AmplifyModels()
             let APIPlugin = AWSAPIPlugin(modelRegistration: model)

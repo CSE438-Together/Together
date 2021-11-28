@@ -54,25 +54,26 @@ class PostManager {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         guard let postCell = cell as? PostTableViewCell else { return cell }
         postCell.postTitle.text = posts[indexPath.row].title
-        postCell.from.text = posts[indexPath.row].departurePlace
-        postCell.to.text = posts[indexPath.row].destination
+        postCell.from.text = posts[indexPath.row].departurePlace?.components(separatedBy: .newlines).joined()
+        postCell.to.text = posts[indexPath.row].destination?.components(separatedBy: .newlines).joined()
         postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
         
         if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
-            postCell.numOfMembers.textColor = UIColor(named: "bgRed")
-            postCell.State.backgroundColor = UIColor(named: "bgRed")
+            postCell.numOfMembers.textColor = UIColor.systemRed
+            postCell.State.backgroundColor = UIColor.systemRed
+            
         }else {
-            postCell.numOfMembers.textColor = UIColor(named: "bgDarkPurple")
-            postCell.State.backgroundColor = UIColor(named: "bgDarkPurple")
+            postCell.numOfMembers.textColor = UIColor.white
+            postCell.State.backgroundColor = UIColor.white
         }
         
         if let setTime = posts[indexPath.row].departureTime {
             if(setTime > Temporal.DateTime(Date())){
-                postCell.State.backgroundColor = UIColor(named: "bgDarkPurple")
-                postCell.when.textColor = UIColor(named: "bgDarkPurple")
+                postCell.State.backgroundColor = UIColor.white
+                postCell.when.textColor = UIColor.white
             }else {
-                postCell.State.backgroundColor = UIColor.darkGray
-                postCell.when.textColor = UIColor(named: "bgRed")
+                postCell.State.backgroundColor = UIColor.systemRed
+                postCell.when.textColor = UIColor.systemRed
             }
         }
         

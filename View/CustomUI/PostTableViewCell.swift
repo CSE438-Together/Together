@@ -22,23 +22,30 @@ class PostTableViewCell: UITableViewCell {
         // Initialization code
         userAvatar.layer.cornerRadius = userAvatar.frame.width/2
         shadowView.layer.shadowColor = UIColor.gray.cgColor;
-        shadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        shadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
         shadowView.layer.shadowOpacity = 0.8
         shadowView.layer.shadowRadius = 3
         shadowView.layer.masksToBounds = false
         shadowView.layer.cornerRadius = 10
         
-        let purpleToWhite = CAGradientLayer()
-        purpleToWhite.frame = contentView.bounds
-        purpleToWhite.colors = [UIColor(named: "bgOrange")!.cgColor, UIColor.white.cgColor]
-        purpleToWhite.locations = [0, 1]
-        purpleToWhite.startPoint = CGPoint(x: 0.0, y: 0.0)
-        purpleToWhite.endPoint = CGPoint(x: 1.0, y: 0.0)
-        contentView.layer.insertSublayer(purpleToWhite, at: 0)
+        let bgView = UIView(frame: shadowView.bounds)
+        bgView.layer.cornerRadius = 10
+        bgView.clipsToBounds = true
+        let purpleToBlue = CAGradientLayer()
+        purpleToBlue.frame = bgView.bounds
+        purpleToBlue.colors = [UIColor(named: "bgDarkPurple")!.cgColor, UIColor(named: "bgDarkBlue")!.cgColor]
+        purpleToBlue.locations = [0, 1]
+        purpleToBlue.startPoint = CGPoint(x: 0.0, y: 0.0)
+        purpleToBlue.endPoint = CGPoint(x: 1.0, y: 1.0)
+        bgView.layer.insertSublayer(purpleToBlue, at: 0)
+        shadowView.insertSubview(bgView, at: 0)
         
-//        let bgView = UIView(frame: shadowView.frame)
-//        bgView.backgroundColor = UIColor.blue
-//        shadowView.insertSubview(bgView, at: 0)
+//        let whitePinkWhite = CAGradientLayer()
+//        whitePinkWhite.frame = contentView.bounds
+//        whitePinkWhite.colors = [UIColor(named: "bgDarkPurple")!.cgColor, UIColor(named: "bgDarkBlue")!.cgColor]
+//        whitePinkWhite.locations = [0, 1]
+//        whitePinkWhite.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        whitePinkWhite.endPoint = CGPoint(x: 1.0, y: 0.0)
         
         State.layer.cornerRadius = State.frame.width/2
         State.clipsToBounds = true

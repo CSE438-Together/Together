@@ -721,7 +721,7 @@
         <scene sceneID="6Kt-4U-b9F">
             <objects>
                 <tabBarController restorationIdentifier="MainTabBarController" storyboardIdentifier="MainTabBarController" id="30k-Sd-BP2" customClass="TabViewController" customModule="Together" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v6E-UX-ypf">
+                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v6E-UX-ypf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
