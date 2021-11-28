@@ -15,6 +15,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var when: UILabel!
     @IBOutlet weak var numOfMembers: UILabel!
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var State: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,13 +28,21 @@ class PostTableViewCell: UITableViewCell {
         shadowView.layer.masksToBounds = false
         shadowView.layer.cornerRadius = 10
         
-        let gradientlayer = CAGradientLayer()
-        gradientlayer.frame = contentView.bounds
-        gradientlayer.colors = [UIColor.white.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
-        gradientlayer.locations = [0, 1]
-        gradientlayer.startPoint = CGPoint(x: 1.0, y: 0.0)
-        gradientlayer.endPoint = CGPoint(x: 0.0, y: 0.0)
-        contentView.layer.insertSublayer(gradientlayer, at: 0)
+        let purpleToWhite = CAGradientLayer()
+        purpleToWhite.frame = contentView.bounds
+        purpleToWhite.colors = [UIColor(named: "bgOrange")!.cgColor, UIColor.white.cgColor]
+        purpleToWhite.locations = [0, 1]
+        purpleToWhite.startPoint = CGPoint(x: 0.0, y: 0.0)
+        purpleToWhite.endPoint = CGPoint(x: 1.0, y: 0.0)
+        contentView.layer.insertSublayer(purpleToWhite, at: 0)
+        
+//        let bgView = UIView(frame: shadowView.frame)
+//        bgView.backgroundColor = UIColor.blue
+//        shadowView.insertSubview(bgView, at: 0)
+        
+        State.layer.cornerRadius = State.frame.width/2
+        State.clipsToBounds = true
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

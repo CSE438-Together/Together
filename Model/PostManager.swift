@@ -16,7 +16,7 @@ class PostManager {
     private var table: UITableView
     private let defaultImage = UIImage(systemName: "person")
     private var reloadCompletion: (() -> Void)?
-
+    
     var postCount: Int {
         get {
             return posts.count
@@ -57,16 +57,25 @@ class PostManager {
         postCell.from.text = posts[indexPath.row].departurePlace
         postCell.to.text = posts[indexPath.row].destination
         postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
+        
         if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
-            postCell.numOfMembers.textColor = UIColor.systemRed
+            postCell.numOfMembers.textColor = UIColor(named: "bgRed")
+            postCell.State.backgroundColor = UIColor(named: "bgRed")
+        }else {
+            postCell.numOfMembers.textColor = UIColor(named: "bgDarkPurple")
+            postCell.State.backgroundColor = UIColor(named: "bgDarkPurple")
         }
+        
         if let setTime = posts[indexPath.row].departureTime {
             if(setTime > Temporal.DateTime(Date())){
-                postCell.shadowView.backgroundColor = UIColor(named: "bgGreen")
+                postCell.State.backgroundColor = UIColor(named: "bgDarkPurple")
+                postCell.when.textColor = UIColor(named: "bgDarkPurple")
             }else {
-                postCell.shadowView.backgroundColor = UIColor(named: "bgRed")
+                postCell.State.backgroundColor = UIColor.darkGray
+                postCell.when.textColor = UIColor(named: "bgRed")
             }
         }
+        
         postCell.when.text = posts[indexPath.row].departureTime.toString()
         guard let owner = posts[indexPath.row].owner else { return postCell }
         if imageCache[owner] == nil {
@@ -75,8 +84,8 @@ class PostManager {
                 switch result {
                 case .success(let data):
                     let image = UIImage(data: data)
-                    imageCache[owner] = image
                     DispatchQueue.main.async {
+                        imageCache[owner] = image
                         postCell.userAvatar.image = imageCache[owner]
                     }
                 case .failure(_):

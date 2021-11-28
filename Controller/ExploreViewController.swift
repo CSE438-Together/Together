@@ -38,10 +38,10 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         newPostsReminder.layer.cornerRadius = 15
         let purpleToPink = CAGradientLayer()
         purpleToPink.frame = tabBarController!.tabBar.bounds
-        purpleToPink.colors = [UIColor(named: "bgPurple")!.cgColor, UIColor(named: "bgPink")!.cgColor]
+        purpleToPink.colors = [UIColor(named: "bgPink")!.cgColor, UIColor(named: "bgPurple")!.cgColor]
         purpleToPink.locations = [0, 1]
-        purpleToPink.startPoint = CGPoint(x: 1.0, y: 0.0)
-        purpleToPink.endPoint = CGPoint(x: 0.0, y: 0.0)
+        purpleToPink.startPoint = CGPoint(x: 0.0, y: 0.0)
+        purpleToPink.endPoint = CGPoint(x: 1.0, y: 0.0)
         tabBarController!.tabBar.layer.insertSublayer(purpleToPink, at: 0)
         
 //        let layer = CAGradientLayer()
@@ -87,10 +87,10 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let gradientlayer = CAGradientLayer()
         gradientlayer.frame = exploreTableView.bounds
-        gradientlayer.colors = [UIColor.white.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
+        gradientlayer.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor.white.cgColor]
         gradientlayer.locations = [0, 1]
-        gradientlayer.startPoint = CGPoint(x: 1.0, y: 0.0)
-        gradientlayer.endPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
         exploreTableView.backgroundView = UIImageView(image: GradientColor.image(fromLayer: gradientlayer))
     }
     

@@ -40,7 +40,7 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let gradientlayer = CAGradientLayer()
         gradientlayer.frame = myEventTableView.bounds
-        gradientlayer.colors = [UIColor.white.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
+        gradientlayer.colors = [UIColor.white.cgColor, UIColor(named: "bgOrange")!.cgColor]
         gradientlayer.locations = [0, 1]
         gradientlayer.startPoint = CGPoint(x: 1.0, y: 0.0)
         gradientlayer.endPoint = CGPoint(x: 0.0, y: 0.0)
