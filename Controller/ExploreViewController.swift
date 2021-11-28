@@ -36,6 +36,23 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         navigationController?.view.addSubview(label)
         exploreTableView.scrollsToTop = false
         newPostsReminder.layer.cornerRadius = 15
+        
+        let purpleToPink = CAGradientLayer()
+        purpleToPink.frame = tabBarController!.tabBar.bounds
+        purpleToPink.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor(named: "bgPink")!.cgColor]
+        purpleToPink.locations = [0, 1]
+        purpleToPink.startPoint = CGPoint(x: 0.0, y: 0.0)
+        purpleToPink.endPoint = CGPoint(x: 1.0, y: 0.0)
+        tabBarController!.tabBar.layer.insertSublayer(purpleToPink, at: 0)
+        
+//        let layer = CAGradientLayer()
+//        layer.frame = (navigationController?.navigationBar.bounds)!
+//        layer.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
+//        self.navigationController?.navigationBar.layer.insertSublayer(layer, at: 0)
+//        self.navigationController?.navigationBar.setBackgroundImage(GradientColor.image(fromLayer: layer), for: .default)
+        
+        navigationController?.navigationBar.backgroundColor = UIColor(named: "bgYellow")
+        
         navigationItem.searchController = searchController
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
@@ -67,6 +84,15 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.register(nib, forCellReuseIdentifier: "cell")
         exploreTableView.estimatedRowHeight = 85.0
         exploreTableView.rowHeight = UITableView.automaticDimension
+        exploreTableView.separatorColor = UIColor.clear
+        
+//        let gradientlayer = CAGradientLayer()
+//        gradientlayer.frame = exploreTableView.bounds
+//        gradientlayer.colors = [UIColor(named: "bgOrange")!.cgColor, UIColor.white.cgColor]
+//        gradientlayer.locations = [0, 1]
+//        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+//        exploreTableView.backgroundView = UIImageView(image: UIImage(named: "loginLogo"))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,7 +126,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 
 extension ExploreViewController: NewPostViewDelegate {
     func handleSuccess() {
-//        message.showSuccessMessage("Post Sent")
         DispatchQueue.main.async { [self] in
             UIView.animate(withDuration: 0.6) {
                 label.center = CGPoint(x: view.center.x, y: (topPadding ?? 50) + label.frame.height / 2)
@@ -111,12 +136,6 @@ extension ExploreViewController: NewPostViewDelegate {
                 }
             }
         }
-//        DispatchQueue.main.async { [self] in
-//            view.addSubview(label)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                label.removeFromSuperview()
-//            }
-//        }
     }
     
     func handleFailure() {

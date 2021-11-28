@@ -126,7 +126,9 @@ class NewPostViewController: UIViewController {
                     result in
                     switch(result) {
                     case .success:
-                        delegate.handleSuccess()
+                        DispatchQueue.main.async {
+                            delegate.handleSuccess()
+                        }
                     case .failure:
                         delegate.handleFailure()
                     }

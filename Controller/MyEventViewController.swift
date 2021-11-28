@@ -36,6 +36,15 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         myEventTableView.register(nib, forCellReuseIdentifier: "cell")
         myEventTableView.estimatedRowHeight = 85.0
         myEventTableView.rowHeight = UITableView.automaticDimension
+        myEventTableView.separatorColor = UIColor.clear
+        
+//        let gradientlayer = CAGradientLayer()
+//        gradientlayer.frame = myEventTableView.bounds
+//        gradientlayer.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor.white.cgColor]
+//        gradientlayer.locations = [0, 1]
+//        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+//        myEventTableView.backgroundView = UIImageView(image: UIImage(named: "loginLogo"))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -16,7 +16,7 @@ class PostManager {
     private var table: UITableView
     private let defaultImage = UIImage(systemName: "person")
     private var reloadCompletion: (() -> Void)?
-
+    
     var postCount: Int {
         get {
             return posts.count
@@ -54,9 +54,29 @@ class PostManager {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         guard let postCell = cell as? PostTableViewCell else { return cell }
         postCell.postTitle.text = posts[indexPath.row].title
-        postCell.from.text = posts[indexPath.row].departurePlace
-        postCell.to.text = posts[indexPath.row].destination
-        postCell.numOfMembers.text = "\(posts[indexPath.row].maxMembers ?? 2)"
+        postCell.from.text = posts[indexPath.row].departurePlace?.components(separatedBy: .newlines).joined()
+        postCell.to.text = posts[indexPath.row].destination?.components(separatedBy: .newlines).joined()
+        postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
+        
+        if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
+            postCell.numOfMembers.textColor = UIColor.systemRed
+            postCell.State.backgroundColor = UIColor.systemRed
+            
+        }else {
+            postCell.numOfMembers.textColor = UIColor.white
+            postCell.State.backgroundColor = UIColor.white
+        }
+        
+        if let setTime = posts[indexPath.row].departureTime {
+            if(setTime > Temporal.DateTime(Date())){
+                postCell.State.backgroundColor = UIColor.white
+                postCell.when.textColor = UIColor.white
+            }else {
+                postCell.State.backgroundColor = UIColor.systemRed
+                postCell.when.textColor = UIColor.systemRed
+            }
+        }
+        
         postCell.when.text = posts[indexPath.row].departureTime.toString()
         guard let owner = posts[indexPath.row].owner else { return postCell }
         if imageCache[owner] == nil {
@@ -64,9 +84,8 @@ class PostManager {
                 result in
                 switch result {
                 case .success(let data):
-                    let image = UIImage(data: data)
-                    imageCache[owner] = image
                     DispatchQueue.main.async {
+                        imageCache[owner] = UIImage(data: data)
                         postCell.userAvatar.image = imageCache[owner]
                     }
                 case .failure(_):
