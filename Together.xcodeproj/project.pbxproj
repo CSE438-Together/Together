@@ -18,6 +18,8 @@
 		50072381272B8F0500F3FF31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50072380272B8F0500F3FF31 /* Assets.xcassets */; };
 		50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50072382272B8F0500F3FF31 /* LaunchScreen.storyboard */; };
 		5033ACDA27500B52009769B5 /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033ACD927500B52009769B5 /* PostManager.swift */; };
+		503C77B9275436E100AD1673 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503C77B8275436E100AD1673 /* SettingView.swift */; };
+		503C77BB275444FB00AD1673 /* SettingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503C77BA275444FB00AD1673 /* SettingHostingController.swift */; };
 		5044DF3F273D89D90099A4C1 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044DF3E273D89D90099A4C1 /* Alert.swift */; };
 		5044DF63273F05920099A4C1 /* MessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044DF62273F05920099A4C1 /* MessageLabel.swift */; };
 		50513A452737633C000C245B /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50513A442737633C000C245B /* NewPostViewController.swift */; };
@@ -25,6 +27,7 @@
 		506AC75E273C22E10070667B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AC75D273C22E10070667B /* Extension.swift */; };
 		5073A43A274492D000F6B7C4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5073A439274492D000F6B7C4 /* SignUpView.swift */; };
 		5089C9252745DB42000C057F /* NewUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089C9242745DB42000C057F /* NewUserViewModel.swift */; };
+		508F319427544C3700104EA3 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F319327544C3700104EA3 /* UserViewModel.swift */; };
 		50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */; };
 		50AEED5B27402A80009D08D0 /* AWSS3StoragePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 50AEED5A27402A80009D08D0 /* AWSS3StoragePlugin */; };
 		50DA05F72741827200B34D1E /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DA05F62741827200B34D1E /* PostDetailViewController.swift */; };
@@ -76,6 +79,8 @@
 		50072383272B8F0500F3FF31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50072385272B8F0500F3FF31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5033ACD927500B52009769B5 /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
+		503C77B8275436E100AD1673 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		503C77BA275444FB00AD1673 /* SettingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHostingController.swift; sourceTree = "<group>"; };
 		5044DF3E273D89D90099A4C1 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		5044DF62273F05920099A4C1 /* MessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLabel.swift; sourceTree = "<group>"; };
 		50513A442737633C000C245B /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +88,7 @@
 		506AC75D273C22E10070667B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		5073A439274492D000F6B7C4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		5089C9242745DB42000C057F /* NewUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserViewModel.swift; sourceTree = "<group>"; };
+		508F319327544C3700104EA3 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewDelegate.swift; sourceTree = "<group>"; };
 		50DA05F62741827200B34D1E /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		50DA05FB274182CB00B34D1E /* PostDetailTableViewTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewTimeCell.swift; sourceTree = "<group>"; };
@@ -197,6 +203,7 @@
 				0C493168272C62B700DBE3DE /* ExploreViewController.swift */,
 				0C493166272C61A900DBE3DE /* MeViewController.swift */,
 				C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */,
+				503C77BA275444FB00AD1673 /* SettingHostingController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -228,6 +235,7 @@
 				5073A439274492D000F6B7C4 /* SignUpView.swift */,
 				50EEEB532746B6F8009F53C3 /* VerificationView.swift */,
 				50EEEB552746D789009F53C3 /* LoginView.swift */,
+				503C77B8275436E100AD1673 /* SettingView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				5089C9242745DB42000C057F /* NewUserViewModel.swift */,
+				508F319327544C3700104EA3 /* UserViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -412,6 +421,7 @@
 				50072378272B8F0500F3FF31 /* AppDelegate.swift in Sources */,
 				50DA0606274182CB00B34D1E /* PostDetailTableViewOverViewCell.swift in Sources */,
 				50DA0604274182CB00B34D1E /* PostDetailTableViewPeopleCell.swift in Sources */,
+				503C77B9275436E100AD1673 /* SettingView.swift in Sources */,
 				50E7ABC027488C1A00C778EE /* UserProfileField.swift in Sources */,
 				72349E7D272CE21900BA23E1 /* API.swift in Sources */,
 				50EEEB542746B6F8009F53C3 /* VerificationView.swift in Sources */,
@@ -428,6 +438,7 @@
 				50513A482737758E000C245B /* TextView.swift in Sources */,
 				50DA0607274182CB00B34D1E /* PostDetailTableViewLocationCell.swift in Sources */,
 				0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */,
+				503C77BB275444FB00AD1673 /* SettingHostingController.swift in Sources */,
 				50E7ABBC274848A000C778EE /* ErrorSection.swift in Sources */,
 				5073A43A274492D000F6B7C4 /* SignUpView.swift in Sources */,
 				0C493167272C61A900DBE3DE /* MeViewController.swift in Sources */,
@@ -437,6 +448,7 @@
 				50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */,
 				50EEEB562746D789009F53C3 /* LoginView.swift in Sources */,
 				506AC75E273C22E10070667B /* Extension.swift in Sources */,
+				508F319427544C3700104EA3 /* UserViewModel.swift in Sources */,
 				642102E9FE4550AEE13307D5 /* AmplifyModels.swift in Sources */,
 				50E7ABC227488CA000C778EE /* PasswordField.swift in Sources */,
 				50E7ABBE274850DA00C778EE /* Spinner.swift in Sources */,

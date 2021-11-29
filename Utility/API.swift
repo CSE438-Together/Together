@@ -29,8 +29,13 @@ class API {
             Amplify.Auth.signIn(username: email, password: password) {
                 switch $0 {
                 case .success:
-                    DispatchQueue.main.async {
-                        UIApplication.shared.windows.first?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
+                    Amplify.DataStore.start { _ in }
+                    _ = Amplify.Hub.listen(to: .dataStore) {
+                        if $0.eventName == HubPayload.EventName.DataStore.ready {
+                            DispatchQueue.main.async {
+                                UIApplication.shared.windows.first?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
+                            }
+                        }
                     }
                 case .failure(let error):
                     completion(.failure(error))

@@ -98,9 +98,9 @@ struct SignUpView: View {
                         .listRowBackground(Color.blue.opacity(!newUser.isUserProfileValid ? 0.5 : 1))
                     }
                 }
+                .disabled(needVerification)
                 .navigationTitle("Create Account")
             }
-            .disabled(needVerification)
             .zIndex(1.0)
             
             if needVerification {
@@ -129,14 +129,13 @@ struct SignUpView: View {
                 password: newUser.password,
                 options: AuthSignUpRequest.Options(userAttributes: userAttributes)
             ) {
-                result in
-                switch result {
+                switch $0 {
                 case .success:
-                    isSigningUp = false
                     needVerification = true
                 case .failure(let error):
                     self.error = error.errorDescription
                 }
+                isSigningUp = false
             }
         }
     }

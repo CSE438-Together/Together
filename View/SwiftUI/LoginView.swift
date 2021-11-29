@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Amplify
 
 struct LoginView: View {
     @State private var email = ""
@@ -40,42 +41,44 @@ struct LoginView: View {
                 ErrorSection(error: $error)
                 
                 Section {
-                    TextField("Email", text: $email)
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .autocapitalization(.none)
+                    HStack {
+                        TextField("Email", text: $email)
+                            .font(.body)
+                            .foregroundColor(.primary)
+                            .autocapitalization(.none)
+                        Text("@wustl.edu")
+                            .font(.body)
+                            .foregroundColor(.primary)
+                    }
                     SecureField("Password", text: $password)
                         .font(.body)
                         .foregroundColor(.primary)
                 }
+                .disabled(isSigningIn)
+
                 Section {
-                    Button(action: {
-                        self.isSigningIn.toggle()
-                        API.signIn(email, password) {
-                            result in
-                            switch result {
-                            case .success:
-                                break
-                            case .failure(let error):
-                                self.error = error.errorDescription
-                            }
+                    HStack {
+                        Spacer()
+                        Button("Login") {
                             self.isSigningIn.toggle()
+                            API.signIn(email + "@wustl.edu", password) {
+                                switch $0 {
+                                case .success:
+                                    break
+                                case .failure(let error):
+                                    self.error = error.errorDescription
+                                }
+                                self.isSigningIn.toggle()
+                            }
                         }
-                    }) {
-                        HStack {
-                            Spacer()
-                            Text("Login")
-                                .font(.body)
-                            Spacer()
-                        }
+                        .foregroundColor(.white)
+                        Spacer()
                     }
-                    .accentColor(.white)
                     .listRowBackground(Color.blue.opacity(email.isEmpty || password.isEmpty ? 0.5 : 1))
-                    .disabled(email.isEmpty || password.isEmpty)
+                    .disabled(email.isEmpty || password.isEmpty || isSigningIn)
                 }
             }
         }
-        .disabled(isSigningIn)
     }
 }
 
