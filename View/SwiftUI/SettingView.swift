@@ -12,10 +12,13 @@ struct SettingView: View {
     @StateObject private var user = UserViewModel()
     @State private var isShowingPhotoPicker = false
     @State private var isEditing = false
+    @State private var error = ""
+    @State private var needChangePassword = false
     
     var body: some View {
         NavigationView {
             Form {
+                ErrorSection(error: $error)
                 Section {
                     HStack {
                         if let image = user.profilePhoto {
@@ -28,7 +31,7 @@ struct SettingView: View {
                                     isShowingPhotoPicker = true
                                 }
                                 .sheet(isPresented: $isShowingPhotoPicker, content: {
-                                    PhotoPicker(image: $user.profilePhoto)
+                                    PhotoPicker(image: $user.profilePhoto, error: $error)
                                 })
                         }
                         VStack(alignment: .leading) {
@@ -46,13 +49,16 @@ struct SettingView: View {
                         Button("Done") {
                             UIApplication.shared.endEditing()
                             isEditing.toggle()
+                            updateAttributes()
                         }
                         .textCase(.none)
+                        .transition(AnyTransition.opacity.animation(.easeIn))
                     } else {
                         Button("Edit") {
                             isEditing.toggle()
                         }
                         .textCase(.none)
+                        .transition(AnyTransition.opacity.animation(.easeIn))
                     }
                     
                 }) {
@@ -68,25 +74,29 @@ struct SettingView: View {
                         TextField("", text: $user.lastName)
                             .multilineTextAlignment(.trailing)
                             .foregroundColor(.secondary)
+                            .disabled(!isEditing)
                     }
-                    HStack {
-                        Text("Gender")
-                        TextField("", text: $user.gender)
-                            .multilineTextAlignment(.trailing)
-                            .foregroundColor(.secondary)
+                    Picker(selection: $user.gender, label: Text("Gender")) {
+                        Text("Male").tag("Male")
+                        Text("Female").tag("Female")
                     }
+                    .disabled(!isEditing)
                     HStack {
                         Text("Phone Number")
                         TextField("", text: $user.phone)
                             .multilineTextAlignment(.trailing)
                             .foregroundColor(.secondary)
+                            .disabled(!isEditing)
                     }
                 }
                 Section {
                     HStack {
                         Spacer()
-                        Button("Reset Password") {
-                            
+                        Button("Change Password") {
+                            needChangePassword.toggle()
+                        }
+                        .sheet(isPresented: $needChangePassword) {
+                            ChangePasswordView()
                         }
                         Spacer()
                     }
@@ -115,63 +125,35 @@ struct SettingView: View {
                         }
                     }
                 }
-            case .failure(_):
-//                DispatchQueue.main.async {
-//                    Alert.showWarning(self, "Failed", "Sign out failed with error \(error)")
-//                }
-                break
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.error = error.errorDescription
+                }
             }
         }
     }
-}
-
-struct PhotoPicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
     
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(photoPicker: self)
-    }
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = context.coordinator
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-    
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let photoPicker: PhotoPicker
-        
-        init(photoPicker: PhotoPicker) {
-            self.photoPicker = photoPicker
-        }
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.editedImage] as? UIImage {
-                guard let imageData = image.jpegData(compressionQuality: 0.1),
-                      let compressedImage = UIImage(data: imageData),
-                      let imageKey = Amplify.Auth.getCurrentUser()?.username
-                else {
-                    return
-                }
-                Amplify.Storage.uploadData(key: imageKey, data: imageData) {
-                    result in
-                    switch result {
-                    case .success:
-                        DispatchQueue.main.async {
-                            self.photoPicker.image = compressedImage
-                        }
-                    case .failure(_):
-                        break
+    private func updateAttributes() {
+        DispatchQueue.global().async {
+            let userAttributes = [
+                AuthUserAttribute(.givenName, value: user.firstName),
+                AuthUserAttribute(.familyName, value: user.lastName),
+                AuthUserAttribute(.phoneNumber, value: user.phone),
+                AuthUserAttribute(.gender, value: user.gender)
+            ]
+            Amplify.Auth.update(userAttributes: userAttributes) {
+                switch $0 {
+                case .success(_):
+                    break
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.error = error.errorDescription
                     }
                 }
             }
-            picker.dismiss(animated: true)
         }
     }
 }
-
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {

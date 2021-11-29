@@ -15,7 +15,7 @@ class UserViewModel: ObservableObject {
     @Published var email = "@wustl.edu"
     @Published var firstName = "First Name"
     @Published var lastName = "Last Name"
-    @Published var gender = "Gender"
+    @Published var gender = "Male"
     @Published var phone = "Phone Number"
     
     init() {
@@ -24,7 +24,6 @@ class UserViewModel: ObservableObject {
                 switch $0 {
                 case .success(let attributes):
                     DispatchQueue.main.async {
-                        print(type(of: attributes))
                         for attribute in attributes {
                             switch attribute.key {
                             case .nickname:
