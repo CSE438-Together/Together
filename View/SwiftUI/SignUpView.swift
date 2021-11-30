@@ -17,15 +17,11 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            if isSigningUp {                
-                Spinner()
-                    .zIndex(7)
-                    .position(
-                        x: UIScreen.main.bounds.midX,
-                        y: UIScreen.main.bounds.midY
-                    )
-            }
-            
+            Spinner(isPresented: $isSigningUp)
+                .position(
+                    x: UIScreen.main.bounds.midX,
+                    y: UIScreen.main.bounds.midY
+                )            
             NavigationView {
                 Form {
                     ErrorSection(error: $error)
@@ -98,9 +94,9 @@ struct SignUpView: View {
                         .listRowBackground(Color.blue.opacity(!newUser.isUserProfileValid ? 0.5 : 1))
                     }
                 }
+                .disabled(needVerification)
                 .navigationTitle("Create Account")
             }
-            .disabled(needVerification)
             .zIndex(1.0)
             
             if needVerification {
@@ -109,7 +105,7 @@ struct SignUpView: View {
                     .cornerRadius(30)
                     .transition(.move(edge: .bottom))
                     .animation(.easeInOut)
-                    .zIndex(10)
+                    .zIndex(5)
             }
         }
         .ignoresSafeArea(.all, edges: .all)
@@ -129,14 +125,13 @@ struct SignUpView: View {
                 password: newUser.password,
                 options: AuthSignUpRequest.Options(userAttributes: userAttributes)
             ) {
-                result in
-                switch result {
+                switch $0 {
                 case .success:
-                    isSigningUp = false
                     needVerification = true
                 case .failure(let error):
                     self.error = error.errorDescription
                 }
+                isSigningUp = false
             }
         }
     }
