@@ -14,17 +14,17 @@ struct ConfirmEmailView: View {
     @State private var error = ""
     @State private var isLoading = false
     @State private var showResetPasswordView = false
+    @State private var isPresenting = true
     
     var body: some View {
         ZStack {
-            if isLoading {
-                Spinner().zIndex(5)
-            }
+            Spinner(isPresented: $isLoading)
             NavigationView {
                 VStack {
-                    NavigationLink(destination: ResetPasswordView(email: email + "@wustl.edu"), isActive: $showResetPasswordView) {
+                    NavigationLink(destination: ResetPasswordView(email: email + "@wustl.edu", isPresenting: $isPresenting), isActive: $showResetPasswordView) {
                         EmptyView()
                     }
+
                     Form {
                         ErrorSection(error: $error)
                         Section {
@@ -64,6 +64,11 @@ struct ConfirmEmailView: View {
                             }
                     }
                 }
+            }
+        }
+        .onChange(of: isPresenting) {
+            if !$0 {
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }

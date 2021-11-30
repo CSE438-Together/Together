@@ -56,12 +56,8 @@ struct ChangePasswordView: View {
                     }
                 }
             }
-            if isLoading {
-                Spinner().zIndex(5)
-            }
-            if showSuccessView {
-                SuccessView().zIndex(15)
-            }
+            Spinner(isPresented: $isLoading)
+            SuccessView(isPresented: $showSuccessView, text: "Success")
         }
     }
     

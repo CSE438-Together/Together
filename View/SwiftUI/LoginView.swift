@@ -9,6 +9,7 @@ import SwiftUI
 import Amplify
 
 struct LoginView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var email = ""
     @State private var password = ""
     @State private var error = ""
@@ -17,77 +18,71 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            HStack {
-                Spacer()
-                Image(systemName: "minus")
-                    .foregroundColor(.blue)
-                    .font(.custom("SuperLarge", size: 75))
-                Spacer()
-            }
-            .zIndex(1)
-            .position(x: UIScreen.main.bounds.midX, y: 10)
-            
-            if isSigningIn {
-                Spinner().zIndex(5)
-            }
-            
-            Form {
-                Section {
-                    Text("Login")
-                        .foregroundColor(.primary)
-                        .listRowBackground(Color(.systemGroupedBackground))
-                        .font(.largeTitle.bold())
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                }
-                ErrorSection(error: $error)
-                
-                Section {
-                    HStack {
-                        TextField("Email", text: $email)
-                            .font(.body)
-                            .foregroundColor(.primary)
-                            .autocapitalization(.none)
-                        Text("@wustl.edu")
+            Spinner(isPresented: $isSigningIn)
+            NavigationView {
+                Form {
+                    ErrorSection(error: $error)
+                    Section {
+                        HStack {
+                            TextField("Email", text: $email)
+                                .font(.body)
+                                .foregroundColor(.primary)
+                                .autocapitalization(.none)
+                            Text("@wustl.edu")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                        }
+                        SecureField("Password", text: $password)
                             .font(.body)
                             .foregroundColor(.primary)
                     }
-                    SecureField("Password", text: $password)
-                        .font(.body)
-                        .foregroundColor(.primary)
-                }
-                .disabled(isSigningIn)
+                    .disabled(isSigningIn)
 
-                Section(footer:
-                    HStack {
-                        Spacer()
-                        Button("Forget Password?") {
-                            showConfirmEmailView.toggle()
-                        }
-                        .sheet(isPresented: $showConfirmEmailView) {
-                            ConfirmEmailView()
-                        }
-                        Spacer()
-                    }
-                ) {
-                    HStack {
-                        Spacer()
-                        Button("Login") {
-                            self.isSigningIn.toggle()
-                            API.signIn(email + "@wustl.edu", password) {
-                                switch $0 {
-                                case .success:
-                                    break
-                                case .failure(let error):
-                                    self.error = error.errorDescription
-                                }
-                                self.isSigningIn.toggle()
+                    Section(footer:
+                        HStack {
+                            Spacer()
+                            Button("Forget Password?") {
+                                showConfirmEmailView.toggle()
                             }
+                            .font(.body)
+                            .sheet(isPresented: $showConfirmEmailView) {
+                                ConfirmEmailView()
+                            }
+                            Spacer()
                         }
-                        .foregroundColor(.white)
-                        Spacer()
+                        .padding([.top], 20)
+                    ) {
+                        HStack {
+                            Spacer()
+                            Button("Login") {
+                                self.isSigningIn.toggle()
+                                API.signIn(email + "@wustl.edu", password) {
+                                    switch $0 {
+                                    case .success:
+                                        break
+                                    case .failure(let error):
+                                        self.error = error.errorDescription
+                                    }
+                                    self.isSigningIn.toggle()
+                                }
+                            }
+                            .foregroundColor(.white)
+                            .font(.body)
+                            Spacer()
+                        }
+                        .listRowBackground(Color.blue.opacity(email.isEmpty || password.isEmpty ? 0.5 : 1))
+                        .disabled(email.isEmpty || password.isEmpty || isSigningIn)
                     }
-                    .listRowBackground(Color.blue.opacity(email.isEmpty || password.isEmpty ? 0.5 : 1))
-                    .disabled(email.isEmpty || password.isEmpty || isSigningIn)
+                }
+                .navigationTitle("Login")
+                .toolbar() {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.primary)
+                            .onTapGesture {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                    }
                 }
             }
         }

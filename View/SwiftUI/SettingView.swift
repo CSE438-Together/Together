@@ -14,103 +14,107 @@ struct SettingView: View {
     @State private var isEditing = false
     @State private var error = ""
     @State private var needChangePassword = false
+    @State private var showSuccessView = false
     
     var body: some View {
-        NavigationView {
-            Form {
-                ErrorSection(error: $error)
-                Section {
-                    HStack {
-                        if let image = user.profilePhoto {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 75, height: 75, alignment: .center)
-                                .clipShape(Circle())
-                                .onTapGesture {
-                                    isShowingPhotoPicker = true
-                                }
-                                .sheet(isPresented: $isShowingPhotoPicker, content: {
-                                    PhotoPicker(image: $user.profilePhoto, error: $error)
-                                })
+        ZStack {
+            SuccessView(isPresented: $showSuccessView, text: "Profile Updated")
+            NavigationView {
+                Form {
+                    ErrorSection(error: $error)
+                    Section {
+                        HStack {
+                            if let image = user.profilePhoto {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 75, height: 75, alignment: .center)
+                                    .clipShape(Circle())
+                                    .onTapGesture {
+                                        isShowingPhotoPicker = true
+                                    }
+                                    .sheet(isPresented: $isShowingPhotoPicker, content: {
+                                        PhotoPicker(image: $user.profilePhoto, error: $error)
+                                    })
+                            }
+                            VStack(alignment: .leading) {
+                                Text(user.nickname)
+                                    .foregroundColor(.primary)
+                                Text(user.email)
+                                    .foregroundColor(.secondary)
+                            }
                         }
-                        VStack(alignment: .leading) {
-                            Text(user.nickname)
-                                .foregroundColor(.primary)
-                            Text(user.email)
+                    }
+                    Section(header: HStack {
+                        Text("Profile")
+                        Spacer()
+                        if isEditing {
+                            Button("Done") {
+                                UIApplication.shared.endEditing()
+                                isEditing.toggle()
+                                updateAttributes()
+                            }
+                            .textCase(.none)
+                            .transition(AnyTransition.opacity.animation(.easeIn))
+                        } else {
+                            Button("Edit") {
+                                isEditing.toggle()
+                            }
+                            .textCase(.none)
+                            .transition(AnyTransition.opacity.animation(.easeIn))
+                        }
+                        
+                    }) {
+                        HStack {
+                            Text("First Name")
+                            TextField("", text: $user.firstName)
+                                .multilineTextAlignment(.trailing)
                                 .foregroundColor(.secondary)
+                                .disabled(!isEditing)
+                        }
+                        HStack {
+                            Text("Last Name")
+                            TextField("", text: $user.lastName)
+                                .multilineTextAlignment(.trailing)
+                                .foregroundColor(.secondary)
+                                .disabled(!isEditing)
+                        }
+                        Picker(selection: $user.gender, label: Text("Gender")) {
+                            Text("Male").tag("Male")
+                            Text("Female").tag("Female")
+                        }
+                        .disabled(!isEditing)
+                        HStack {
+                            Text("Phone Number")
+                            TextField("", text: $user.phone)
+                                .multilineTextAlignment(.trailing)
+                                .foregroundColor(.secondary)
+                                .disabled(!isEditing)
+                        }
+                    }
+                    Section {
+                        HStack {
+                            Spacer()
+                            Button("Change Password") {
+                                needChangePassword.toggle()
+                            }
+                            .sheet(isPresented: $needChangePassword) {
+                                ChangePasswordView()
+                            }
+                            Spacer()
+                        }
+                        HStack {
+                            Spacer()
+                            Button("Log Out") {
+                                signOut()
+                            }
+                            .foregroundColor(.red)
+                            Spacer()
                         }
                     }
                 }
-                Section(header: HStack {
-                    Text("Profile")
-                    Spacer()
-                    if isEditing {
-                        Button("Done") {
-                            UIApplication.shared.endEditing()
-                            isEditing.toggle()
-                            updateAttributes()
-                        }
-                        .textCase(.none)
-                        .transition(AnyTransition.opacity.animation(.easeIn))
-                    } else {
-                        Button("Edit") {
-                            isEditing.toggle()
-                        }
-                        .textCase(.none)
-                        .transition(AnyTransition.opacity.animation(.easeIn))
-                    }
-                    
-                }) {
-                    HStack {
-                        Text("First Name")
-                        TextField("", text: $user.firstName)
-                            .multilineTextAlignment(.trailing)
-                            .foregroundColor(.secondary)
-                            .disabled(!isEditing)
-                    }
-                    HStack {
-                        Text("Last Name")
-                        TextField("", text: $user.lastName)
-                            .multilineTextAlignment(.trailing)
-                            .foregroundColor(.secondary)
-                            .disabled(!isEditing)
-                    }
-                    Picker(selection: $user.gender, label: Text("Gender")) {
-                        Text("Male").tag("Male")
-                        Text("Female").tag("Female")
-                    }
-                    .disabled(!isEditing)
-                    HStack {
-                        Text("Phone Number")
-                        TextField("", text: $user.phone)
-                            .multilineTextAlignment(.trailing)
-                            .foregroundColor(.secondary)
-                            .disabled(!isEditing)
-                    }
-                }
-                Section {
-                    HStack {
-                        Spacer()
-                        Button("Change Password") {
-                            needChangePassword.toggle()
-                        }
-                        .sheet(isPresented: $needChangePassword) {
-                            ChangePasswordView()
-                        }
-                        Spacer()
-                    }
-                    HStack {
-                        Spacer()
-                        Button("Log Out") {
-                            signOut()
-                        }
-                        .foregroundColor(.red)
-                        Spacer()
-                    }
-                }
+                .navigationTitle("Setting")
             }
-            .navigationTitle("Setting")
         }
     }
     
@@ -142,11 +146,15 @@ struct SettingView: View {
                 AuthUserAttribute(.gender, value: user.gender)
             ]
             Amplify.Auth.update(userAttributes: userAttributes) {
-                switch $0 {
-                case .success(_):
-                    break
-                case .failure(let error):
-                    DispatchQueue.main.async {
+                result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(_):
+                        showSuccessView.toggle()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            showSuccessView.toggle()
+                        }
+                    case .failure(let error):
                         self.error = error.errorDescription
                     }
                 }

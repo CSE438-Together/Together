@@ -17,15 +17,11 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            if isSigningUp {                
-                Spinner()
-                    .zIndex(7)
-                    .position(
-                        x: UIScreen.main.bounds.midX,
-                        y: UIScreen.main.bounds.midY
-                    )
-            }
-            
+            Spinner(isPresented: $isSigningUp)
+                .position(
+                    x: UIScreen.main.bounds.midX,
+                    y: UIScreen.main.bounds.midY
+                )            
             NavigationView {
                 Form {
                     ErrorSection(error: $error)
@@ -109,7 +105,7 @@ struct SignUpView: View {
                     .cornerRadius(30)
                     .transition(.move(edge: .bottom))
                     .animation(.easeInOut)
-                    .zIndex(10)
+                    .zIndex(5)
             }
         }
         .ignoresSafeArea(.all, edges: .all)

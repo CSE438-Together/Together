@@ -24,9 +24,7 @@ struct VerificationView: View {
     var body: some View {
         ZStack {
             BlurView(style: .systemUltraThinMaterial)
-            if isVerifying {
-                Spinner().zIndex(15)
-            }
+            Spinner(isPresented: $isVerifying)
             VStack(alignment: .leading) {
                 HStack {
                     Spacer()

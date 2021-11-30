@@ -13,21 +13,18 @@ struct ResetPasswordView: View {
     @State private var isLoading = false
     @State private var error = ""
     @State private var showSuccessView = false
-
-    private let email: String
+    @Binding private var isPresenting: Bool
+    private var email: String
     
-    init(email: String) {
+    init(email: String, isPresenting: Binding<Bool>) {
+        self._isPresenting = isPresenting
         self.email = email
     }
     
     var body: some View {
         ZStack {
-            if isLoading {
-                Spinner().zIndex(10)
-            }
-            if showSuccessView {
-                SuccessView().zIndex(15)
-            }
+            Spinner(isPresented: $isLoading)
+            SuccessView(isPresented: $showSuccessView, text: "Success")
             Form {
                 ErrorSection(error: $error)
                 Section(footer:
@@ -39,10 +36,13 @@ struct ResetPasswordView: View {
                 ) {
                     TextField("Confirmation Code", text: $reset.confirmationCode)
                         .font(.body)
+                        .foregroundColor(.primary)
                     SecureField("New Password", text: $reset.password)
                         .font(.body)
+                        .foregroundColor(.primary)
                     SecureField("Confirm New Password", text: $reset.passwordConfirmation)
                         .font(.body)
+                        .foregroundColor(.primary)
                 }
                 Section {
                     HStack {
@@ -78,6 +78,7 @@ struct ResetPasswordView: View {
                         showSuccessView.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             showSuccessView.toggle()
+                            isPresenting.toggle()
                         }
                     case .failure(let error):
                         self.error = error.errorDescription
@@ -89,7 +90,8 @@ struct ResetPasswordView: View {
 }
 
 struct ResetPasswordView_Previews: PreviewProvider {
+
     static var previews: some View {
-        ResetPasswordView(email: "asdf")
+        ResetPasswordView(email: "asdf", isPresenting: .constant(true))
     }
 }
