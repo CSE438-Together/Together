@@ -8,7 +8,7 @@
 import UIKit
 import Amplify
 
-class MyEventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MyEventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var myEventTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
     private let searchController = UISearchController()
@@ -19,11 +19,13 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         navigationItem.searchController = searchController
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
         setupTableView()
         guard let user = Amplify.Auth.getCurrentUser() else { return }
         eventManager = PostManager(
             table: myEventTableView,
-            predicate: Post.keys.owner == user.username,
+            predicate: (Post.keys.owner.eq(user.username)
+                        || Post.keys.members.contains(user.username)),
             sort: .descending(Post.keys.departureTime)
         )
     }
@@ -37,14 +39,6 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         myEventTableView.estimatedRowHeight = 85.0
         myEventTableView.rowHeight = UITableView.automaticDimension
         myEventTableView.separatorColor = UIColor.clear
-        
-//        let gradientlayer = CAGradientLayer()
-//        gradientlayer.frame = myEventTableView.bounds
-//        gradientlayer.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor.white.cgColor]
-//        gradientlayer.locations = [0, 1]
-//        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-//        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
-//        myEventTableView.backgroundView = UIImageView(image: UIImage(named: "loginLogo"))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,6 +51,33 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         eventManager.showPostDetailViewController(controller: self, indexPath: indexPath)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let keyword = searchController.searchBar.text else {return}
+        guard let user = Amplify.Auth.getCurrentUser() else { return }
+        let p = Post.keys
+        eventManager = PostManager(
+            table: myEventTableView,
+            predicate: ((p.departurePlace.contains(keyword)
+                        || p.destination.contains(keyword)
+                        || p.title.contains(keyword)
+                        || p.description.contains(keyword))
+                        && (p.owner.eq(user.username) || p.members.contains(user.username))
+            ),
+            sort: .descending(Post.keys.departureTime)
+        )
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        guard let user = Amplify.Auth.getCurrentUser() else { return }
+        eventManager = PostManager(
+            table: myEventTableView,
+            predicate: Post.keys.owner == user.username
+                        || Post.keys.members.contains(user.username)
+            ,
+            sort: .descending(Post.keys.departureTime)
+        )
     }
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: MyEventViewController?) -> NewPostViewController? {
