@@ -23,7 +23,8 @@ struct ChangePasswordView: View {
                     Section(footer:
                         Text(password.message == PasswordStatus.valid.rawValue
                              ? ""
-                             : password.message)
+                             : password.message
+                            )
                             .foregroundColor(Color.red)
                     ) {
                         SecureField("Old Password", text: $password.old)
@@ -45,17 +46,16 @@ struct ChangePasswordView: View {
                     }
                 }
                 .navigationTitle("Change Password")
-            }
-            Image(systemName: "xmark")
-                .resizable()
-                .scaledToFill()
-                .foregroundColor(.primary)
-                .frame(width: 25, height: 25, alignment: .center)
-                .padding([.leading, .top], 20)
-                .onTapGesture {
-                    presentationMode.wrappedValue.dismiss()
+                .toolbar() {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.primary)
+                            .onTapGesture {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                    }
                 }
-                .position(x: 20, y: 20)
+            }
             if isLoading {
                 Spinner().zIndex(5)
             }
@@ -66,22 +66,24 @@ struct ChangePasswordView: View {
     }
     
     private func changePassword() {
-        Amplify.Auth.update(oldPassword: password.old, to: password.new) {
-            result in
-            DispatchQueue.main.async {
-                isLoading.toggle()
-                switch result {
-                case .success:
-                    showSuccessView.toggle()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.global().async {
+            Amplify.Auth.update(oldPassword: password.old, to: password.new) {
+                result in
+                DispatchQueue.main.async {
+                    isLoading.toggle()
+                    switch result {
+                    case .success:
                         showSuccessView.toggle()
-                        presentationMode.wrappedValue.dismiss()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            showSuccessView.toggle()
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    case .failure(let error):
+                        self.error = error.errorDescription
                     }
-                case .failure(let error):
-                    self.error = error.errorDescription
                 }
             }
-        }
+        }        
     }
 }
 

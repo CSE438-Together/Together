@@ -13,7 +13,8 @@ struct LoginView: View {
     @State private var password = ""
     @State private var error = ""
     @State private var isSigningIn = false
-
+    @State private var showConfirmEmailView = false
+    
     var body: some View {
         ZStack {
             HStack {
@@ -56,7 +57,18 @@ struct LoginView: View {
                 }
                 .disabled(isSigningIn)
 
-                Section {
+                Section(footer:
+                    HStack {
+                        Spacer()
+                        Button("Forget Password?") {
+                            showConfirmEmailView.toggle()
+                        }
+                        .sheet(isPresented: $showConfirmEmailView) {
+                            ConfirmEmailView()
+                        }
+                        Spacer()
+                    }
+                ) {
                     HStack {
                         Spacer()
                         Button("Login") {

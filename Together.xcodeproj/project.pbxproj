@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		011787423264143E65E8FAE3 /* Transportation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322378CC913AD7559DE40AF /* Transportation.swift */; };
-		0C001EBD2743685700B2CD82 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C001EBC2743685700B2CD82 /* TabViewController.swift */; };
 		0C493169272C62B700DBE3DE /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C493168272C62B700DBE3DE /* ExploreViewController.swift */; };
 		0C49316B272C651800DBE3DE /* MyEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49316A272C651800DBE3DE /* MyEventViewController.swift */; };
 		50072378272B8F0500F3FF31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50072377272B8F0500F3FF31 /* AppDelegate.swift */; };
@@ -30,6 +29,9 @@
 		508CA29227556B4000DBE5EF /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CA29127556B4000DBE5EF /* ChangePasswordView.swift */; };
 		508CA29427556DD500DBE5EF /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CA29327556DD500DBE5EF /* ChangePasswordViewModel.swift */; };
 		508CA2962755754100DBE5EF /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CA2952755754100DBE5EF /* SuccessView.swift */; };
+		508CA2982755970A00DBE5EF /* ConfirmEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CA2972755970A00DBE5EF /* ConfirmEmailView.swift */; };
+		508CA29A27559D4E00DBE5EF /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CA29927559D4E00DBE5EF /* ResetPasswordView.swift */; };
+		508CA29C27559EC100DBE5EF /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CA29B27559EC100DBE5EF /* ResetPasswordViewModel.swift */; };
 		508F319427544C3700104EA3 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F319327544C3700104EA3 /* UserViewModel.swift */; };
 		50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */; };
 		50AEED5B27402A80009D08D0 /* AWSS3StoragePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 50AEED5A27402A80009D08D0 /* AWSS3StoragePlugin */; };
@@ -68,7 +70,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C001EBC2743685700B2CD82 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		0C493168272C62B700DBE3DE /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		0C49316A272C651800DBE3DE /* MyEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventViewController.swift; sourceTree = "<group>"; };
 		38664D4C08FA9A877DAC28A1 /* Post+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Post+Schema.swift"; path = "amplify/generated/models/Post+Schema.swift"; sourceTree = "<group>"; };
@@ -94,6 +95,9 @@
 		508CA29127556B4000DBE5EF /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		508CA29327556DD500DBE5EF /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		508CA2952755754100DBE5EF /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
+		508CA2972755970A00DBE5EF /* ConfirmEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailView.swift; sourceTree = "<group>"; };
+		508CA29927559D4E00DBE5EF /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		508CA29B27559EC100DBE5EF /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		508F319327544C3700104EA3 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		50AEED57273F6453009D08D0 /* NewPostViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewDelegate.swift; sourceTree = "<group>"; };
 		50DA05F62741827200B34D1E /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
@@ -205,7 +209,6 @@
 				50513A442737633C000C245B /* NewPostViewController.swift */,
 				0C49316A272C651800DBE3DE /* MyEventViewController.swift */,
 				50DA05F62741827200B34D1E /* PostDetailViewController.swift */,
-				0C001EBC2743685700B2CD82 /* TabViewController.swift */,
 				0C493168272C62B700DBE3DE /* ExploreViewController.swift */,
 				C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */,
 				503C77BA275444FB00AD1673 /* SettingHostingController.swift */,
@@ -243,6 +246,8 @@
 				503C77B8275436E100AD1673 /* SettingView.swift */,
 				508CA28F275568A300DBE5EF /* PhotoPicker.swift */,
 				508CA29127556B4000DBE5EF /* ChangePasswordView.swift */,
+				508CA2972755970A00DBE5EF /* ConfirmEmailView.swift */,
+				508CA29927559D4E00DBE5EF /* ResetPasswordView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				5089C9242745DB42000C057F /* NewUserViewModel.swift */,
 				508F319327544C3700104EA3 /* UserViewModel.swift */,
 				508CA29327556DD500DBE5EF /* ChangePasswordViewModel.swift */,
+				508CA29B27559EC100DBE5EF /* ResetPasswordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -431,6 +437,7 @@
 				50DA0606274182CB00B34D1E /* PostDetailTableViewOverViewCell.swift in Sources */,
 				508CA29227556B4000DBE5EF /* ChangePasswordView.swift in Sources */,
 				50DA0604274182CB00B34D1E /* PostDetailTableViewPeopleCell.swift in Sources */,
+				508CA29C27559EC100DBE5EF /* ResetPasswordViewModel.swift in Sources */,
 				508CA2962755754100DBE5EF /* SuccessView.swift in Sources */,
 				503C77B9275436E100AD1673 /* SettingView.swift in Sources */,
 				50E7ABC027488C1A00C778EE /* UserProfileField.swift in Sources */,
@@ -440,7 +447,6 @@
 				50513A452737633C000C245B /* NewPostViewController.swift in Sources */,
 				5089C9252745DB42000C057F /* NewUserViewModel.swift in Sources */,
 				72F4D3482752D2E000ABFD4C /* GradientColor.swift in Sources */,
-				0C001EBD2743685700B2CD82 /* TabViewController.swift in Sources */,
 				50E7ABC627489BA700C778EE /* BlurView.swift in Sources */,
 				72349E89272CF44D00BA23E1 /* PostTableViewCell.swift in Sources */,
 				5044DF63273F05920099A4C1 /* MessageLabel.swift in Sources */,
@@ -465,9 +471,11 @@
 				50E7ABC227488CA000C778EE /* PasswordField.swift in Sources */,
 				50E7ABBE274850DA00C778EE /* Spinner.swift in Sources */,
 				577AA8B4071B454D3E0A5D57 /* Post+Schema.swift in Sources */,
+				508CA2982755970A00DBE5EF /* ConfirmEmailView.swift in Sources */,
 				5033ACDA27500B52009769B5 /* PostManager.swift in Sources */,
 				8DB86CA4C842D67461AE5C30 /* Post.swift in Sources */,
 				011787423264143E65E8FAE3 /* Transportation.swift in Sources */,
+				508CA29A27559D4E00DBE5EF /* ResetPasswordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
