@@ -62,7 +62,7 @@ struct VerificationView: View {
                     case .success:
                         showSuccessView.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            showLoginView.toggle()
+                            showSuccessView.toggle()
                             presentationMode.wrappedValue.dismiss()
                             showLoginView.toggle()
                         }
