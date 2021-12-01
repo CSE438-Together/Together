@@ -35,6 +35,7 @@ struct ChangePasswordView: View {
                         HStack {
                             Spacer()
                             Button("Submit") {
+                                UIApplication.shared.endEditing()
                                 isLoading.toggle()
                                 changePassword()
                             }

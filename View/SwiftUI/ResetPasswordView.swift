@@ -48,6 +48,7 @@ struct ResetPasswordView: View {
                     HStack {
                         Spacer()
                         Button("Reset") {
+                            UIApplication.shared.endEditing()
                             isLoading.toggle()
                             resetPassword()
                         }
@@ -90,7 +91,6 @@ struct ResetPasswordView: View {
 }
 
 struct ResetPasswordView_Previews: PreviewProvider {
-
     static var previews: some View {
         ResetPasswordView(email: "asdf", isPresenting: .constant(true))
     }

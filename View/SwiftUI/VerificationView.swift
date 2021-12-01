@@ -9,98 +9,70 @@ import SwiftUI
 import Amplify
 
 struct VerificationView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var verificationCode = ""
     @State private var isVerifying = false
     @State private var error = ""
-    private let email: String
-    private let password: String
-    
-    init (email: String, password: String) {
-        self.email = email
-        self.password = password
-        UITableView.appearance().backgroundColor = .clear
-    }
+    @State private var showSuccessView = false
+    @Binding var showLoginView: Bool
+    var email: String
     
     var body: some View {
         ZStack {
-            BlurView(style: .systemUltraThinMaterial)
             Spinner(isPresented: $isVerifying)
-            VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    Text("Verification")
-                        .font(.title)
-                    Spacer()
-                }
-                .padding()
-                Divider()
-                HStack {
-                    Spacer()
-                    Text("Please enter verification code we sent to your email address")
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                    Spacer()
-                }
+            SuccessView(isPresented: $showSuccessView, text: "Success")
+            Form {
                 ErrorSection(error: $error)
-                    .padding()
-                Form {
-                    Section {
-                        TextField("Verification Code", text: $verificationCode)
-                    }
-                    Section(footer:
-                        Button(action: {}) {
-                            HStack {
-                                Spacer()
-                                Text("Resend Code")
-                                    .font(.body)
-                                Spacer()
-                            }
-                            .padding([.top], 10)
-                        }
-                        .animation(.none)
-                    ) {
-                        Button(action: {
-                            isVerifying = true
-                            confirmSignUp()
-                        }) {
-                            HStack {
-                                Spacer()
-                                Text("Verify")
-                                Spacer()
-                            }
-                        }
-                        .disabled(verificationCode.isEmpty)
-                        .accentColor(.white)
-                        .listRowBackground(Color.blue.opacity(verificationCode.isEmpty ? 0.5 : 1))
-                    }
+                Section(
+                    header: Text("Please enter verification code we sent to your email address").textCase(.none)
+                ) {
+                    TextField("Verification Code", text: $verificationCode)
                 }
-                .animation(.easeInOut)
-                .padding(EdgeInsets(top: -65, leading: 0, bottom: 0, trailing: 0))
+                Section(
+                    footer: HStack {
+                        Spacer()
+                        Button("Resend Code") {}.font(.body)
+                        Spacer()
+                    }
+                    .padding()
+                ) {
+                    HStack {
+                        Spacer()
+                        Button("Verify") {
+                            UIApplication.shared.endEditing()
+                            confirmSignUp()                            
+                        }
+                        .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .disabled(verificationCode.isEmpty)
+                    .listRowBackground(Color.blue.opacity(verificationCode.isEmpty ? 0.5 : 1))
+                }
             }
             .disabled(isVerifying)
         }
+        .navigationTitle("Verificaiton")
     }
     
     private func confirmSignUp() {
+        isVerifying.toggle()
         DispatchQueue.global().async {
             Amplify.Auth.confirmSignUp(for: email, confirmationCode: verificationCode) {
                 result in
-                switch result {
-                case .success:
-                    API.signIn(email, password) {
-                        result in
-                        switch result {
-                        case .success:
-                            break
-                        case .failure(let error):
-                            self.error = error.errorDescription
+                DispatchQueue.main.async {
+                    isVerifying.toggle()
+                    switch result {
+                    case .success:
+                        showSuccessView.toggle()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            showSuccessView.toggle()
+                            presentationMode.wrappedValue.dismiss()
+                            showLoginView.toggle()
                         }
+                    case .failure(let error):
+                        self.error = error.errorDescription
                     }
-                case .failure(let error):
-                    self.error = error.errorDescription
                 }
-                isVerifying = false
             }
         }
     }
@@ -108,6 +80,6 @@ struct VerificationView: View {
 
 struct VerificationView_Previews: PreviewProvider {
     static var previews: some View {
-        VerificationView(email: "123@wustl.edu", password: "123")
+        VerificationView(showLoginView: .constant(true), email: "123@wustl.edu")
     }
 }

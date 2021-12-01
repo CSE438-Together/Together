@@ -8,7 +8,7 @@
 import UIKit
 import Amplify
 
-class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var exploreTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
     @IBOutlet weak var newPostsReminder: UIButton!
@@ -45,17 +45,15 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         purpleToPink.endPoint = CGPoint(x: 1.0, y: 0.0)
         tabBarController!.tabBar.layer.insertSublayer(purpleToPink, at: 0)
         
-//        let layer = CAGradientLayer()
-//        layer.frame = (navigationController?.navigationBar.bounds)!
-//        layer.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
-//        self.navigationController?.navigationBar.layer.insertSublayer(layer, at: 0)
-//        self.navigationController?.navigationBar.setBackgroundImage(GradientColor.image(fromLayer: layer), for: .default)
-        
         navigationController?.navigationBar.backgroundColor = UIColor(named: "bgYellow")
         
         navigationItem.searchController = searchController
+        
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "search titles, places and descriptions"
+        
         setupTableView()
         postManager = PostManager(
             table: exploreTableView,
@@ -86,13 +84,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.rowHeight = UITableView.automaticDimension
         exploreTableView.separatorColor = UIColor.clear
         
-//        let gradientlayer = CAGradientLayer()
-//        gradientlayer.frame = exploreTableView.bounds
-//        gradientlayer.colors = [UIColor(named: "bgOrange")!.cgColor, UIColor.white.cgColor]
-//        gradientlayer.locations = [0, 1]
-//        gradientlayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-//        gradientlayer.endPoint = CGPoint(x: 1.0, y: 0.0)
-//        exploreTableView.backgroundView = UIImageView(image: UIImage(named: "loginLogo"))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,6 +103,32 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.scrollsToTop = false
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let keyword = searchController.searchBar.text else {
+            return
+        }
+        let p = Post.keys
+        postManager = PostManager(
+            table: exploreTableView,
+            predicate: (p.departurePlace.contains(keyword)
+                        || p.destination.contains(keyword)
+                        || p.title.contains(keyword)
+                        || p.description.contains(keyword)
+            ),
+            sort: .descending(Post.keys.departureTime),
+            reloadCompletion: { self.newPostsReminder.isHidden = true }
+        )
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        postManager = PostManager(
+            table: exploreTableView,
+            sort: .descending(Post.keys.departureTime),
+            reloadCompletion: { self.newPostsReminder.isHidden = true }
+        )
+    }
+    
+    
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
     }
@@ -122,6 +139,8 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         exploreTableView.scrollsToTop = true
     }
+    
+    
 }
 
 extension ExploreViewController: NewPostViewDelegate {

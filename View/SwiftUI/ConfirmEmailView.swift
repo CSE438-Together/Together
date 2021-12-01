@@ -24,7 +24,6 @@ struct ConfirmEmailView: View {
                     NavigationLink(destination: ResetPasswordView(email: email + "@wustl.edu", isPresenting: $isPresenting), isActive: $showResetPasswordView) {
                         EmptyView()
                     }
-
                     Form {
                         ErrorSection(error: $error)
                         Section {
@@ -42,6 +41,7 @@ struct ConfirmEmailView: View {
                             HStack {
                                 Spacer()
                                 Button("Confirm") {
+                                    UIApplication.shared.endEditing()
                                     isLoading.toggle()
                                     confirmEmail()
                                 }
