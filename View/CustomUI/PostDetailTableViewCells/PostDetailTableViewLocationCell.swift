@@ -14,6 +14,7 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     @IBOutlet var departurePlaceView : UILabel!
     @IBOutlet var destionationView : UILabel!
     @IBOutlet var navigationView : MKMapView!
+    @IBOutlet var shadowView : UIView!
     
     var locationManager = CLLocationManager()
 
@@ -28,6 +29,11 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
+    
     
     static let identifier = "PostDetailTableViewLocationCell"
     
@@ -36,6 +42,22 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     }
     
     public func configure( with departurePlace : String , with destination : String) {
+        
+        self.navigationView.layer.cornerRadius = 10
+        
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+        
+        self.shadowView.layer.shadowColor = UIColor.gray.cgColor
+        self.shadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.shadowView.layer.shadowOpacity = 0.8
+        self.shadowView.layer.masksToBounds = false
+        self.shadowView.layer.cornerRadius = 10
+        
+        self.shadowView.layer.zPosition = -1
+        
+        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        
         self.departurePlaceView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.departurePlaceView.numberOfLines = 0
         self.departurePlaceView.text = "Departure Place: \n" + departurePlace
