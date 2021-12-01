@@ -95,7 +95,6 @@ struct SignUpView: View {
                             .listRowBackground(Color.blue.opacity(!newUser.isUserProfileValid ? 0.5 : 1))
                         }
                     }
-                    .disabled(needVerification)
                     .navigationTitle("Create Account")
                 }
             }
