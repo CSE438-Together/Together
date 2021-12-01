@@ -33,38 +33,37 @@ struct SettingView: View {
                                     .onTapGesture {
                                         isShowingPhotoPicker = true
                                     }
-                                    .sheet(isPresented: $isShowingPhotoPicker, content: {
+                                    .sheet(isPresented: $isShowingPhotoPicker) {
                                         PhotoPicker(image: $user.profilePhoto, error: $error)
-                                    })
+                                    }
                             }
                             VStack(alignment: .leading) {
                                 Text(user.nickname)
+                                    .font(.title3)
                                     .foregroundColor(.primary)
                                 Text(user.email)
                                     .foregroundColor(.secondary)
                             }
                         }
                     }
-                    Section(header: HStack {
-                        Text("Profile")
-                        Spacer()
-                        if isEditing {
-                            Button("Done") {
-                                UIApplication.shared.endEditing()
-                                isEditing.toggle()
-                                updateAttributes()
+                    Section(header:
+                        HStack {
+                            Text("PROFILE")
+                            Spacer()
+                            if isEditing {
+                                Button("Done") {
+                                    UIApplication.shared.endEditing()
+                                    isEditing.toggle()
+                                    updateAttributes()
+                                }
+                                .transition(AnyTransition.opacity.animation(.easeIn))
+                            } else {
+                                Button("Edit") { isEditing.toggle() }
+                                    .transition(AnyTransition.opacity.animation(.easeIn))
                             }
-                            .textCase(.none)
-                            .transition(AnyTransition.opacity.animation(.easeIn))
-                        } else {
-                            Button("Edit") {
-                                isEditing.toggle()
-                            }
-                            .textCase(.none)
-                            .transition(AnyTransition.opacity.animation(.easeIn))
                         }
-                        
-                    }) {
+                        .textCase(.none)
+                    ) {
                         HStack {
                             Text("First Name")
                             TextField("", text: $user.firstName)
@@ -95,20 +94,15 @@ struct SettingView: View {
                     Section {
                         HStack {
                             Spacer()
-                            Button("Change Password") {
-                                needChangePassword.toggle()
-                            }
-                            .sheet(isPresented: $needChangePassword) {
-                                ChangePasswordView()
-                            }
+                            Button("Change Password") { needChangePassword.toggle() }
+                                .sheet(isPresented: $needChangePassword) {
+                                    ChangePasswordView()
+                                }
                             Spacer()
                         }
                         HStack {
                             Spacer()
-                            Button("Log Out") {
-                                signOut()
-                            }
-                            .foregroundColor(.red)
+                            Button("Log Out") { signOut() }.foregroundColor(.red)
                             Spacer()
                         }
                     }

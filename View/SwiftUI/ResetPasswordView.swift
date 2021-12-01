@@ -90,7 +90,6 @@ struct ResetPasswordView: View {
 }
 
 struct ResetPasswordView_Previews: PreviewProvider {
-
     static var previews: some View {
         ResetPasswordView(email: "asdf", isPresenting: .constant(true))
     }

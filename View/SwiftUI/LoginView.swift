@@ -41,16 +41,14 @@ struct LoginView: View {
                     Section(footer:
                         HStack {
                             Spacer()
-                            Button("Forget Password?") {
-                                showConfirmEmailView.toggle()
-                            }
-                            .font(.body)
-                            .sheet(isPresented: $showConfirmEmailView) {
-                                ConfirmEmailView()
-                            }
+                            Button("Forget Password?") { showConfirmEmailView.toggle() }
+                                .font(.body)
+                                .sheet(isPresented: $showConfirmEmailView) {
+                                    ConfirmEmailView()
+                                }
                             Spacer()
                         }
-                        .padding([.top], 20)
+                        .padding()
                     ) {
                         HStack {
                             Spacer()
