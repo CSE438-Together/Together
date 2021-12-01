@@ -53,6 +53,7 @@ struct LoginView: View {
                         HStack {
                             Spacer()
                             Button("Login") {
+                                UIApplication.shared.endEditing()
                                 self.isSigningIn.toggle()
                                 API.signIn(email + "@wustl.edu", password) {
                                     switch $0 {

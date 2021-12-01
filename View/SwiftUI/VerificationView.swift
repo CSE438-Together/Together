@@ -38,8 +38,11 @@ struct VerificationView: View {
                 ) {
                     HStack {
                         Spacer()
-                        Button("Verify") { confirmSignUp() }
-                            .foregroundColor(.white)
+                        Button("Verify") {
+                            UIApplication.shared.endEditing()
+                            confirmSignUp()                            
+                        }
+                        .foregroundColor(.white)
                         Spacer()
                     }
                     .disabled(verificationCode.isEmpty)

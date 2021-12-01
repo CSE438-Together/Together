@@ -48,6 +48,7 @@ struct ResetPasswordView: View {
                     HStack {
                         Spacer()
                         Button("Reset") {
+                            UIApplication.shared.endEditing()
                             isLoading.toggle()
                             resetPassword()
                         }
