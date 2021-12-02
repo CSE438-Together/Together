@@ -1,24 +1,26 @@
 //
-//  PostDetailTableViewOverViewCell.swift
+//  PostDetailTableViewCreatorCell.swift
 //  Together
 //
-//  Created by Bingxin Liu on 11/11/21.
+//  Created by Bingxin Liu on 11/30/21.
 //
 
 import UIKit
 
-class PostDetailTableViewOverViewCell: UITableViewCell {
+class PostDetailTableViewCreatorCell: UITableViewCell {
     
-    @IBOutlet var titleView : UILabel!
-    @IBOutlet var descriptionView : UITextView!
+    @IBOutlet var userAvatarView: UIImageView!
+    @IBOutlet var creatorLabel: UILabel!
     @IBOutlet var shadowView : UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
+        userAvatarView.layer.cornerRadius = userAvatarView.frame.width/2
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,17 +29,15 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    static let identifier = "PostDetailTableViewOverViewCell"
+    static let identifier = "PostDetailTableViewCreatorCell"
     
     static func nib() -> UINib {
-        return UINib(nibName: "PostDetailTableViewOverViewCell", bundle: nil)
+        return UINib(nibName: "PostDetailTableViewCreatorCell", bundle: nil)
     }
     
-    public func configure( with title : String, with description : String ) {
-        self.titleView.text = title
-        self.descriptionView.text = description
-        self.descriptionView.isEditable = false
-        self.descriptionView.backgroundColor = .none
+    public func configure( with creatorAvatar : UIImage, with creatorName : String) {
+        self.userAvatarView.image = creatorAvatar
+        self.creatorLabel.text = creatorName
         
         
         self.layer.cornerRadius = 10

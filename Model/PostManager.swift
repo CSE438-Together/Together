@@ -105,6 +105,11 @@ class PostManager {
             return
         }
         postDetailViewController.post = posts[indexPath.row]
+        if posts[indexPath.row].owner != nil {
+            postDetailViewController.ceatorAvatar = imageCache[posts[indexPath.row].owner!]
+        } else {
+            postDetailViewController.ceatorAvatar = UIImage(systemName: "person")
+        }
         controller.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

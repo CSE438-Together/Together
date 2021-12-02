@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,10 +18,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pLm-vv-9BW">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cF-HY-IkP">
+                        <rect key="frame" x="10" y="10" width="300" height="20"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pLm-vv-9BW">
                         <rect key="frame" x="20" y="31" width="280" height="4"/>
                     </progressView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoE-TB-ZIa">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoE-TB-ZIa">
                         <rect key="frame" x="20" y="5" width="280" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -27,11 +33,15 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="pLm-vv-9BW" secondAttribute="bottom" constant="5" id="7Fd-F4-4Iq"/>
+                    <constraint firstAttribute="trailing" secondItem="3cF-HY-IkP" secondAttribute="trailing" constant="10" id="6II-NF-qRO"/>
+                    <constraint firstAttribute="bottom" secondItem="pLm-vv-9BW" secondAttribute="bottom" constant="15" id="7Fd-F4-4Iq"/>
+                    <constraint firstAttribute="bottom" secondItem="3cF-HY-IkP" secondAttribute="bottom" constant="10" id="Bva-BJ-CHB"/>
+                    <constraint firstItem="3cF-HY-IkP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="JIX-sU-0J2"/>
                     <constraint firstItem="XoE-TB-ZIa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="KHV-ob-DzB"/>
                     <constraint firstItem="pLm-vv-9BW" firstAttribute="top" secondItem="XoE-TB-ZIa" secondAttribute="bottom" constant="5" id="OE5-tQ-dNa"/>
                     <constraint firstAttribute="trailing" secondItem="XoE-TB-ZIa" secondAttribute="trailing" constant="20" symbolic="YES" id="Qqv-gA-7Ch"/>
-                    <constraint firstItem="XoE-TB-ZIa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bl5-bu-8Pm"/>
+                    <constraint firstItem="3cF-HY-IkP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="RDN-Pg-5Gf"/>
+                    <constraint firstItem="XoE-TB-ZIa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="bl5-bu-8Pm"/>
                     <constraint firstItem="pLm-vv-9BW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="kP3-5D-sK2"/>
                     <constraint firstAttribute="trailing" secondItem="pLm-vv-9BW" secondAttribute="trailing" constant="20" symbolic="YES" id="xvk-KK-tDR"/>
                 </constraints>
@@ -39,9 +49,15 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="progressView" destination="pLm-vv-9BW" id="kvB-nU-d2J"/>
+                <outlet property="shadowView" destination="3cF-HY-IkP" id="EtP-YK-fFv"/>
                 <outlet property="statusView" destination="XoE-TB-ZIa" id="uhS-w2-qS3"/>
             </connections>
             <point key="canvasLocation" x="34.782608695652179" y="184.82142857142856"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
