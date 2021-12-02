@@ -8,7 +8,6 @@
 import UIKit
 import Amplify
 
-
 class ExploreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var exploreTableView: UITableView!
     @IBOutlet weak var message: MessageLabel!
