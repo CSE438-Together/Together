@@ -1,11 +1,12 @@
 {
-  "AppSyncApiName": "Together",
+  "AppSyncApiName": "Together2",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
-      "authTogether",
+      "authTogether2",
       "Outputs.UserPoolId"
     ]
-  }
+  },
+  "AuthModeLastUpdated": "2021-12-02T00:55:08.181Z"
 }

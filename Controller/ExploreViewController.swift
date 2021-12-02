@@ -33,6 +33,46 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        guard let username = Amplify.Auth.getCurrentUser()?.username else { return }
+//        Amplify.Storage.downloadData(key: username) {
+//            result in
+//            switch result {
+//            case .success(let imageData):
+//                DispatchQueue.main.async {
+//                    if let image = UIImage(data: imageData) {
+//                        print(image)
+//                    }
+//                }
+//            case .failure(_):
+//                break
+//            }
+//        }
+//        let queryParameters = ["username" : username]
+//        let request = RESTRequest(path: "/getUserAttributes", queryParameters: queryParameters)
+//        Amplify.API.get(request: request) { result in
+//            switch result {
+//            case .success(let data):
+//                if let item = try? JSONDecoder().decode(Attributes.self, from: data) {
+//                    print(item.firstName ?? "")
+//                    print(item.lastName ?? "")
+//                    print(item.gender ?? "")
+//                    print(item.nickName ?? "")
+//                } else {
+//                    // handle error
+//                }
+//            case .failure(let error):
+//                // handle error
+//                print(error.errorDescription)
+//                break
+//            }
+//        }
+        
+        
+        
+        
+        
+        
         navigationController?.view.addSubview(label)
         exploreTableView.scrollsToTop = false
         newPostsReminder.layer.cornerRadius = 15
@@ -149,7 +189,7 @@ extension ExploreViewController: NewPostViewDelegate {
             UIView.animate(withDuration: 0.6) {
                 label.center = CGPoint(x: view.center.x, y: (topPadding ?? 50) + label.frame.height / 2)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                 UIView.animate(withDuration: 0.6) {
                     label.center = CGPoint(x: view.center.x, y: -label.frame.height)
                 }

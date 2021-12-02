@@ -95,6 +95,7 @@ struct SignUpView: View {
                             .listRowBackground(Color.blue.opacity(!newUser.isUserProfileValid ? 0.5 : 1))
                         }
                     }
+                    .disabled(isSigningUp)
                     .navigationTitle("Create Account")
                 }
             }
@@ -115,13 +116,16 @@ struct SignUpView: View {
                 password: newUser.password,
                 options: AuthSignUpRequest.Options(userAttributes: userAttributes)
             ) {
-                switch $0 {
-                case .success:
-                    needVerification = true
-                case .failure(let error):
-                    self.error = error.errorDescription
+                result in
+                DispatchQueue.main.async {
+                    isSigningUp = false
+                    switch result {
+                    case .success:
+                        needVerification = true
+                    case .failure(let error):
+                        self.error = error.errorDescription
+                    }
                 }
-                isSigningUp = false
             }
         }
     }

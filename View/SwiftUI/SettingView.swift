@@ -118,8 +118,10 @@ struct SettingView: View {
             case .success:
                 DispatchQueue.global().async {
                     Amplify.DataStore.stop { _ in
-                        DispatchQueue.main.async {
-                            UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: SignUpView())
+                        Amplify.DataStore.clear() { _ in
+                            DispatchQueue.main.async {
+                                UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: SignUpView())
+                            }
                         }
                     }
                 }
