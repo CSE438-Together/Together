@@ -58,6 +58,9 @@ class NewPostViewController: UIViewController {
         departurePlace.placeholder = "Choose a departure place"
         destination.placeholder = "Choose a destination"
         
+        departurePlaceOpenInMap.isEnabled = false
+        destinationOpenInMap.isEnabled = false
+        
         departurePlace.autocompleteTable = departurePlaceAutocomplete
         destination.autocompleteTable = destinationAutocomplete
         departurePlace.openMapButton = departurePlaceOpenInMap
@@ -213,7 +216,11 @@ extension NewPostViewController: UITextViewDelegate {
 
 extension NewPostViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let text = searchResults[indexPath.row].title + "\n" + searchResults[indexPath.row].subtitle
+        let text = searchResults[indexPath.row].title + (
+            searchResults[indexPath.row].subtitle == "Search Nearby"
+            ? ""
+            : "\n" + searchResults[indexPath.row].subtitle
+        )
         if tableView == departurePlaceAutocomplete {
             autocompleteSelected(departurePlace, text)
         } else if tableView == destinationAutocomplete {
@@ -240,7 +247,9 @@ extension NewPostViewController: UITableViewDataSource {
             for: indexPath
         )
         cell.textLabel?.text = searchResults[indexPath.row].title
-        cell.detailTextLabel?.text = searchResults[indexPath.row].subtitle
+        cell.detailTextLabel?.text = searchResults[indexPath.row].subtitle == "Search Nearby"
+            ? ""
+            : searchResults[indexPath.row].subtitle
         return cell
     }
 }
