@@ -65,6 +65,12 @@
 		72F4D3482752D2E000ABFD4C /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F4D3472752D2E000ABFD4C /* GradientColor.swift */; };
 		8DB86CA4C842D67461AE5C30 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E8FCD677A9CCE78228DE0 /* Post.swift */; };
 		C7121C802748B2FE00C9D86C /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */; };
+		C77574C72756D58C00F5D29C /* PostDetailTableViewCreatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77574C52756D58C00F5D29C /* PostDetailTableViewCreatorCell.swift */; };
+		C77574C82756D58C00F5D29C /* PostDetailTableViewCreatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77574C62756D58C00F5D29C /* PostDetailTableViewCreatorCell.xib */; };
+		C77574CB2756D75700F5D29C /* PostDetailTableViewTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77574C92756D75700F5D29C /* PostDetailTableViewTitleCell.swift */; };
+		C77574CC2756D75700F5D29C /* PostDetailTableViewTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77574CA2756D75700F5D29C /* PostDetailTableViewTitleCell.xib */; };
+		C77574CF2756D77100F5D29C /* PostDetailTableViewDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77574CD2756D77100F5D29C /* PostDetailTableViewDescriptionCell.swift */; };
+		C77574D02756D77100F5D29C /* PostDetailTableViewDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77574CE2756D77100F5D29C /* PostDetailTableViewDescriptionCell.xib */; };
 		C7DDAB1E2749B80600D89785 /* MembersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDAB1C2749B80600D89785 /* MembersTableViewCell.swift */; };
 		C7DDAB1F2749B80600D89785 /* MembersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7DDAB1D2749B80600D89785 /* MembersTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -125,6 +131,12 @@
 		75DFD74478BF6351E12A0161 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		8F4E8FCD677A9CCE78228DE0 /* Post.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Post.swift; path = amplify/generated/models/Post.swift; sourceTree = "<group>"; };
 		C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
+		C77574C52756D58C00F5D29C /* PostDetailTableViewCreatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewCreatorCell.swift; sourceTree = "<group>"; };
+		C77574C62756D58C00F5D29C /* PostDetailTableViewCreatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetailTableViewCreatorCell.xib; sourceTree = "<group>"; };
+		C77574C92756D75700F5D29C /* PostDetailTableViewTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewTitleCell.swift; sourceTree = "<group>"; };
+		C77574CA2756D75700F5D29C /* PostDetailTableViewTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetailTableViewTitleCell.xib; sourceTree = "<group>"; };
+		C77574CD2756D77100F5D29C /* PostDetailTableViewDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewDescriptionCell.swift; sourceTree = "<group>"; };
+		C77574CE2756D77100F5D29C /* PostDetailTableViewDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetailTableViewDescriptionCell.xib; sourceTree = "<group>"; };
 		C7DDAB1C2749B80600D89785 /* MembersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersTableViewCell.swift; sourceTree = "<group>"; };
 		C7DDAB1D2749B80600D89785 /* MembersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MembersTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,6 +311,12 @@
 				50DA0600274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib */,
 				50DA05FB274182CB00B34D1E /* PostDetailTableViewTimeCell.swift */,
 				50DA0602274182CB00B34D1E /* PostDetailTableViewTimeCell.xib */,
+				C77574C52756D58C00F5D29C /* PostDetailTableViewCreatorCell.swift */,
+				C77574C62756D58C00F5D29C /* PostDetailTableViewCreatorCell.xib */,
+				C77574C92756D75700F5D29C /* PostDetailTableViewTitleCell.swift */,
+				C77574CA2756D75700F5D29C /* PostDetailTableViewTitleCell.xib */,
+				C77574CD2756D77100F5D29C /* PostDetailTableViewDescriptionCell.swift */,
+				C77574CE2756D77100F5D29C /* PostDetailTableViewDescriptionCell.xib */,
 			);
 			path = PostDetailTableViewCells;
 			sourceTree = "<group>";
@@ -414,6 +432,9 @@
 				512CDFA52741C1C5008CB55B /* awsconfiguration.json in Resources */,
 				50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */,
 				50DA0608274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib in Resources */,
+				C77574D02756D77100F5D29C /* PostDetailTableViewDescriptionCell.xib in Resources */,
+				C77574C82756D58C00F5D29C /* PostDetailTableViewCreatorCell.xib in Resources */,
+				C77574CC2756D75700F5D29C /* PostDetailTableViewTitleCell.xib in Resources */,
 				50DA0609274182CB00B34D1E /* PostDetailTableViewLocationCell.xib in Resources */,
 				50DA060A274182CB00B34D1E /* PostDetailTableViewTimeCell.xib in Resources */,
 				50072381272B8F0500F3FF31 /* Assets.xcassets in Resources */,
@@ -463,11 +484,13 @@
 				C7121C802748B2FE00C9D86C /* MembersViewController.swift in Sources */,
 				C7DDAB1E2749B80600D89785 /* MembersTableViewCell.swift in Sources */,
 				508CA290275568A300DBE5EF /* PhotoPicker.swift in Sources */,
+				C77574CB2756D75700F5D29C /* PostDetailTableViewTitleCell.swift in Sources */,
 				50AEED58273F6453009D08D0 /* NewPostViewDelegate.swift in Sources */,
 				50EEEB562746D789009F53C3 /* LoginView.swift in Sources */,
 				506AC75E273C22E10070667B /* Extension.swift in Sources */,
 				508F319427544C3700104EA3 /* UserViewModel.swift in Sources */,
 				642102E9FE4550AEE13307D5 /* AmplifyModels.swift in Sources */,
+				C77574CF2756D77100F5D29C /* PostDetailTableViewDescriptionCell.swift in Sources */,
 				50E7ABC227488CA000C778EE /* PasswordField.swift in Sources */,
 				50E7ABBE274850DA00C778EE /* Spinner.swift in Sources */,
 				577AA8B4071B454D3E0A5D57 /* Post+Schema.swift in Sources */,
@@ -475,6 +498,7 @@
 				5033ACDA27500B52009769B5 /* PostManager.swift in Sources */,
 				8DB86CA4C842D67461AE5C30 /* Post.swift in Sources */,
 				011787423264143E65E8FAE3 /* Transportation.swift in Sources */,
+				C77574C72756D58C00F5D29C /* PostDetailTableViewCreatorCell.swift in Sources */,
 				508CA29A27559D4E00DBE5EF /* ResetPasswordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

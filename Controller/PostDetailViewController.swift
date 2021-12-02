@@ -15,15 +15,9 @@ class PostDetailViewController: UIViewController {
     var isCreator : Bool!
     var isMember : Bool!
     var isApplicants : Bool!
+    var ceatorAvatar : UIImage!
     
-    private let tableView : UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
-        table.register(PostDetailTableViewOverViewCell.nib(), forCellReuseIdentifier: PostDetailTableViewOverViewCell.identifier)
-        table.register(PostDetailTableViewTimeCell.nib(), forCellReuseIdentifier: PostDetailTableViewTimeCell.identifier)
-        table.register(PostDetailTableViewLocationCell.nib(), forCellReuseIdentifier: PostDetailTableViewLocationCell.identifier)
-        table.register(PostDetailTableViewPeopleCell.nib(), forCellReuseIdentifier: PostDetailTableViewPeopleCell.identifier)
-            return table
-        }()
+    @IBOutlet var tableView : UITableView!
     
     private var userId: String?
 
@@ -31,6 +25,18 @@ class PostDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.tableView.frame = CGRect(x: 0, y: 10, width: view.frame.width, height: view.frame.height + 10)
+        //self.tableView.style. = .grouped
+        self.tableView.separatorStyle = .none
+        self.tableView.layer.cornerRadius = 10
+        self.tableView.clipsToBounds = true
+        
+        self.tableView.register(PostDetailTableViewCreatorCell.nib(), forCellReuseIdentifier: PostDetailTableViewCreatorCell.identifier)
+        self.tableView.register(PostDetailTableViewOverViewCell.nib(), forCellReuseIdentifier: PostDetailTableViewOverViewCell.identifier)
+        self.tableView.register(PostDetailTableViewTimeCell.nib(), forCellReuseIdentifier: PostDetailTableViewTimeCell.identifier)
+        self.tableView.register(PostDetailTableViewLocationCell.nib(), forCellReuseIdentifier: PostDetailTableViewLocationCell.identifier)
+        self.tableView.register(PostDetailTableViewPeopleCell.nib(), forCellReuseIdentifier: PostDetailTableViewPeopleCell.identifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -213,14 +219,15 @@ extension PostDetailViewController : UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         /* lbx:
          we have :
-         1. OverView ( title and description )
-         2. Time ( start and end )
-         3. Location ( start and end )
-         4. People ()
+         1. creator ( Avator and name )
+         2. OverView ( title and description )
+         3. Time ( start and end )
+         4. Location ( start and end )
+         5. People ()
          
-         so, 4 sections in total
+         so, 5 sections in total
          */
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -229,22 +236,26 @@ extension PostDetailViewController : UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewCreatorCell.identifier, for: indexPath) as! PostDetailTableViewCreatorCell
+            cell.configure(with: ceatorAvatar, with: post.owner ?? "")
+            return cell
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewOverViewCell.identifier, for: indexPath) as! PostDetailTableViewOverViewCell
             
             cell.configure(with: post.title ?? "", with: post.description ?? "")
             return cell
             
-        case 1:
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTimeCell.identifier, for: indexPath) as! PostDetailTableViewTimeCell
             cell.configure(with: String(post.departureTime.toString()))
             return cell
             
-        case 2:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewLocationCell.identifier, for: indexPath) as! PostDetailTableViewLocationCell
             cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "" )
             return cell
             
-        case 3:
+        case 4:
             guard let members = post.members else {
                 print("Error: this post doesn't have members")
                 let cell = UITableViewCell()
@@ -263,7 +274,7 @@ extension PostDetailViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 3:
+        case 4:
             let membersViewController = MembersViewController()
             membersViewController.isOwner = self.isCreator
             membersViewController.post = self.post
@@ -296,19 +307,23 @@ extension PostDetailViewController : UITableViewDataSource {
 extension PostDetailViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            return "OverView"
         case 1:
-            return "Time"
+            return "OverView"
         case 2:
-            return "Location"
+            return "Time"
         case 3:
+            return "Location"
+        case 4:
             return "People"
         default:
             print("Warnnning: has section 4")
             return ""
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
     }
 }
 

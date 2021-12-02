@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,8 +18,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="291"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u23-Le-o9F">
+                        <rect key="frame" x="10" y="10" width="300" height="271"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z9b-Xf-rnu">
-                        <rect key="frame" x="20" y="30.5" width="280" height="255.5"/>
+                        <rect key="frame" x="10" y="40.5" width="300" height="240.5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="vqX-fW-hqJ"/>
@@ -29,25 +34,30 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z74-re-2BC">
-                        <rect key="frame" x="20" y="5" width="280" height="20.5"/>
+                        <rect key="frame" x="15" y="15" width="290" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Z9b-Xf-rnu" secondAttribute="trailing" constant="20" symbolic="YES" id="JkJ-iY-zgq"/>
+                    <constraint firstItem="u23-Le-o9F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="6eY-MA-evD"/>
+                    <constraint firstAttribute="trailing" secondItem="u23-Le-o9F" secondAttribute="trailing" constant="10" id="Cic-42-ycq"/>
+                    <constraint firstItem="u23-Le-o9F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Ddr-Ry-NRn"/>
+                    <constraint firstAttribute="bottom" secondItem="u23-Le-o9F" secondAttribute="bottom" constant="10" id="J1K-zr-EqG"/>
+                    <constraint firstAttribute="trailing" secondItem="Z9b-Xf-rnu" secondAttribute="trailing" constant="10" id="JkJ-iY-zgq"/>
                     <constraint firstItem="Z9b-Xf-rnu" firstAttribute="top" secondItem="z74-re-2BC" secondAttribute="bottom" constant="5" id="Pas-Dp-tX3"/>
-                    <constraint firstItem="Z9b-Xf-rnu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="Tog-uu-eqX"/>
-                    <constraint firstItem="z74-re-2BC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="gcK-Sh-0Nz"/>
-                    <constraint firstAttribute="trailing" secondItem="z74-re-2BC" secondAttribute="trailing" constant="20" symbolic="YES" id="mg2-z8-jSq"/>
-                    <constraint firstItem="z74-re-2BC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="wPF-C0-IcO"/>
-                    <constraint firstAttribute="bottom" secondItem="Z9b-Xf-rnu" secondAttribute="bottom" constant="5" id="z8X-OO-jzH"/>
+                    <constraint firstItem="Z9b-Xf-rnu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Tog-uu-eqX"/>
+                    <constraint firstItem="z74-re-2BC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="gcK-Sh-0Nz"/>
+                    <constraint firstAttribute="trailing" secondItem="z74-re-2BC" secondAttribute="trailing" constant="15" id="mg2-z8-jSq"/>
+                    <constraint firstItem="z74-re-2BC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="wPF-C0-IcO"/>
+                    <constraint firstAttribute="bottom" secondItem="Z9b-Xf-rnu" secondAttribute="bottom" constant="10" id="z8X-OO-jzH"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="descriptionView" destination="Z9b-Xf-rnu" id="2yu-bp-bp7"/>
+                <outlet property="shadowView" destination="u23-Le-o9F" id="jBa-Rd-Ywx"/>
                 <outlet property="titleView" destination="z74-re-2BC" id="WLQ-TB-cq8"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="189.17410714285714"/>
