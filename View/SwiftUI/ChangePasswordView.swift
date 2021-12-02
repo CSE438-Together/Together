@@ -20,12 +20,14 @@ struct ChangePasswordView: View {
             NavigationView {
                 Form {
                     ErrorSection(error: $error)
-                    Section(footer:
-                        Text(password.message == PasswordStatus.valid.rawValue
+                    Section(
+                        header: Text("Password must have at least 1 uppercase, 1 lowercase, 1 number, and must be at least 8 characters long").textCase(.none),
+                        footer: Text(password.message == PasswordStatus.valid.rawValue
                              ? ""
                              : password.message
                             )
                             .foregroundColor(Color.red)
+                            .fixedSize(horizontal: false, vertical: true)
                     ) {
                         SecureField("Old Password", text: $password.old)
                         SecureField("New Password", text: $password.new)

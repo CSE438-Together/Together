@@ -22,14 +22,15 @@ struct ResetPasswordView: View {
             SuccessView(isPresented: $showSuccessView, text: "Success")
             Form {
                 ErrorSection(error: $error)
-                Section(footer:
-                    Text(reset.message == PasswordStatus.valid.rawValue
+                Section(
+                    header: Text("A verification code is sent to your email address").textCase(.none),
+                    footer: Text(reset.message == PasswordStatus.valid.rawValue
                         ? ""
                         : reset.message
                     )
                     .foregroundColor(.red)
                 ) {
-                    TextField("Confirmation Code", text: $reset.confirmationCode)
+                    TextField("Verification Code", text: $reset.confirmationCode)
                         .font(.body)
                         .foregroundColor(.primary)
                     SecureField("New Password", text: $reset.password)
@@ -42,7 +43,7 @@ struct ResetPasswordView: View {
                 Section {
                     HStack {
                         Spacer()
-                        Button("Reset") {
+                        Button("Reset Password") {
                             UIApplication.shared.endEditing()
                             isLoading.toggle()
                             resetPassword()

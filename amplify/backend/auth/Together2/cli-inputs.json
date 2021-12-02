@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "togethe9aa873f",
     "userPoolName": "Together2",
     "autoVerifiedAttributes": [
@@ -21,7 +21,6 @@
     "passwordPolicyCharacters": [
       "Requires Lowercase",
       "Requires Numbers",
-      "Requires Symbols",
       "Requires Uppercase"
     ],
     "requiredAttributes": [

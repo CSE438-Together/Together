@@ -38,7 +38,7 @@ struct SignUpView: View {
                             (newUser.passwordVlidation == .valid ?
                                 Text("") :
                                 Text(newUser.passwordVlidation.rawValue).foregroundColor(.red) + Text("\n"))
-                                + Text("Password must have at least 1 uppercase, 1 lowercase, 1 number, 1 special character, 8 characters long")
+                                + Text("Password must have at least 1 uppercase, 1 lowercase, 1 number, and must be at least 8 characters long")
                         ) {
                             PasswordField(
                                 placeholder: "Create Password",

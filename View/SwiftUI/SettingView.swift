@@ -133,7 +133,8 @@ struct SettingView: View {
             let userAttributes = [
                 AuthUserAttribute(.givenName, value: user.firstName),
                 AuthUserAttribute(.familyName, value: user.lastName),
-                AuthUserAttribute(.gender, value: user.gender)
+                AuthUserAttribute(.gender, value: user.gender),
+                AuthUserAttribute(.phoneNumber, value: "+11111111111")
             ]
             Amplify.Auth.update(userAttributes: userAttributes) {
                 result in
