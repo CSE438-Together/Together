@@ -16,7 +16,6 @@ class UserViewModel: ObservableObject {
     @Published var firstName = "First Name"
     @Published var lastName = "Last Name"
     @Published var gender = "Male"
-    @Published var phone = "Phone Number"
     
     init() {
         DispatchQueue.global().async { [self] in
@@ -34,8 +33,6 @@ class UserViewModel: ObservableObject {
                                 firstName = attribute.value
                             case .familyName:
                                 lastName = attribute.value
-                            case .phoneNumber:
-                                phone = attribute.value
                             case .gender:
                                 gender = attribute.value
                             default:

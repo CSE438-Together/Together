@@ -22,7 +22,9 @@ struct SettingView: View {
             NavigationView {
                 Form {
                     ErrorSection(error: $error)
-                    Section {
+                    Section(
+                        footer: Text("Click above image to change profile photo")
+                    ) {
                         HStack {
                             if let image = user.profilePhoto {
                                 Image(uiImage: image)
@@ -83,13 +85,6 @@ struct SettingView: View {
                             Text("Female").tag("Female")
                         }
                         .disabled(!isEditing)
-                        HStack {
-                            Text("Phone Number")
-                            TextField("", text: $user.phone)
-                                .multilineTextAlignment(.trailing)
-                                .foregroundColor(.secondary)
-                                .disabled(!isEditing)
-                        }
                     }
                     Section {
                         HStack {
@@ -138,7 +133,6 @@ struct SettingView: View {
             let userAttributes = [
                 AuthUserAttribute(.givenName, value: user.firstName),
                 AuthUserAttribute(.familyName, value: user.lastName),
-                AuthUserAttribute(.phoneNumber, value: user.phone),
                 AuthUserAttribute(.gender, value: user.gender)
             ]
             Amplify.Auth.update(userAttributes: userAttributes) {

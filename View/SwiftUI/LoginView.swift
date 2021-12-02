@@ -23,15 +23,10 @@ struct LoginView: View {
                 Form {
                     ErrorSection(error: $error)
                     Section {
-                        HStack {
-                            TextField("Email", text: $email)
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .autocapitalization(.none)
-                            Text("@wustl.edu")
-                                .font(.body)
-                                .foregroundColor(.primary)
-                        }
+                        TextField("Email", text: $email)
+                            .font(.body)
+                            .foregroundColor(.primary)
+                            .autocapitalization(.none)
                         SecureField("Password", text: $password)
                             .font(.body)
                             .foregroundColor(.primary)
@@ -55,7 +50,7 @@ struct LoginView: View {
                             Button("Login") {
                                 UIApplication.shared.endEditing()
                                 self.isSigningIn.toggle()
-                                API.signIn(email + "@wustl.edu", password) {
+                                API.signIn(email, password) {
                                     switch $0 {
                                     case .success:
                                         break

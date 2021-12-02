@@ -21,21 +21,18 @@ struct ConfirmEmailView: View {
             Spinner(isPresented: $isLoading)
             NavigationView {
                 VStack {
-                    NavigationLink(destination: ResetPasswordView(email: email + "@wustl.edu", isPresenting: $isPresenting), isActive: $showResetPasswordView) {
+                    NavigationLink(destination: ResetPasswordView(isPresenting: $isPresenting, email: email), isActive: $showResetPasswordView) {
                         EmptyView()
                     }
                     Form {
                         ErrorSection(error: $error)
-                        Section {
-                            HStack {
-                                TextField("Email", text: $email)
-                                    .font(.body)
-                                    .autocapitalization(.none)
-                                    .foregroundColor(.primary)
-                                Text("@wustl.edu")
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                            }
+                        Section(
+                            footer: Text("Confirm email to reset password, a verification code would be sent to your email address")
+                        ) {
+                            TextField("Email", text: $email)
+                                .font(.body)
+                                .autocapitalization(.none)
+                                .foregroundColor(.primary)
                         }
                         Section {
                             HStack {
@@ -75,7 +72,7 @@ struct ConfirmEmailView: View {
     
     private func confirmEmail() {
         DispatchQueue.global().async {
-            Amplify.Auth.resetPassword(for: email + "@wustl.edu") {
+            Amplify.Auth.resetPassword(for: email) {
                 result in
                 DispatchQueue.main.async {
                     isLoading.toggle()

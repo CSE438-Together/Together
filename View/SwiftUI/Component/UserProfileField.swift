@@ -10,15 +10,11 @@ import SwiftUI
 struct UserProfileField: View {
     let placeholder: String
     @Binding var text: String
-    var leftItem: Text? = nil
-    var rightItem: Text? = nil
     
     var body: some View {
         HStack {
-            leftItem
             TextField(placeholder, text: $text)
                 .autocapitalization(.none)
-            rightItem
             if !text.isEmpty {
                 Image(systemName: "checkmark.circle")
                     .foregroundColor(.green)

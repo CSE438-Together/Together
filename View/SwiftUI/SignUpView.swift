@@ -21,7 +21,7 @@ struct SignUpView: View {
             NavigationView {
                 VStack {
                     NavigationLink(
-                        destination: VerificationView(showLoginView: $showLoginSheet, email: newUser.email + "@wustl.edu"),
+                        destination: VerificationView(showLoginView: $showLoginSheet, email: newUser.email),
                         isActive: $needVerification
                     ) {
                         EmptyView()
@@ -59,8 +59,7 @@ struct SignUpView: View {
                         Section(footer:
                             Text(newUser.userInfoVlidation).foregroundColor(.red)
                         ) {
-                            UserProfileField(placeholder: "Email", text: $newUser.email, rightItem: Text("@wustl.edu"))
-                            UserProfileField(placeholder: "Phone Number", text: $newUser.phone, leftItem: Text("+1"))
+                            UserProfileField(placeholder: "Email", text: $newUser.email)
                             UserProfileField(placeholder: "Username", text: $newUser.nickname)
                         }
                         Section {
@@ -107,12 +106,11 @@ struct SignUpView: View {
             let userAttributes = [
                 AuthUserAttribute(.givenName, value: newUser.firstName),
                 AuthUserAttribute(.familyName, value: newUser.lastName),
-                AuthUserAttribute(.phoneNumber, value: "+1" + newUser.phone),
                 AuthUserAttribute(.gender, value: newUser.gender),
                 AuthUserAttribute(.nickname, value: newUser.nickname)
             ]
             Amplify.Auth.signUp(
-                username: newUser.email + "@wustl.edu",
+                username: newUser.email,
                 password: newUser.password,
                 options: AuthSignUpRequest.Options(userAttributes: userAttributes)
             ) {

@@ -18,7 +18,6 @@ class ResetPasswordViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable> ()
     private let lowercasePredicate = NSPredicate(format:"SELF MATCHES %@", ".*[a-z]+.*")
     private let uppercasePredicate = NSPredicate(format:"SELF MATCHES %@", ".*[A-Z]+.*")
-    private let specialCharPredicate = NSPredicate(format:"SELF MATCHES %@", ".*[!&^%$#@()/]+.*")
     private let numberPredicate = NSPredicate(format:"SELF MATCHES %@", ".*[0-9]+.*")
     
     private var isPasswordValidPublisher: AnyPublisher<String, Never> {
@@ -35,9 +34,6 @@ class ResetPasswordViewModel: ObservableObject {
                 }
                 if !numberPredicate.evaluate(with: $1) {
                     return PasswordStatus.noNumber.rawValue
-                }
-                if !specialCharPredicate.evaluate(with: $1) {
-                    return PasswordStatus.noSpecialCharacter.rawValue
                 }
                 if $1.count < 8 {
                     return PasswordStatus.lengthNotEnough.rawValue
