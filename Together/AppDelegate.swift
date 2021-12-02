@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try Amplify.add(plugin: dataStorePlugin)
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.configure()
-            
+            Amplify.DataStore.clear() { _ in }
             print("Amplify configured with auth plugin")
         } catch {
             print("An error occurred setting up Amplify: \(error)")

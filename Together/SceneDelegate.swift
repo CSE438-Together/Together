@@ -23,13 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
+        
         Amplify.Auth.fetchAuthSession {
             switch $0 {
             case .success(let session):
                 if session.isSignedIn {
                     Amplify.DataStore.start { _ in }
                     _ = Amplify.Hub.listen(to: .dataStore) { [self] in
-                        if $0.eventName == HubPayload.EventName.DataStore.ready {                            
+                        print($0.eventName)
+                        if $0.eventName == HubPayload.EventName.DataStore.ready {
                             DispatchQueue.main.async {
                                 self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
                             }
