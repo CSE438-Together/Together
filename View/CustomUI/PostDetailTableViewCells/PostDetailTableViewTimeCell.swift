@@ -33,7 +33,7 @@ class PostDetailTableViewTimeCell: UITableViewCell {
     }
     
     public func configure( with time : String ) {
-        self.departureTime.text = "Departure Time: " + time
+        self.departureTime.text = time
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true

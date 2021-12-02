@@ -15,6 +15,7 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     @IBOutlet var destionationView : UILabel!
     @IBOutlet var navigationView : MKMapView!
     @IBOutlet var shadowView : UIView!
+    @IBOutlet var destinationShadowView : UIView!
     
     var locationManager = CLLocationManager()
 
@@ -41,7 +42,7 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewLocationCell", bundle: nil)
     }
     
-    public func configure( with departurePlace : String , with destination : String) {
+    public func configure( with departurePlace : String , with destination : String, with transportationType : Transportation) {
         
         self.navigationView.layer.cornerRadius = 10
         
@@ -54,17 +55,27 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
         
-        self.shadowView.layer.zPosition = -1
-        
+        self.shadowView.layer.zPosition = -2
         self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        
+        self.destinationShadowView.layer.shadowColor = UIColor.gray.cgColor
+        self.destinationShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.destinationShadowView.layer.shadowOpacity = 0.8
+        self.destinationShadowView.layer.masksToBounds = false
+        self.destinationShadowView.layer.cornerRadius = 10
+        
+        self.destinationShadowView.layer.zPosition = -1
+        self.destinationShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
+        
+        
         
         self.departurePlaceView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.departurePlaceView.numberOfLines = 0
-        self.departurePlaceView.text = "Departure Place: \n" + departurePlace
+        self.departurePlaceView.text = "From: \n" + departurePlace
         
         self.destionationView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.destionationView.numberOfLines = 0
-        self.destionationView.text = "Destination: \n" + destination
+        self.destionationView.text = "To: \n" + destination
         
         // set up mapview
         
@@ -100,7 +111,7 @@ class PostDetailTableViewLocationCell: UITableViewCell {
                     return
                 }
                 
-                self.route(departureCord: departure.coordinate, destinationCord: destination.coordinate)
+                self.route(departureCord: departure.coordinate, destinationCord: destination.coordinate, transportationType: transportationType)
                 
                 
                 
@@ -109,7 +120,7 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         
     }
     
-    func route(departureCord: CLLocationCoordinate2D, destinationCord: CLLocationCoordinate2D) {
+    func route(departureCord: CLLocationCoordinate2D, destinationCord: CLLocationCoordinate2D, transportationType: Transportation) {
         
         guard let sourceCord = locationManager.location?.coordinate else { return }
         
@@ -125,7 +136,19 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         let fromSourceToDepartureDirectionRequest = MKDirections.Request()
         fromSourceToDepartureDirectionRequest.source = sourceItem
         fromSourceToDepartureDirectionRequest.destination = departureItem
-        fromSourceToDepartureDirectionRequest.transportType = .automobile
+        switch transportationType {
+        case .car:
+            fromSourceToDepartureDirectionRequest.transportType = .automobile
+        case .walk:
+            fromSourceToDepartureDirectionRequest.transportType = .walking
+        case .tram:
+            fromSourceToDepartureDirectionRequest.transportType = .transit
+        case .bike:
+            fromSourceToDepartureDirectionRequest.transportType = .walking
+        case .taxi:
+            fromSourceToDepartureDirectionRequest.transportType = .automobile
+        }
+        
         fromSourceToDepartureDirectionRequest.requestsAlternateRoutes = true
         
         let routeFromSourceToDeparture = MKDirections(request: fromSourceToDepartureDirectionRequest)

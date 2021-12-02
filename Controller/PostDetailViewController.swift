@@ -37,6 +37,7 @@ class PostDetailViewController: UIViewController {
         self.tableView.register(PostDetailTableViewTimeCell.nib(), forCellReuseIdentifier: PostDetailTableViewTimeCell.identifier)
         self.tableView.register(PostDetailTableViewLocationCell.nib(), forCellReuseIdentifier: PostDetailTableViewLocationCell.identifier)
         self.tableView.register(PostDetailTableViewPeopleCell.nib(), forCellReuseIdentifier: PostDetailTableViewPeopleCell.identifier)
+        self.tableView.register(PostDetailTableViewTransportationCell.nib(), forCellReuseIdentifier: PostDetailTableViewTransportationCell.identifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -75,7 +76,7 @@ class PostDetailViewController: UIViewController {
         
         if isCreator {
             print("add Edit button")
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
         } else {
             // check if has applied an applicants or joined
             guard let members = self.post.members else {
@@ -235,24 +236,29 @@ extension PostDetailViewController : UITableViewDataSource {
         
         
         switch indexPath.section {
+//        case 0:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewCreatorCell.identifier, for: indexPath) as! PostDetailTableViewCreatorCell
+//            cell.configure(with: ceatorAvatar, with: post.owner ?? "")
+//            return cell
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewCreatorCell.identifier, for: indexPath) as! PostDetailTableViewCreatorCell
-            cell.configure(with: ceatorAvatar, with: post.owner ?? "")
-            return cell
-        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewOverViewCell.identifier, for: indexPath) as! PostDetailTableViewOverViewCell
             
             cell.configure(with: post.title ?? "", with: post.description ?? "")
             return cell
             
-        case 2:
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTimeCell.identifier, for: indexPath) as! PostDetailTableViewTimeCell
             cell.configure(with: String(post.departureTime.toString()))
+            return cell
+        
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTransportationCell.identifier, for: indexPath) as! PostDetailTableViewTransportationCell
+            cell.configure(with: post.transportation!)
             return cell
             
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewLocationCell.identifier, for: indexPath) as! PostDetailTableViewLocationCell
-            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "" )
+            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "", with: post.transportation! )
             return cell
             
         case 4:
@@ -307,10 +313,12 @@ extension PostDetailViewController : UITableViewDataSource {
 extension PostDetailViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 1:
+        case 0:
             return "OverView"
-        case 2:
+        case 1:
             return "Time"
+        case 2:
+            return "Transportation"
         case 3:
             return "Location"
         case 4:
