@@ -189,7 +189,7 @@ extension ExploreViewController: NewPostViewDelegate {
             UIView.animate(withDuration: 0.6) {
                 label.center = CGPoint(x: view.center.x, y: (topPadding ?? 50) + label.frame.height / 2)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                 UIView.animate(withDuration: 0.6) {
                     label.center = CGPoint(x: view.center.x, y: -label.frame.height)
                 }

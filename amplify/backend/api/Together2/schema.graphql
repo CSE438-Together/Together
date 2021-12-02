@@ -6,7 +6,7 @@ enum Transportation {
   TAXI
 }
 
-type Post @model @auth(rules: [{allow: owner}]) {
+type Post @model @auth(rules: [{allow: owner, operations: [create, delete]}, {allow: private, operations: [read, update]}]) {
   id: ID!
   title: String
   departurePlace: String

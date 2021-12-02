@@ -27,7 +27,8 @@ extension Post {
     let post = Post.keys
     
     model.authRules = [
-      rule(allow: .owner, ownerField: "owner", identityClaim: "cognito:username", provider: .userPools, operations: [.create, .update, .delete, .read])
+      rule(allow: .owner, ownerField: "owner", identityClaim: "cognito:username", provider: .userPools, operations: [.create, .delete]),
+      rule(allow: .private, operations: [.read, .update])
     ]
     
     model.pluralName = "Posts"
