@@ -22,8 +22,12 @@
                         <rect key="frame" x="10" y="10" width="300" height="271"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z9b-Xf-rnu">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86j-Xz-7lz">
                         <rect key="frame" x="10" y="40.5" width="300" height="240.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z9b-Xf-rnu">
+                        <rect key="frame" x="20" y="40.5" width="280" height="240.5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="vqX-fW-hqJ"/>
@@ -34,7 +38,7 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z74-re-2BC">
-                        <rect key="frame" x="15" y="15" width="290" height="20.5"/>
+                        <rect key="frame" x="20" y="15" width="280" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -42,20 +46,25 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="u23-Le-o9F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="6eY-MA-evD"/>
+                    <constraint firstAttribute="trailing" secondItem="86j-Xz-7lz" secondAttribute="trailing" constant="10" id="9WN-fD-hNJ"/>
                     <constraint firstAttribute="trailing" secondItem="u23-Le-o9F" secondAttribute="trailing" constant="10" id="Cic-42-ycq"/>
                     <constraint firstItem="u23-Le-o9F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Ddr-Ry-NRn"/>
+                    <constraint firstAttribute="bottom" secondItem="86j-Xz-7lz" secondAttribute="bottom" constant="10" id="H5v-ed-SQY"/>
                     <constraint firstAttribute="bottom" secondItem="u23-Le-o9F" secondAttribute="bottom" constant="10" id="J1K-zr-EqG"/>
-                    <constraint firstAttribute="trailing" secondItem="Z9b-Xf-rnu" secondAttribute="trailing" constant="10" id="JkJ-iY-zgq"/>
+                    <constraint firstAttribute="trailing" secondItem="Z9b-Xf-rnu" secondAttribute="trailing" constant="20" id="JkJ-iY-zgq"/>
                     <constraint firstItem="Z9b-Xf-rnu" firstAttribute="top" secondItem="z74-re-2BC" secondAttribute="bottom" constant="5" id="Pas-Dp-tX3"/>
-                    <constraint firstItem="Z9b-Xf-rnu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Tog-uu-eqX"/>
+                    <constraint firstItem="Z9b-Xf-rnu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Tog-uu-eqX"/>
+                    <constraint firstItem="86j-Xz-7lz" firstAttribute="top" secondItem="z74-re-2BC" secondAttribute="bottom" constant="5" id="dwP-eR-IoV"/>
                     <constraint firstItem="z74-re-2BC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="gcK-Sh-0Nz"/>
-                    <constraint firstAttribute="trailing" secondItem="z74-re-2BC" secondAttribute="trailing" constant="15" id="mg2-z8-jSq"/>
-                    <constraint firstItem="z74-re-2BC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="wPF-C0-IcO"/>
+                    <constraint firstItem="86j-Xz-7lz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hk7-P7-2fB"/>
+                    <constraint firstAttribute="trailing" secondItem="z74-re-2BC" secondAttribute="trailing" constant="20" id="mg2-z8-jSq"/>
+                    <constraint firstItem="z74-re-2BC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="wPF-C0-IcO"/>
                     <constraint firstAttribute="bottom" secondItem="Z9b-Xf-rnu" secondAttribute="bottom" constant="10" id="z8X-OO-jzH"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="descriptionShadowView" destination="86j-Xz-7lz" id="AEx-Mn-FbB"/>
                 <outlet property="descriptionView" destination="Z9b-Xf-rnu" id="2yu-bp-bp7"/>
                 <outlet property="shadowView" destination="u23-Le-o9F" id="jBa-Rd-Ywx"/>
                 <outlet property="titleView" destination="z74-re-2BC" id="WLQ-TB-cq8"/>

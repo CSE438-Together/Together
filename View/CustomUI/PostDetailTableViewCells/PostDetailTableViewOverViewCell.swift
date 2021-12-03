@@ -12,6 +12,7 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
     @IBOutlet var titleView : UILabel!
     @IBOutlet var descriptionView : UITextView!
     @IBOutlet var shadowView : UIView!
+    @IBOutlet var descriptionShadowView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,9 +50,19 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
         
-        self.shadowView.layer.zPosition = -1
+        self.shadowView.layer.zPosition = -2
         
         self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        
+        self.descriptionShadowView.layer.shadowColor = UIColor.gray.cgColor
+        self.descriptionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.descriptionShadowView.layer.shadowOpacity = 0.8
+        self.descriptionShadowView.layer.masksToBounds = false
+        self.descriptionShadowView.layer.cornerRadius = 10
+        
+        self.descriptionShadowView.layer.zPosition = -1
+        
+        self.descriptionShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
         
     }
     
