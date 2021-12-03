@@ -64,6 +64,8 @@
 		728E339B272BB52900D30F02 /* AWSDataStorePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 728E339A272BB52900D30F02 /* AWSDataStorePlugin */; };
 		72F4D3482752D2E000ABFD4C /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F4D3472752D2E000ABFD4C /* GradientColor.swift */; };
 		8DB86CA4C842D67461AE5C30 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E8FCD677A9CCE78228DE0 /* Post.swift */; };
+		C704BD7627596A75004A52DC /* PostDetailTableViewDeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704BD7427596A75004A52DC /* PostDetailTableViewDeleteCell.swift */; };
+		C704BD7727596A75004A52DC /* PostDetailTableViewDeleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C704BD7527596A75004A52DC /* PostDetailTableViewDeleteCell.xib */; };
 		C7121C802748B2FE00C9D86C /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */; };
 		C7605DFB2758B59700FAB7E0 /* PostDetailTableViewTransportationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7605DF92758B59700FAB7E0 /* PostDetailTableViewTransportationCell.swift */; };
 		C7605DFC2758B59700FAB7E0 /* PostDetailTableViewTransportationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7605DFA2758B59700FAB7E0 /* PostDetailTableViewTransportationCell.xib */; };
@@ -132,6 +134,8 @@
 		72F4D3472752D2E000ABFD4C /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		75DFD74478BF6351E12A0161 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		8F4E8FCD677A9CCE78228DE0 /* Post.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Post.swift; path = amplify/generated/models/Post.swift; sourceTree = "<group>"; };
+		C704BD7427596A75004A52DC /* PostDetailTableViewDeleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewDeleteCell.swift; sourceTree = "<group>"; };
+		C704BD7527596A75004A52DC /* PostDetailTableViewDeleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetailTableViewDeleteCell.xib; sourceTree = "<group>"; };
 		C7121C7F2748B2FE00C9D86C /* MembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
 		C7605DF92758B59700FAB7E0 /* PostDetailTableViewTransportationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewTransportationCell.swift; sourceTree = "<group>"; };
 		C7605DFA2758B59700FAB7E0 /* PostDetailTableViewTransportationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetailTableViewTransportationCell.xib; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 				C77574CE2756D77100F5D29C /* PostDetailTableViewDescriptionCell.xib */,
 				C7605DF92758B59700FAB7E0 /* PostDetailTableViewTransportationCell.swift */,
 				C7605DFA2758B59700FAB7E0 /* PostDetailTableViewTransportationCell.xib */,
+				C704BD7427596A75004A52DC /* PostDetailTableViewDeleteCell.swift */,
+				C704BD7527596A75004A52DC /* PostDetailTableViewDeleteCell.xib */,
 			);
 			path = PostDetailTableViewCells;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				512CDFA52741C1C5008CB55B /* awsconfiguration.json in Resources */,
 				50072384272B8F0500F3FF31 /* LaunchScreen.storyboard in Resources */,
 				50DA0608274182CB00B34D1E /* PostDetailTableViewPeopleCell.xib in Resources */,
+				C704BD7727596A75004A52DC /* PostDetailTableViewDeleteCell.xib in Resources */,
 				C77574D02756D77100F5D29C /* PostDetailTableViewDescriptionCell.xib in Resources */,
 				C77574C82756D58C00F5D29C /* PostDetailTableViewCreatorCell.xib in Resources */,
 				C77574CC2756D75700F5D29C /* PostDetailTableViewTitleCell.xib in Resources */,
@@ -498,6 +505,7 @@
 				508F319427544C3700104EA3 /* UserViewModel.swift in Sources */,
 				642102E9FE4550AEE13307D5 /* AmplifyModels.swift in Sources */,
 				C77574CF2756D77100F5D29C /* PostDetailTableViewDescriptionCell.swift in Sources */,
+				C704BD7627596A75004A52DC /* PostDetailTableViewDeleteCell.swift in Sources */,
 				50E7ABC227488CA000C778EE /* PasswordField.swift in Sources */,
 				50E7ABBE274850DA00C778EE /* Spinner.swift in Sources */,
 				577AA8B4071B454D3E0A5D57 /* Post+Schema.swift in Sources */,
