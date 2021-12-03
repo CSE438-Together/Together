@@ -75,7 +75,7 @@ class PostDetailViewController: UIViewController {
         
         if isCreator {
             print("add Edit button")
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
+            self.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
         } else {
             // check if has applied an applicants or joined
             guard let members = self.post.members else {
