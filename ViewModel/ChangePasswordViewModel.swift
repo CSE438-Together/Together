@@ -18,7 +18,6 @@ class ChangePasswordViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable> ()
     private let lowercasePredicate = NSPredicate(format:"SELF MATCHES %@", ".*[a-z]+.*")
     private let uppercasePredicate = NSPredicate(format:"SELF MATCHES %@", ".*[A-Z]+.*")
-    private let specialCharPredicate = NSPredicate(format:"SELF MATCHES %@", ".*[!&^%$#@()/]+.*")
     private let numberPredicate = NSPredicate(format:"SELF MATCHES %@", ".*[0-9]+.*")
     
     private var isPasswordValidPublisher: AnyPublisher<String, Never> {
@@ -28,21 +27,18 @@ class ChangePasswordViewModel: ObservableObject {
                     return "Old password should not be empty"
                 }
                 if !lowercasePredicate.evaluate(with: $1) {
-                    return PasswordStatus.noLowercase.rawValue
+                    return "New " + PasswordStatus.noLowercase.rawValue
                 }
                 if !uppercasePredicate.evaluate(with: $1) {
-                    return PasswordStatus.noUppercase.rawValue
+                    return "New " + PasswordStatus.noUppercase.rawValue
                 }
                 if !numberPredicate.evaluate(with: $1) {
-                    return PasswordStatus.noNumber.rawValue
-                }
-                if !specialCharPredicate.evaluate(with: $1) {
-                    return PasswordStatus.noSpecialCharacter.rawValue
+                    return "New " + PasswordStatus.noNumber.rawValue
                 }
                 if $1.count < 8 {
-                    return PasswordStatus.lengthNotEnough.rawValue
+                    return "New " + PasswordStatus.lengthNotEnough.rawValue
                 }
-                if $0 == $2 {
+                if $0 == $1 {
                     return "Old password should not be the same as new password"
                 }
                 if $1 != $2 {

@@ -11,7 +11,6 @@ import Combine
 enum PasswordStatus: String {
     case noLowercase = "Password must contain at least 1 lowercase"
     case noUppercase = "Password must contain at least 1 uppercase"
-    case noSpecialCharacter = "Password must contain at least 1 special character"
     case noNumber = "Password must contain at least 1 number"
     case lengthNotEnough = "Password must be at least 8 charactors long"
     case notMatch = "Password confirmation does not match password"
@@ -20,9 +19,8 @@ enum PasswordStatus: String {
 
 enum UserInfoStatus: String {
     case emptyEmail = "Email must not be empty"
-    case emptyPhone = "Phone number should not be empty"
     case emptyNickname = "Username should not be empty"
-    case invalidPhoneNumber = "Phone number must be 10 digits"
+    case invalidEmail = "This is not a valid email"
     case valid = ""
 }
 
@@ -32,7 +30,6 @@ class NewUserViewModel: ObservableObject {
     @Published var password = ""
     @Published var confirmedPassword = ""
     @Published var email = ""
-    @Published var phone = ""
     @Published var nickname = ""
     @Published var gender = "Male"
     
@@ -44,9 +41,9 @@ class NewUserViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable> ()
     private let lowercasePredicate = NSPredicate(format:"SELF MATCHES %@", ".*[a-z]+.*")
     private let uppercasePredicate = NSPredicate(format:"SELF MATCHES %@", ".*[A-Z]+.*")
-    private let specialCharPredicate = NSPredicate(format:"SELF MATCHES %@", ".*[!&^%$#@()/]+.*")
     private let numberPredicate = NSPredicate(format:"SELF MATCHES %@", ".*[0-9]+.*")
-    
+    private let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+
     private var isNameValidPublisher: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest($firstName, $lastName)
             .map { !$0.isEmpty && !$1.isEmpty }
@@ -65,9 +62,6 @@ class NewUserViewModel: ObservableObject {
                 if !numberPredicate.evaluate(with: $0) {
                     return .noNumber
                 }
-                if !specialCharPredicate.evaluate(with: $0) {
-                    return .noSpecialCharacter
-                }
                 if $0.count < 8 {
                     return .lengthNotEnough
                 }
@@ -80,18 +74,15 @@ class NewUserViewModel: ObservableObject {
     }
     
     private var isPersionInfoValidPublisher: AnyPublisher<UserInfoStatus, Never> {
-        Publishers.CombineLatest3($email, $phone, $nickname)
+        Publishers.CombineLatest($email, $nickname)
             .map {
                 if $0.isEmpty {
                     return .emptyEmail
                 }
+                if !self.emailPredicate.evaluate(with: $0) {
+                    return .invalidEmail
+                }
                 if $1.isEmpty {
-                    return .emptyPhone
-                }
-                if $1.count != 10 {
-                    return .invalidPhoneNumber
-                }
-                if $2.isEmpty {
                     return .emptyNickname
                 }
                 return .valid

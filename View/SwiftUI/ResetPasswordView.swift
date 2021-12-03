@@ -13,13 +13,8 @@ struct ResetPasswordView: View {
     @State private var isLoading = false
     @State private var error = ""
     @State private var showSuccessView = false
-    @Binding private var isPresenting: Bool
-    private var email: String
-    
-    init(email: String, isPresenting: Binding<Bool>) {
-        self._isPresenting = isPresenting
-        self.email = email
-    }
+    @Binding var isPresenting: Bool
+    var email: String
     
     var body: some View {
         ZStack {
@@ -27,14 +22,15 @@ struct ResetPasswordView: View {
             SuccessView(isPresented: $showSuccessView, text: "Success")
             Form {
                 ErrorSection(error: $error)
-                Section(footer:
-                    Text(reset.message == PasswordStatus.valid.rawValue
+                Section(
+                    header: Text("A verification code is sent to your email address").textCase(.none),
+                    footer: Text(reset.message == PasswordStatus.valid.rawValue
                         ? ""
                         : reset.message
                     )
                     .foregroundColor(.red)
                 ) {
-                    TextField("Confirmation Code", text: $reset.confirmationCode)
+                    TextField("Verification Code", text: $reset.confirmationCode)
                         .font(.body)
                         .foregroundColor(.primary)
                     SecureField("New Password", text: $reset.password)
@@ -47,7 +43,7 @@ struct ResetPasswordView: View {
                 Section {
                     HStack {
                         Spacer()
-                        Button("Reset") {
+                        Button("Reset Password") {
                             UIApplication.shared.endEditing()
                             isLoading.toggle()
                             resetPassword()
@@ -92,6 +88,6 @@ struct ResetPasswordView: View {
 
 struct ResetPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ResetPasswordView(email: "asdf", isPresenting: .constant(true))
+        ResetPasswordView(isPresenting: .constant(true), email: "asdf")
     }
 }

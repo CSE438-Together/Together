@@ -41,7 +41,7 @@ class TextView: UITextView {
         }
         UIView.animate(withDuration: 0.5) { [self] in
             table.isHidden = true
-            button.isHidden = hasText && text != placeholder ? false : true
+            button.isEnabled = hasText && text != placeholder ? true : false
         }
     }
 }
