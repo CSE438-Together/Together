@@ -9,8 +9,8 @@ import UIKit
 
 class PostDetailTableViewDeleteCell: UITableViewCell {
     
-    @IBOutlet var deleteButton : UIButton!
-
+    @IBOutlet var deleteLabel : UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,12 +29,9 @@ class PostDetailTableViewDeleteCell: UITableViewCell {
     }
     
     public func configure() {
-        
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+        self.deleteLabel.layer.cornerRadius = 10
     }
-    
-    @IBAction func didTapDeleteButton(_ sender: Any) {
-        print("delete")
-    }
-    
     
 }
