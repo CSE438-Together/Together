@@ -13,6 +13,7 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
     @IBOutlet var progressView : UIProgressView!
     @IBOutlet var creatorAvatarView : UIImageView!
     @IBOutlet var shadowView : UIView!
+    var memberImageViews = [UIImageView]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,6 +56,10 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         
         var membersLeadingPadding : CGFloat = 15.0
         
+        for imageView in memberImageViews {
+            imageView.removeFromSuperview()
+        }
+        
         guard let members = members else {return}
         for member in members {
             if member == nil {continue}
@@ -71,8 +76,10 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
             }
             imageView.layer.cornerRadius = 10
             imageView.backgroundColor = .white
-            self.contentView.addSubview(imageView)
-            membersLeadingPadding += 5
+            imageView.tag = member!.hashValue
+            memberImageViews.append(imageView)
+            self.addSubview(imageView)
+            membersLeadingPadding += 10
             
             if membersLeadingPadding >= self.contentView.frame.width - 200 {break}
         }

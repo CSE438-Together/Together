@@ -8,6 +8,7 @@
 import UIKit
 import Amplify
 import AWSPluginsCore
+import SQLite
 
 class PostDetailViewController: UIViewController {
     
@@ -191,18 +192,24 @@ class PostDetailViewController: UIViewController {
             print("Error: neither a member nor a applicants")
         }
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(emptyButton))
         
         Amplify.DataStore.save(self.post) { [self]
             result in
             switch(result) {
             case .success:
                 print("update successfully")
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
             case .failure:
                 print("update failed")
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leave", style: .plain, target: self, action: #selector(didTapLeaveButton))
             }
+            print("add leave button")
         }
         
     }
+    
+    @objc func emptyButton() {}
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: PostDetailViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self, post: post)
@@ -232,6 +239,8 @@ class PostDetailViewController: UIViewController {
         if ( members.contains(userId) || post.applicants!.contains(userId) ) {
             print("A member try to join again")
         } else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(emptyButton))
+            
             post.applicants!.append(userId)
             print("add to applicants")
             Amplify.DataStore.save(self.post) { [self]
@@ -239,8 +248,11 @@ class PostDetailViewController: UIViewController {
                 switch(result) {
                 case .success:
                     print("update successfully")
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leave", style: .plain, target: self, action: #selector(didTapLeaveButton))
+                    
                 case .failure:
                     print("update failed")
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
                 }
             }
             
@@ -342,6 +354,38 @@ extension PostDetailViewController : UITableViewDataSource {
             membersViewController.creatorAvatar = self.ceatorAvatar
             membersViewController.userAttributesCache = self.userAttributesCache
             navigationController?.pushViewController(membersViewController, animated: true)
+        case 5:
+            let alert = UIAlertController(title: "Delete?", message: "You will permanently delete this post.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            alert.addAction(
+                UIAlertAction(title: "Delete",
+                              style: .destructive,
+                              handler: {(_: UIAlertAction!) in
+                                  Amplify.DataStore.delete(self.post) {
+                                    switch $0 {
+                                    case .success:
+                                        print("Post deleted!")
+                                        DispatchQueue.main.async {
+                                            let alert = UIAlertController(title: "Delete Done!", message: "", preferredStyle: .alert)
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                                                self.navigationController?.popToRootViewController(animated: true)
+                                            }))
+                                            self.present(alert, animated: true, completion: nil)
+                                            
+                                        }
+                                        
+                                    case .failure(let error):
+                                        print("Error deleting post - \(error.localizedDescription)")
+                                        DispatchQueue.main.async {
+                                            let alert = UIAlertController(title: "Delete Failed!", message: "", preferredStyle: .alert)
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                            self.present(alert, animated: true, completion: nil)
+                                        }
+                                       
+                                    }}
+                    }))
+            self.present(alert, animated: true, completion: nil)
         default:
             return
         }
