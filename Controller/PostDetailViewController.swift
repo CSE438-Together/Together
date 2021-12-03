@@ -17,6 +17,7 @@ class PostDetailViewController: UIViewController {
     var isApplicants : Bool!
     var ceatorAvatar : UIImage!
     var memberAvatarsChache = [String : UIImage?]()
+    var userAttributesCache = [String : Attributes?]()
     
     @IBOutlet var tableView : UITableView!
     
@@ -32,6 +33,11 @@ class PostDetailViewController: UIViewController {
         self.tableView.separatorStyle = .none
         self.tableView.layer.cornerRadius = 10
         self.tableView.clipsToBounds = true
+        if #available(iOS 15.0, *) {
+            self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
+        } else {
+            // Fallback on earlier versions
+        }
         
         self.tableView.register(PostDetailTableViewCreatorCell.nib(), forCellReuseIdentifier: PostDetailTableViewCreatorCell.identifier)
         self.tableView.register(PostDetailTableViewOverViewCell.nib(), forCellReuseIdentifier: PostDetailTableViewOverViewCell.identifier)
@@ -58,6 +64,7 @@ class PostDetailViewController: UIViewController {
                     // result will be a single object of type Post?
                     print("Posts: \(result)")
                     self.post = result
+                    
                 case .failure(let error):
                     print("Error on query() for type Post - \(error.localizedDescription)")
                 }
@@ -109,6 +116,7 @@ class PostDetailViewController: UIViewController {
         }
         
         // prepare memebers avatar
+        // also query member's name
         guard let members = self.post.members else {
             print("Error: this post doesn't have any member")
             return
@@ -126,6 +134,8 @@ class PostDetailViewController: UIViewController {
                     memberAvatarsChache[member!] = nil
                 }
             }
+            self.getAttributes(id: member!)
+
         }
         guard let applicants = self.post.applicants else {return}
         for applicant in applicants {
@@ -141,6 +151,7 @@ class PostDetailViewController: UIViewController {
                     memberAvatarsChache[applicant!] = nil
                 }
             }
+            self.getAttributes(id: applicant!)
         }
     }
     
@@ -329,6 +340,7 @@ extension PostDetailViewController : UITableViewDataSource {
             membersViewController.post = self.post
             membersViewController.memberAvatarsCache = self.memberAvatarsChache
             membersViewController.creatorAvatar = self.ceatorAvatar
+            membersViewController.userAttributesCache = self.userAttributesCache
             navigationController?.pushViewController(membersViewController, animated: true)
         default:
             return
@@ -380,7 +392,7 @@ extension PostDetailViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        0
+        return .leastNonzeroMagnitude
     }
 }
 
@@ -389,4 +401,36 @@ extension PostDetailViewController: NewPostViewDelegate {
     func handleSuccess() {}
     
     func handleFailure() {}
+}
+
+// extension with helper function
+extension PostDetailViewController {
+    func getAttributes(id : String) {
+        let queryParameters = ["username" : id]
+        let request = RESTRequest(path: "/getUserAttributes", queryParameters: queryParameters)
+        Amplify.API.get(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let item = try? JSONDecoder().decode(Attributes.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.userAttributesCache[id] = item
+                    }
+                } else {
+                    // handle error
+                    print("Error: Decoding attributes failed")
+                    DispatchQueue.main.async {
+                        self.userAttributesCache[id] = nil
+                    }
+                }
+            case .failure(let error):
+                // handle error
+                print("Warning: This user doesn't have any attributes")
+                print(error.errorDescription)
+                DispatchQueue.main.async {
+                    self.userAttributesCache[id] = nil
+                }
+                break
+            }
+        }
+    }
 }

@@ -15,6 +15,7 @@ class MembersViewController: UIViewController {
     var isOwner : Bool!
     var memberAvatarsCache : [String : UIImage?]!
     var creatorAvatar : UIImage!
+    var userAttributesCache : [String : Attributes?]!
     
     private let tableView : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -97,40 +98,72 @@ extension MembersViewController : UITableViewDataSource {
             }
             guard let id = members[indexPath.row] else {
                 print("Error: No id")
-                cell.configure(with: "", with: UIImage())
+                cell.configure(with: "", with: UIImage(), with: "", with: "")
                 return cell
             }
+            
+            var avatarImage : UIImage
+            var nickName = ""
+            var gender = ""
             if memberAvatarsCache[id] != nil, memberAvatarsCache[id]! != nil {
-                let image = memberAvatarsCache[id]!!
-                cell.configure(with: id,
-                               with: image)
+                avatarImage = memberAvatarsCache[id]!!
             } else {
-                cell.configure(with: members[indexPath.row]!, with: UIImage(named: "defaultPerson")!)
+                avatarImage = UIImage(named: "defaultPerson")!
             }
+            
+            if userAttributesCache[id] != nil, userAttributesCache[id]! != nil {
+                if userAttributesCache[id]!!.gender != nil {
+                    gender = userAttributesCache[id]!!.gender!
+                }
+                if userAttributesCache[id]!!.nickName != nil {
+                    nickName = userAttributesCache[id]!!.nickName!
+                }
+                
+            }
+            
+            cell.configure(with: id,
+                           with: avatarImage,
+                           with: nickName,
+                           with: gender)
             return cell
         case 1:
             if self.post.applicants == nil {
                 print("None of apllicants")
-                cell.configure(with: "", with: UIImage())
+                cell.configure(with: "", with: UIImage(), with: "", with: "")
                 return cell
             } else {
                 guard let id = self.post.applicants![indexPath.row] else {
-                    cell.configure(with: "", with: UIImage())
+                    cell.configure(with: "", with: UIImage(), with: "", with: "")
                     return cell
                 }
+                var avatarImage : UIImage
+                var nickName = ""
+                var gender = ""
+                
                 if memberAvatarsCache[id] != nil, memberAvatarsCache[id]! != nil {
-                    cell.configure(with: id,
-                                   with: memberAvatarsCache[id]!!)
+                    avatarImage = memberAvatarsCache[id]!!
                 } else {
-                    cell.configure(with: self.post.applicants![indexPath.row]!,
-                                   with: UIImage(named: "defaultPerson")!)
+                    avatarImage = UIImage(named: "defaultPerson")!
+                }
+                if userAttributesCache[id] != nil, userAttributesCache[id]! != nil {
+                    if userAttributesCache[id]!!.gender != nil {
+                        gender = userAttributesCache[id]!!.gender!
+                    }
+                    if userAttributesCache[id]!!.nickName != nil {
+                        nickName = userAttributesCache[id]!!.nickName!
+                    }
+                    
                 }
                 
+                cell.configure(with: id,
+                               with: avatarImage,
+                               with: nickName,
+                               with: gender)
                 return cell
             }
         default:
             print("Error: there is the third section which should not exist")
-            cell.configure(with: "", with: UIImage())
+            cell.configure(with: "", with: UIImage(), with: "", with: "")
             return cell
         }
     }
@@ -255,3 +288,4 @@ extension MembersViewController {
 //        }
 //    }
 }
+

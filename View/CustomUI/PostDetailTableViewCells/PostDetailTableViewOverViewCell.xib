@@ -23,14 +23,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86j-Xz-7lz">
-                        <rect key="frame" x="10" y="40.5" width="300" height="240.5"/>
+                        <rect key="frame" x="10" y="60" width="300" height="221"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z9b-Xf-rnu">
-                        <rect key="frame" x="20" y="40.5" width="280" height="240.5"/>
+                        <rect key="frame" x="20" y="60" width="280" height="221"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="vqX-fW-hqJ"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="vqX-fW-hqJ"/>
                         </constraints>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <color key="textColor" systemColor="labelColor"/>
@@ -38,7 +38,10 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z74-re-2BC">
-                        <rect key="frame" x="20" y="15" width="280" height="20.5"/>
+                        <rect key="frame" x="20" y="15" width="280" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="BZQ-6q-zUf"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
