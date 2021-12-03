@@ -11,7 +11,7 @@ import Amplify
 struct VerificationView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var verificationCode = ""
-    @State private var isVerifying = false
+    @State private var isLoading = false
     @State private var error = ""
     @State private var showSuccessView = false
     @Binding var showLoginView: Bool
@@ -19,7 +19,7 @@ struct VerificationView: View {
     
     var body: some View {
         ZStack {
-            Spinner(isPresented: $isVerifying)
+            Spinner(isPresented: $isLoading)
             SuccessView(isPresented: $showSuccessView, text: "Success")
             Form {
                 ErrorSection(error: $error)
@@ -31,7 +31,10 @@ struct VerificationView: View {
                 Section(
                     footer: HStack {
                         Spacer()
-                        Button("Resend Code") {}.font(.body)
+                        Button("Resend Code") {
+                            UIApplication.shared.endEditing()
+                            resendCode()
+                        }.font(.body)
                         Spacer()
                     }
                     .padding()
@@ -49,18 +52,18 @@ struct VerificationView: View {
                     .listRowBackground(Color.blue.opacity(verificationCode.isEmpty ? 0.5 : 1))
                 }
             }
-            .disabled(isVerifying)
+            .disabled(isLoading)
         }
         .navigationTitle("Verificaiton")
     }
     
     private func confirmSignUp() {
-        isVerifying.toggle()
+        isLoading.toggle()
         DispatchQueue.global().async {
             Amplify.Auth.confirmSignUp(for: email, confirmationCode: verificationCode) {
                 result in
                 DispatchQueue.main.async {
-                    isVerifying.toggle()
+                    isLoading.toggle()
                     switch result {
                     case .success:
                         showSuccessView.toggle()
@@ -68,6 +71,27 @@ struct VerificationView: View {
                             showSuccessView.toggle()
                             presentationMode.wrappedValue.dismiss()
                             showLoginView.toggle()
+                        }
+                    case .failure(let error):
+                        self.error = error.errorDescription
+                    }
+                }
+            }
+        }
+    }
+    
+    private func resendCode() {
+        isLoading.toggle()
+        DispatchQueue.global().async {
+            Amplify.Auth.resendConfirmationCode(for: .email) {
+                result in
+                DispatchQueue.main.async {
+                    isLoading.toggle()
+                    switch result {
+                    case .success:
+                        showSuccessView.toggle()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            showSuccessView.toggle()
                         }
                     case .failure(let error):
                         self.error = error.errorDescription
