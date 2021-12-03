@@ -99,17 +99,35 @@ class PostManager {
     }
     
     func showPostDetailViewController(controller: UIViewController, indexPath: IndexPath) {
-        guard let viewController = controller.storyboard?.instantiateViewController(identifier: "PostDetailViewController"),
-              let postDetailViewController = viewController as? PostDetailViewController
-        else {
-            return
+        DispatchQueue.global().async {
+            Amplify.DataStore.query(Post.self, byId: self.posts[indexPath.row].id) {
+                result in
+                DispatchQueue.main.async {
+                    switch result {
+                        case .success(let post):
+                            guard let viewController = controller.storyboard?.instantiateViewController(identifier: "PostDetailViewController"),
+                                  let postDetailViewController = viewController as? PostDetailViewController,
+                                  let item = post
+                            else {
+                                break
+                            }
+                            postDetailViewController.post = item
+                            if item.owner != nil {
+                                postDetailViewController.ceatorAvatar = self.imageCache[item.owner!]
+                            } else {
+                                postDetailViewController.ceatorAvatar = UIImage(systemName: "person")
+                            }
+                            controller.navigationController?.pushViewController(postDetailViewController, animated: true)
+                            return
+                        case .failure(_):
+                            break
+                    }
+                    Alert.showWarning(controller, "This Post has been deleted") {
+                        _ in
+                        self.reloadPosts()
+                    }
+                }
+            }
         }
-        postDetailViewController.post = posts[indexPath.row]
-        if posts[indexPath.row].owner != nil {
-            postDetailViewController.ceatorAvatar = imageCache[posts[indexPath.row].owner!]
-        } else {
-            postDetailViewController.ceatorAvatar = UIImage(systemName: "person")
-        }
-        controller.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

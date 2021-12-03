@@ -97,7 +97,7 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         setupTableView()
         postManager = PostManager(
             table: exploreTableView,
-            sort: .descending(Post.keys.departureTime),
+            sort: .descending(Post.keys.createdAt),
             reloadCompletion: { self.newPostsReminder.isHidden = true }
         )
 
@@ -168,12 +168,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         )
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if postManager != nil {
-            postManager.reloadPosts()
-        }
-    }
-    
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
     }
@@ -184,8 +178,6 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         exploreTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         exploreTableView.scrollsToTop = true
     }
-    
-    
 }
 
 extension ExploreViewController: NewPostViewDelegate {

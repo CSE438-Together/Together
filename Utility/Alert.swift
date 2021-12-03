@@ -9,13 +9,19 @@ import Foundation
 import UIKit
 
 class Alert {
-    public static func showWarning(_ viewController: UIViewController, _ title: String, _ message: String? = nil) {
+    public static func showWarning(_ viewController: UIViewController, _ title: String, _ message: String? = nil, _ handler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(
             title: title,
             message: message,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(
+            UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: handler
+            )
+        )
         viewController.present(alert, animated: true)
     }
 }

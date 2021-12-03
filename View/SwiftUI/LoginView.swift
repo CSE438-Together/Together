@@ -49,16 +49,7 @@ struct LoginView: View {
                             Spacer()
                             Button("Login") {
                                 UIApplication.shared.endEditing()
-                                self.isSigningIn.toggle()
-                                API.signIn(email, password) {
-                                    switch $0 {
-                                    case .success:
-                                        break
-                                    case .failure(let error):
-                                        self.error = error.errorDescription
-                                    }
-                                    self.isSigningIn.toggle()
-                                }
+                                signIn()
                             }
                             .foregroundColor(.white)
                             .font(.body)
@@ -76,6 +67,32 @@ struct LoginView: View {
                             .onTapGesture {
                                 presentationMode.wrappedValue.dismiss()
                             }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func signIn() {
+        isSigningIn.toggle()
+        DispatchQueue.global().async {
+            Amplify.Auth.signIn(username: email, password: password) {
+                result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        Amplify.DataStore.start { _ in
+                            _ = Amplify.Hub.listen(to: .dataStore) {
+                                if $0.eventName == HubPayload.EventName.DataStore.ready {
+                                    DispatchQueue.main.async {
+                                        UIApplication.shared.windows.first?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainTabBarController")
+                                    }
+                                }
+                            }
+                        }
+                    case .failure(let error):
+                        isSigningIn.toggle()
+                        self.error = error.errorDescription
                     }
                 }
             }
