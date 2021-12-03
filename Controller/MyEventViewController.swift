@@ -54,6 +54,12 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         Amplify.DataStore.delete(eventManager.posts[indexPath.row]) { _ in }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if eventManager != nil {
+            eventManager.reloadPosts()
+        }
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let keyword = searchController.searchBar.text else {return}
         guard let user = Amplify.Auth.getCurrentUser() else { return }

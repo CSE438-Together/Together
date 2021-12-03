@@ -79,7 +79,7 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let purpleToPink = CAGradientLayer()
         purpleToPink.frame = tabBarController!.tabBar.bounds
-        purpleToPink.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor(named: "bgPink")!.cgColor]
+        purpleToPink.colors = [UIColor(named: "bgLightPurple")!.cgColor, UIColor(named: "bgpink")!.cgColor]
         purpleToPink.locations = [0, 1]
         purpleToPink.startPoint = CGPoint(x: 0.0, y: 0.0)
         purpleToPink.endPoint = CGPoint(x: 1.0, y: 0.0)
@@ -168,6 +168,11 @@ class ExploreViewController: UIViewController, UITableViewDataSource, UITableVie
         )
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if postManager != nil {
+            postManager.reloadPosts()
+        }
+    }
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: ExploreViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self)
