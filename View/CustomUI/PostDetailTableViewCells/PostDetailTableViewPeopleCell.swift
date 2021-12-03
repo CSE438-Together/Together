@@ -76,6 +76,7 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
             }
             imageView.layer.cornerRadius = 10
             imageView.backgroundColor = .white
+            imageView.contentMode = .scaleToFill
             imageView.tag = member!.hashValue
             memberImageViews.append(imageView)
             self.addSubview(imageView)
