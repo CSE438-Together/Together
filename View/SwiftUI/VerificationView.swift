@@ -45,7 +45,7 @@ struct VerificationView: View {
             }
             .disabled(isLoading)
         }
-        .navigationTitle("Verificaiton")
+        .navigationTitle("Verification")
     }
     
     private func confirmSignUp() {
