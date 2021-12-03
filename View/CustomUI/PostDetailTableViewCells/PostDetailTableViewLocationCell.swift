@@ -71,11 +71,11 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         
         self.departurePlaceView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.departurePlaceView.numberOfLines = 0
-        self.departurePlaceView.text = "From: \n" + departurePlace
+        self.departurePlaceView.text = "From: \n" + departurePlace.components(separatedBy: .newlines).joined(separator: ", ")
         
         self.destionationView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.destionationView.numberOfLines = 0
-        self.destionationView.text = "To: \n" + destination
+        self.destionationView.text = "To: \n" + destination.components(separatedBy: .newlines).joined(separator: ", ")
         
         // set up mapview
         

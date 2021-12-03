@@ -20,15 +20,6 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cF-HY-IkP">
                         <rect key="frame" x="10" y="10" width="358" height="105"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VDc-FV-4X2">
-                                <rect key="frame" x="-98" y="16" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="KrK-C2-31z"/>
-                                    <constraint firstAttribute="height" constant="50" id="tvw-mJ-sy3"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pLm-vv-9BW">
@@ -41,10 +32,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultPerson" translatesAutoresizingMaskIntoConstraints="NO" id="nuk-7o-i4w">
-                        <rect key="frame" x="15" y="15.5" width="30" height="30"/>
+                        <rect key="frame" x="20" y="20.5" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="a1g-c2-Ivz"/>
-                            <constraint firstAttribute="width" constant="30" id="o2r-oO-CQg"/>
+                            <constraint firstAttribute="height" constant="20" id="a1g-c2-Ivz"/>
+                            <constraint firstAttribute="width" constant="20" id="o2r-oO-CQg"/>
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="f60-9h-AGm">
@@ -67,7 +58,7 @@
                     <constraint firstItem="nuk-7o-i4w" firstAttribute="centerY" secondItem="XoE-TB-ZIa" secondAttribute="centerY" id="78Z-CU-vaU"/>
                     <constraint firstAttribute="bottom" secondItem="pLm-vv-9BW" secondAttribute="bottom" constant="20" id="7Fd-F4-4Iq"/>
                     <constraint firstAttribute="trailing" secondItem="bPc-4F-15P" secondAttribute="trailing" constant="20" id="7Gt-sf-r7s"/>
-                    <constraint firstItem="nuk-7o-i4w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="AAN-sW-vb5"/>
+                    <constraint firstItem="nuk-7o-i4w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="AAN-sW-vb5"/>
                     <constraint firstAttribute="bottom" secondItem="3cF-HY-IkP" secondAttribute="bottom" constant="10" id="Bva-BJ-CHB"/>
                     <constraint firstItem="f60-9h-AGm" firstAttribute="centerY" secondItem="pLm-vv-9BW" secondAttribute="centerY" id="FXa-jV-Iy9"/>
                     <constraint firstItem="3cF-HY-IkP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="JIX-sU-0J2"/>
@@ -84,6 +75,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="creatorAvatarView" destination="nuk-7o-i4w" id="SzV-xk-MH7"/>
                 <outlet property="progressView" destination="pLm-vv-9BW" id="kvB-nU-d2J"/>
                 <outlet property="shadowView" destination="3cF-HY-IkP" id="EtP-YK-fFv"/>
                 <outlet property="statusView" destination="XoE-TB-ZIa" id="uhS-w2-qS3"/>

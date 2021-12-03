@@ -16,6 +16,7 @@ class PostDetailViewController: UIViewController {
     var isMember : Bool!
     var isApplicants : Bool!
     var ceatorAvatar : UIImage!
+    var memberAvatarsChache = [String : UIImage?]()
     
     @IBOutlet var tableView : UITableView!
     
@@ -38,6 +39,7 @@ class PostDetailViewController: UIViewController {
         self.tableView.register(PostDetailTableViewLocationCell.nib(), forCellReuseIdentifier: PostDetailTableViewLocationCell.identifier)
         self.tableView.register(PostDetailTableViewPeopleCell.nib(), forCellReuseIdentifier: PostDetailTableViewPeopleCell.identifier)
         self.tableView.register(PostDetailTableViewTransportationCell.nib(), forCellReuseIdentifier: PostDetailTableViewTransportationCell.identifier)
+        self.tableView.register(PostDetailTableViewDeleteCell.nib(), forCellReuseIdentifier: PostDetailTableViewDeleteCell.identifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -104,6 +106,41 @@ class PostDetailViewController: UIViewController {
             }
             
             
+        }
+        
+        // prepare memebers avatar
+        guard let members = self.post.members else {
+            print("Error: this post doesn't have any member")
+            return
+        }
+        for member in members {
+            if member == nil {continue}
+            Amplify.Storage.downloadData(key: member!) {
+                [self] result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        memberAvatarsChache[member!] = UIImage(data: data)
+                    }
+                case .failure(_):
+                    memberAvatarsChache[member!] = nil
+                }
+            }
+        }
+        guard let applicants = self.post.applicants else {return}
+        for applicant in applicants {
+            if applicant == nil {continue}
+            Amplify.Storage.downloadData(key: applicant!) {
+                [self] result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        memberAvatarsChache[applicant!] = UIImage(data: data)
+                    }
+                case .failure(_):
+                    memberAvatarsChache[applicant!] = nil
+                }
+            }
         }
     }
     
@@ -225,9 +262,11 @@ extension PostDetailViewController : UITableViewDataSource {
          3. Time ( start and end )
          4. Location ( start and end )
          5. People ()
+         5. delete if is creator
          
          so, 5 sections in total
          */
+        if self.isOwner() { return 6}
         return 5
     }
     
@@ -268,7 +307,11 @@ extension PostDetailViewController : UITableViewDataSource {
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewPeopleCell.identifier, for: indexPath) as! PostDetailTableViewPeopleCell
-            cell.configure(with: members.count, with: post.maxMembers ?? 1)
+            cell.configure(with: members.count, with: post.maxMembers ?? 1, with: ceatorAvatar, with: memberAvatarsChache, with: members, with: post.owner ?? "")
+            return cell
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewDeleteCell.identifier, for: indexPath) as! PostDetailTableViewDeleteCell
+            cell.configure()
             return cell
         default:
             //TODO: check error
@@ -284,6 +327,8 @@ extension PostDetailViewController : UITableViewDataSource {
             let membersViewController = MembersViewController()
             membersViewController.isOwner = self.isCreator
             membersViewController.post = self.post
+            membersViewController.memberAvatarsCache = self.memberAvatarsChache
+            membersViewController.creatorAvatar = self.ceatorAvatar
             navigationController?.pushViewController(membersViewController, animated: true)
         default:
             return
