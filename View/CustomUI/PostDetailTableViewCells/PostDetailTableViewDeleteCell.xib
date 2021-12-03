@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,29 +14,32 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="PostDetailTableViewDeleteCell" customModule="Together" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeO-mm-GjW">
-                        <rect key="frame" x="10" y="10" width="300" height="24"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="filled" title="Delete">
-                            <color key="baseBackgroundColor" name="bgRed"/>
-                        </buttonConfiguration>
-                        <connections>
-                            <action selector="didTapDeleteButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="s6y-Rm-TNb"/>
-                        </connections>
-                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiD-Ou-l3H">
+                        <rect key="frame" x="10" y="10" width="300" height="30"/>
+                        <color key="backgroundColor" name="bgRed"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Fpp-Ea-YbF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="zeO-mm-GjW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="3g8-r5-04T"/>
-                    <constraint firstAttribute="bottom" secondItem="zeO-mm-GjW" secondAttribute="bottom" constant="10" id="3iR-5M-dqp"/>
-                    <constraint firstItem="zeO-mm-GjW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="RSR-cv-TiF"/>
-                    <constraint firstAttribute="trailing" secondItem="zeO-mm-GjW" secondAttribute="trailing" constant="10" id="ryP-Zj-G7m"/>
+                    <constraint firstItem="uiD-Ou-l3H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="NIg-Kd-QoS"/>
+                    <constraint firstAttribute="trailing" secondItem="uiD-Ou-l3H" secondAttribute="trailing" constant="10" id="jgV-5q-zhN"/>
+                    <constraint firstItem="uiD-Ou-l3H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="t1y-yF-Hoe"/>
+                    <constraint firstAttribute="bottom" secondItem="uiD-Ou-l3H" secondAttribute="bottom" constant="10" id="tKz-kp-FSu"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="deleteLabel" destination="uiD-Ou-l3H" id="61X-p2-0Ff"/>
+            </connections>
             <point key="canvasLocation" x="139" y="133"/>
         </tableViewCell>
     </objects>
