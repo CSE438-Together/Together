@@ -24,21 +24,12 @@ struct VerificationView: View {
             Form {
                 ErrorSection(error: $error)
                 Section(
-                    header: Text("Please enter verification code we sent to your email address").textCase(.none)
+                    header: Text("Please enter verification code we sent to your email address.").textCase(.none),
+                    footer: Text("If you don't do this, you are not able to sign in, and you cannot sign up with this email again. Please don't close the App now").textCase(.none)
                 ) {
                     TextField("Verification Code", text: $verificationCode)
                 }
-                Section(
-                    footer: HStack {
-                        Spacer()
-                        Button("Resend Code") {
-                            UIApplication.shared.endEditing()
-                            resendCode()
-                        }.font(.body)
-                        Spacer()
-                    }
-                    .padding()
-                ) {
+                Section {
                     HStack {
                         Spacer()
                         Button("Verify") {
@@ -71,27 +62,6 @@ struct VerificationView: View {
                             showSuccessView.toggle()
                             presentationMode.wrappedValue.dismiss()
                             showLoginView.toggle()
-                        }
-                    case .failure(let error):
-                        self.error = error.errorDescription
-                    }
-                }
-            }
-        }
-    }
-    
-    private func resendCode() {
-        isLoading.toggle()
-        DispatchQueue.global().async {
-            Amplify.Auth.resendConfirmationCode(for: .email) {
-                result in
-                DispatchQueue.main.async {
-                    isLoading.toggle()
-                    switch result {
-                    case .success:
-                        showSuccessView.toggle()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            showSuccessView.toggle()
                         }
                     case .failure(let error):
                         self.error = error.errorDescription

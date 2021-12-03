@@ -14,6 +14,7 @@ struct SignUpView: View {
     @State private var needVerification = false
     @State private var showLoginSheet = false
     @State private var error = ""
+    @State private var showVerifyEmailButton = false
     
     var body: some View {
         ZStack {
@@ -28,6 +29,19 @@ struct SignUpView: View {
                     }
                     Form {
                         ErrorSection(error: $error)
+                        if showVerifyEmailButton {
+                            Section {
+                                HStack {
+                                    Spacer()
+                                    Button("Verify Email") {
+                                        needVerification = true
+                                    }
+                                    .foregroundColor(.white)
+                                    Spacer()
+                                }
+                                .listRowBackground(Color.blue)
+                            }
+                        }
                         Section(footer:
                             Text(newUser.nameValidation).foregroundColor(.red)
                         ) {
@@ -118,7 +132,8 @@ struct SignUpView: View {
                 DispatchQueue.main.async {
                     isSigningUp = false
                     switch result {
-                    case .success:
+                    case .success:                        
+                        showVerifyEmailButton = true
                         needVerification = true
                     case .failure(let error):
                         self.error = error.errorDescription
