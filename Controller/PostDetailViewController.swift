@@ -29,11 +29,13 @@ class PostDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.tableView.frame = CGRect(x: 0, y: 10, width: view.frame.width, height: view.frame.height + 10)
+        //self.tableView.frame = CGRect(x: 0, y: 10, width: view.frame.width, height: view.frame.height + 10)
         //self.tableView.style. = .grouped
         self.tableView.separatorStyle = .none
         self.tableView.layer.cornerRadius = 10
         self.tableView.clipsToBounds = true
+        self.tableView.alwaysBounceVertical = false
+        
         if #available(iOS 15.0, *) {
             self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         } else {
@@ -305,22 +307,26 @@ extension PostDetailViewController : UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewOverViewCell.identifier, for: indexPath) as! PostDetailTableViewOverViewCell
             
-            cell.configure(with: post.title ?? "", with: post.description ?? "")
+            cell.configure(with: post.title ?? "", with: post.description ?? "", with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
+            cell.frame = CGRect(x: 0, y: 0,
+                                width: self.tableView.frame.size.width,
+                                height: self.tableView.frame.size.height)
+            print("debug", self.tableView.frame.size.width)
             return cell
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTimeCell.identifier, for: indexPath) as! PostDetailTableViewTimeCell
-            cell.configure(with: String(post.departureTime.toString()))
+            cell.configure(with: String(post.departureTime.toString()), with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
         
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTransportationCell.identifier, for: indexPath) as! PostDetailTableViewTransportationCell
-            cell.configure(with: post.transportation!)
+            cell.configure(with: post.transportation!, with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
             
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewLocationCell.identifier, for: indexPath) as! PostDetailTableViewLocationCell
-            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "", with: post.transportation! )
+            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "", with: post.transportation!, with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
             
         case 4:
@@ -330,11 +336,11 @@ extension PostDetailViewController : UITableViewDataSource {
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewPeopleCell.identifier, for: indexPath) as! PostDetailTableViewPeopleCell
-            cell.configure(with: members.count, with: post.maxMembers ?? 1, with: ceatorAvatar, with: memberAvatarsChache, with: members, with: post.owner ?? "")
+            cell.configure(with: members.count, with: post.maxMembers ?? 1, with: ceatorAvatar, with: memberAvatarsChache, with: members, with: post.owner ?? "", with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewDeleteCell.identifier, for: indexPath) as! PostDetailTableViewDeleteCell
-            cell.configure()
+            cell.configure(with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
         default:
             //TODO: check error

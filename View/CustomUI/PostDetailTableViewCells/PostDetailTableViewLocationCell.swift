@@ -14,7 +14,9 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     @IBOutlet var departurePlaceView : UILabel!
     @IBOutlet var destionationView : UILabel!
     @IBOutlet var navigationView : MKMapView!
-    @IBOutlet var shadowView : UIView!
+    @IBOutlet var starPositionShadowView : UIView!
+    @IBOutlet var destinationPositionShadowView : UIView!
+    @IBOutlet var navigationShadowView : UIView!
     
     var locationManager = CLLocationManager()
 
@@ -41,21 +43,37 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewLocationCell", bundle: nil)
     }
     
-    public func configure( with departurePlace : String , with destination : String, with transportationType : Transportation) {
+    public func configure( with departurePlace : String , with destination : String, with transportationType : Transportation, with frameWidth : CGFloat, with frameHeight : CGFloat) {
         
         self.navigationView.layer.cornerRadius = 10
+        self.navigationView.clipsToBounds = true
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
         
-        self.shadowView.layer.shadowColor = UIColor.gray.cgColor
-        self.shadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
-        self.shadowView.layer.shadowOpacity = 0.8
-        self.shadowView.layer.masksToBounds = false
-        self.shadowView.layer.cornerRadius = 10
+        self.navigationShadowView.layer.shadowColor = UIColor.gray.cgColor
+        self.navigationShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.navigationShadowView.layer.shadowOpacity = 0.8
+        self.navigationShadowView.layer.masksToBounds = false
+        self.navigationShadowView.layer.cornerRadius = 10
         
-        self.shadowView.layer.zPosition = -2
-        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        self.starPositionShadowView.layer.shadowColor = UIColor.gray.cgColor
+        self.starPositionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.starPositionShadowView.layer.shadowOpacity = 0.8
+        self.starPositionShadowView.layer.masksToBounds = false
+        self.starPositionShadowView.layer.cornerRadius = 10
+        
+        self.starPositionShadowView.layer.zPosition = -2
+        self.starPositionShadowView.backgroundColor = UIColor(named: "bgLightBlue")
+        
+        self.destinationPositionShadowView.layer.shadowColor = UIColor.gray.cgColor
+        self.destinationPositionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.destinationPositionShadowView.layer.shadowOpacity = 0.8
+        self.destinationPositionShadowView.layer.masksToBounds = false
+        self.destinationPositionShadowView.layer.cornerRadius = 10
+        
+        self.destinationPositionShadowView.layer.zPosition = -2
+        self.destinationPositionShadowView.backgroundColor = UIColor(named: "bgLightBlue")
         
         
         self.departurePlaceView.lineBreakMode = NSLineBreakMode.byWordWrapping

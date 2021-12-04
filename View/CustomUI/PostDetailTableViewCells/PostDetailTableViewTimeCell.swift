@@ -32,7 +32,7 @@ class PostDetailTableViewTimeCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewTimeCell", bundle: nil)
     }
     
-    public func configure( with time : String ) {
+    public func configure( with time : String, with frameWidth : CGFloat, with frameHeight : CGFloat) {
         self.departureTime.text = time
         
         self.layer.cornerRadius = 10
@@ -43,10 +43,16 @@ class PostDetailTableViewTimeCell: UITableViewCell {
         self.shadowView.layer.shadowOpacity = 0.8
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
-        
+                
         self.shadowView.layer.zPosition = -1
         
-        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        self.shadowView.backgroundColor = UIColor(named: "bgLightBlue")!
+        
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.shadowView.frame.width + 100, height: self.shadowView.frame.height)
+//        gradientLayer.colors = [UIColor(named: "bgLightBlue")!.cgColor, UIColor(named: "bgLightPurple")!.cgColor]
+//
+//        self.shadowView.layer.addSublayer(gradientLayer)
     }
     
 }

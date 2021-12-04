@@ -32,7 +32,7 @@ class PostDetailTableViewTransportationCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewTransportationCell", bundle: nil)
     }
     
-    public func configure( with transportationType: Transportation ) {
+    public func configure( with transportationType: Transportation, with frameWidth : CGFloat, with frameHeight : CGFloat ) {
         switch transportationType {
         case .car:
             self.transportationImage.image = UIImage(named: "car")
@@ -59,10 +59,10 @@ class PostDetailTableViewTransportationCell: UITableViewCell {
         self.shadowView.layer.shadowOpacity = 0.8
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
-        
+                
         self.shadowView.layer.zPosition = -1
         
-        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        self.shadowView.backgroundColor = UIColor(named: "bgLightBlue")!
         
     }
     

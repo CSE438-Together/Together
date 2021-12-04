@@ -35,7 +35,7 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewPeopleCell", bundle: nil)
     }
     
-    public func configure( with joinedPeopleNum : Int , with maxPeopleNum : Int, with creatorAvator : UIImage, with memberAvatarCache : [String: UIImage?], with members : [String?]?, with owner : String) {
+    public func configure( with joinedPeopleNum : Int , with maxPeopleNum : Int, with creatorAvator : UIImage, with memberAvatarCache : [String: UIImage?], with members : [String?]?, with owner : String, with frameWidth : CGFloat, with frameHeight : CGFloat) {
         self.statusView.text = "\(joinedPeopleNum)/\(maxPeopleNum)"
         self.progressView.progress = Float(joinedPeopleNum)/Float(maxPeopleNum)
         self.creatorAvatarView.image = creatorAvator
@@ -49,12 +49,25 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         self.shadowView.layer.shadowOpacity = 0.8
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
+//        self.shadowView.clipsToBounds = true
         
-        self.shadowView.layer.zPosition = -1
+        //self.shadowView.layer.zPosition = -1
         
         self.shadowView.backgroundColor = UIColor(named: "bgGreen")
         
-        var membersLeadingPadding : CGFloat = 15.0
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: self.frame.height - 10)
+        gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor(named: "bgDarkPurple")!.cgColor]
+        gradientLayer.locations = [0, 1]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.zPosition = -1
+        gradientLayer.cornerRadius = 10
+        
+        self.shadowView.layer.addSublayer(gradientLayer)
+        
+        
+        var membersLeadingPadding : CGFloat = 5.0
         
         for imageView in memberImageViews {
             imageView.removeFromSuperview()
@@ -65,7 +78,7 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
             if member == nil {continue}
             if member! == owner {continue}
             let imageView = UIImageView(
-                frame: CGRect(x: self.creatorAvatarView.frame.midX + membersLeadingPadding,
+                frame: CGRect(x: self.creatorAvatarView.frame.maxX + membersLeadingPadding,
                               y: self.creatorAvatarView.frame.minY,
                               width: 20,
                               height: 20))
@@ -79,7 +92,7 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
             imageView.contentMode = .scaleToFill
             imageView.tag = member!.hashValue
             memberImageViews.append(imageView)
-            self.addSubview(imageView)
+            self.shadowView.addSubview(imageView)
             membersLeadingPadding += 10
             
             if membersLeadingPadding >= self.contentView.frame.width - 200 {break}
