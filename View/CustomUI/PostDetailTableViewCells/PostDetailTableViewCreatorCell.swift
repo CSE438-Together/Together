@@ -35,7 +35,7 @@ class PostDetailTableViewCreatorCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewCreatorCell", bundle: nil)
     }
     
-    public func configure( with creatorAvatar : UIImage, with creatorName : String) {
+    public func configure( with creatorAvatar : UIImage, with creatorName : String, with frameWidth : CGFloat, with frameHeight : CGFloat) {
         self.userAvatarView.image = creatorAvatar
         self.creatorLabel.text = creatorName
         

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class PostDetailTableViewOverViewCell: UITableViewCell {
     
@@ -34,12 +35,18 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewOverViewCell", bundle: nil)
     }
     
-    public func configure( with title : String, with description : String ) {
+    public func configure( with title : String, with description : String, with frameWidth : CGFloat, with frameHeight : CGFloat ) {
+        
+        self.selectionStyle = .none
+        
         self.titleView.text = title
+        self.titleView.textColor = .white
         self.descriptionView.text = description
         self.descriptionView.isEditable = false
         self.descriptionView.backgroundColor = .none
-        
+        self.descriptionView.textColor = .black
+        self.descriptionView.alpha = 1
+        self.descriptionView.layer.zPosition = 10
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
@@ -49,20 +56,34 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         self.shadowView.layer.shadowOpacity = 0.8
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
+//        self.shadowView.clipsToBounds = true
         
-        self.shadowView.layer.zPosition = -2
+        //self.shadowView.layer.zPosition = -1
         
-        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
-        
-        self.descriptionShadowView.layer.shadowColor = UIColor.gray.cgColor
-        self.descriptionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
-        self.descriptionShadowView.layer.shadowOpacity = 0.8
-        self.descriptionShadowView.layer.masksToBounds = false
+        self.shadowView.backgroundColor = UIColor(displayP3Red: 193/255, green: 120/255, blue: 213/255, alpha: 1)
+//
+//        self.descriptionShadowView.layer.shadowColor = UIColor.gray.cgColor
+//        self.descriptionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+//        self.descriptionShadowView.layer.shadowOpacity = 0.8
+//        self.descriptionShadowView.layer.masksToBounds = false
         self.descriptionShadowView.layer.cornerRadius = 10
+        self.descriptionShadowView.clipsToBounds = true
+//
+//        self.descriptionShadowView.layer.zPosition = 9
+        self.descriptionShadowView.alpha = 0.3
+        self.descriptionShadowView.backgroundColor = UIColor(named: "bgLightBlue")!
         
-        self.descriptionShadowView.layer.zPosition = -1
         
-        self.descriptionShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: self.shadowView.frame.height - 10)
+        print("debug?", "\(self.shadowView.frame.width)")
+        gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
+        gradientLayer.locations = [0, 1]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.cornerRadius = 10
+
+        self.shadowView.layer.insertSublayer(gradientLayer, at: 0)
         
     }
     

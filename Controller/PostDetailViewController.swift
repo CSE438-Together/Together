@@ -29,15 +29,17 @@ class PostDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.tableView.frame = CGRect(x: 0, y: 10, width: view.frame.width, height: view.frame.height + 10)
+        //self.tableView.frame = CGRect(x: 0, y: 10, width: view.frame.width, height: view.frame.height + 10)
         //self.tableView.style. = .grouped
         self.tableView.separatorStyle = .none
         self.tableView.layer.cornerRadius = 10
         self.tableView.clipsToBounds = true
+        self.tableView.alwaysBounceVertical = false
+        
         if #available(iOS 15.0, *) {
             self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         } else {
-            // Fallback on earlier versions
+            self.tableView.contentInsetAdjustmentBehavior = .never
         }
         
         self.tableView.register(PostDetailTableViewCreatorCell.nib(), forCellReuseIdentifier: PostDetailTableViewCreatorCell.identifier)
@@ -63,17 +65,34 @@ class PostDetailViewController: UIViewController {
             switch $0 {
                 case .success(let result):
                     // result will be a single object of type Post?
-                    print("Posts: \(result)")
-                    self.post = result
+                    // print("Posts: \(result)")
+                self.post = result
+                if self.post.owner == nil {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Stale Info", message: "Sorry. This post has been deleted.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+                            _ in
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }))
+                    }
+                    
+                }
                     
                 case .failure(let error):
-                    print("Error on query() for type Post - \(error.localizedDescription)")
+                print("Error on query() for type Post - \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Pulling Post Failed", message: "Sorry. Something wrong during pulling this post", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+                        _ in
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }))
+                }
                 }
         }
         
         self.tableView.reloadData()
-
-        
         
         guard let id = Amplify.Auth.getCurrentUser()?.userId else {
             print("Error: UserId is not existed")
@@ -199,9 +218,21 @@ class PostDetailViewController: UIViewController {
             switch(result) {
             case .success:
                 print("update successfully")
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Operation Successfully", message: "You have left this event, but you can re-join in anytime if possible.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
             case .failure:
                 print("update failed")
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Operation Failed", message: "Sorry, something wrong when you try to leave this event.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leave", style: .plain, target: self, action: #selector(didTapLeaveButton))
             }
             print("add leave button")
@@ -231,9 +262,9 @@ class PostDetailViewController: UIViewController {
             post.applicants = [String]()
         } else {
             print("handle not nil")
-            for m in post.applicants! {
-                print(m)
-            }
+//            for m in post.applicants! {
+//                print(m)
+//            }
         }
         
         if ( members.contains(userId) || post.applicants!.contains(userId) ) {
@@ -248,10 +279,22 @@ class PostDetailViewController: UIViewController {
                 switch(result) {
                 case .success:
                     print("update successfully")
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Join Successfully", message: "You can leave from this event in anytime.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leave", style: .plain, target: self, action: #selector(didTapLeaveButton))
                     
                 case .failure:
                     print("update failed")
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Operation Failed", message: "Sorry, something wrong when you try to join this event. Please try again.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
                 }
             }
@@ -305,22 +348,25 @@ extension PostDetailViewController : UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewOverViewCell.identifier, for: indexPath) as! PostDetailTableViewOverViewCell
             
-            cell.configure(with: post.title ?? "", with: post.description ?? "")
+            cell.configure(with: post.title ?? "", with: post.description ?? "", with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
+            cell.frame = CGRect(x: 0, y: 0,
+                                width: self.tableView.frame.size.width,
+                                height: self.tableView.frame.size.height)
             return cell
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTimeCell.identifier, for: indexPath) as! PostDetailTableViewTimeCell
-            cell.configure(with: String(post.departureTime.toString()))
+            cell.configure(with: String(post.departureTime.toString()), with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
         
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTransportationCell.identifier, for: indexPath) as! PostDetailTableViewTransportationCell
-            cell.configure(with: post.transportation!)
+            cell.configure(with: post.transportation!, with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
             
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewLocationCell.identifier, for: indexPath) as! PostDetailTableViewLocationCell
-            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "", with: post.transportation! )
+            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "", with: post.transportation!, with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
             
         case 4:
@@ -330,11 +376,11 @@ extension PostDetailViewController : UITableViewDataSource {
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewPeopleCell.identifier, for: indexPath) as! PostDetailTableViewPeopleCell
-            cell.configure(with: members.count, with: post.maxMembers ?? 1, with: ceatorAvatar, with: memberAvatarsChache, with: members, with: post.owner ?? "")
+            cell.configure(with: members.count, with: post.maxMembers ?? 1, with: ceatorAvatar, with: memberAvatarsChache, with: members, with: post.owner ?? "", with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewDeleteCell.identifier, for: indexPath) as! PostDetailTableViewDeleteCell
-            cell.configure()
+            cell.configure(with: self.tableView.frame.size.width, with: self.tableView.frame.size.height)
             return cell
         default:
             //TODO: check error

@@ -89,6 +89,8 @@ extension MembersViewController : UITableViewDataSource {
         print("try dequeue")
         let cell = tableView.dequeueReusableCell(withIdentifier: MembersTableViewCell.identifier, for: indexPath) as! MembersTableViewCell
         
+        cell.selectionStyle = .none
+        
         print("dequeue done")
         switch indexPath.section {
         case 0:
@@ -198,30 +200,34 @@ extension MembersViewController {
         } else {return false}
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         switch indexPath.section {
         case 0:
-            let removeAction = UITableViewRowAction(style: .destructive, title: "Remove", handler: {
-                _, indexPath in
+            let removeAction = UIContextualAction(style: .destructive, title: "Remove", handler: {
+                [weak self] (_, _, _)in
+                guard let self = self else {return}
                 if self.post.members != nil {
                     self.post.members!.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
                     self.updatePost()
                 }
             })
-            return [removeAction]
+            
+            let swipeActions = UISwipeActionsConfiguration(actions: [removeAction])
+            return swipeActions
         case 1:
-            let rejectAction = UITableViewRowAction(style: .destructive, title: "Reject", handler: {
-                _, indexPath in
+            let rejectAction = UIContextualAction(style: .destructive, title: "Reject", handler: {
+                [weak self] (_, _, _)in
+                guard let self = self else {return}
                 if self.post.applicants != nil {
                     self.post.applicants!.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
                     self.updatePost()
                 }
             })
-            let approveAction = UITableViewRowAction(style: .destructive, title: "Approve", handler: {
-                _, indexPath in
+            let approveAction = UIContextualAction(style: .destructive, title: "Approve", handler: {
+                [weak self] (_, _, _)in
+                guard let self = self else {return}
                 if self.post.members != nil && self.post.applicants != nil {
                     guard let maxMembers = self.post.maxMembers else {
                         print("Error: doesn't have maxMembers")
@@ -242,17 +248,17 @@ extension MembersViewController {
             
             approveAction.backgroundColor = .systemBlue
             
-            return [rejectAction, approveAction]
+            let swipeActions = UISwipeActionsConfiguration(actions: [rejectAction, approveAction])
+            return swipeActions
         default:
             print("Error: section 3 which should not exist")
-            return []
+            let swipeActions = UISwipeActionsConfiguration(actions: [])
+            return swipeActions
         }
-        
-        
     }
     
     func updatePost() {
-        Amplify.DataStore.save(self.post) { [self]
+        Amplify.DataStore.save(self.post) {
             result in
             switch(result) {
             case .success:

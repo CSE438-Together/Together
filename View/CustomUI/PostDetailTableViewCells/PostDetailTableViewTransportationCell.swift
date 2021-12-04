@@ -32,7 +32,10 @@ class PostDetailTableViewTransportationCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewTransportationCell", bundle: nil)
     }
     
-    public func configure( with transportationType: Transportation ) {
+    public func configure( with transportationType: Transportation, with frameWidth : CGFloat, with frameHeight : CGFloat ) {
+        
+        self.selectionStyle = .none
+        
         switch transportationType {
         case .car:
             self.transportationImage.image = UIImage(named: "car")
@@ -51,6 +54,13 @@ class PostDetailTableViewTransportationCell: UITableViewCell {
             self.transportationLabel.text = "taxi"
         }
         
+        self.transportationLabel.textColor = .white
+        
+        self.transportationImage.layer.cornerRadius = 15
+        self.transportationImage.clipsToBounds = true
+        self.transportationImage.backgroundColor = .white
+        self.transportationImage.alpha = 0.5
+        
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
         
@@ -59,10 +69,22 @@ class PostDetailTableViewTransportationCell: UITableViewCell {
         self.shadowView.layer.shadowOpacity = 0.8
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
-        
+                
         self.shadowView.layer.zPosition = -1
         
-        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        self.shadowView.backgroundColor = UIColor(named: "bgDarkBlue")!
+        self.shadowView.alpha = 0.8
+        
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: 40)
+//        gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
+//        gradientLayer.locations = [0, 1]
+//        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+//        gradientLayer.zPosition = -1
+//        gradientLayer.cornerRadius = 10
+//
+//        self.shadowView.layer.addSublayer(gradientLayer)
         
     }
     
