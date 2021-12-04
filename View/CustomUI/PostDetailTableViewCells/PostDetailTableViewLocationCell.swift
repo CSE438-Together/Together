@@ -15,7 +15,6 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     @IBOutlet var destionationView : UILabel!
     @IBOutlet var navigationView : MKMapView!
     @IBOutlet var shadowView : UIView!
-    @IBOutlet var destinationShadowView : UIView!
     
     var locationManager = CLLocationManager()
 
@@ -57,16 +56,6 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         
         self.shadowView.layer.zPosition = -2
         self.shadowView.backgroundColor = UIColor(named: "bgGreen")
-        
-        self.destinationShadowView.layer.shadowColor = UIColor.gray.cgColor
-        self.destinationShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
-        self.destinationShadowView.layer.shadowOpacity = 0.8
-        self.destinationShadowView.layer.masksToBounds = false
-        self.destinationShadowView.layer.cornerRadius = 10
-        
-        self.destinationShadowView.layer.zPosition = -1
-        self.destinationShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
-        
         
         
         self.departurePlaceView.lineBreakMode = NSLineBreakMode.byWordWrapping

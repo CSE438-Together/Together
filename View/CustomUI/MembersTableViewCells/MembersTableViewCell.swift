@@ -34,22 +34,25 @@ class MembersTableViewCell: UITableViewCell {
     }
     
     public func configure( with memberId : String, with memberAvatar : UIImage, with memberNickName : String, with memberGender : String) {
-        self.memberView.text = "Name: " + memberNickName
+        self.memberView.text = memberNickName
         self.memberAvatarView.image = memberAvatar
         self.memberAvatarView.layer.cornerRadius = 15
         
-        self.memberGenderView.text = "Gender: " + memberGender
+        self.memberGenderView.text = memberGender
         switch memberGender {
         case "Male":
-            self.memberGenderImageView.image = UIImage(named: "male")
+            self.memberGenderImageView.image = UIImage(named: "defaultPerson")
+            self.memberGenderImageView.backgroundColor = UIColor(named: "bgLightBlue")!
         case "Female":
-            self.memberGenderImageView.image = UIImage(named: "female")
+            self.memberGenderImageView.image = UIImage(named: "defaultPerson")
+            self.memberGenderImageView.backgroundColor = UIColor(named: "bgLightPurple")!
         default:
-            self.memberGenderImageView.image = UIImage(named: "allGender")
+            self.memberGenderImageView.image = UIImage(named: "defaultPerson")
+            self.memberGenderImageView.backgroundColor = UIColor(named: "bgOrange")!
         }
+        self.memberGenderImageView.layer.cornerRadius = 15
         
-        
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 15
         self.clipsToBounds = true
         
         self.shadowView.layer.shadowColor = UIColor.gray.cgColor

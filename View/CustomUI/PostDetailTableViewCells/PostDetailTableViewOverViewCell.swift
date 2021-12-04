@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class PostDetailTableViewOverViewCell: UITableViewCell {
     
@@ -52,7 +53,7 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         
         self.shadowView.layer.zPosition = -2
         
-        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        self.shadowView.backgroundColor = UIColor(displayP3Red: 193/255, green: 120/255, blue: 213/255, alpha: 1)
         
         self.descriptionShadowView.layer.shadowColor = UIColor.gray.cgColor
         self.descriptionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
@@ -61,8 +62,8 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         self.descriptionShadowView.layer.cornerRadius = 10
         
         self.descriptionShadowView.layer.zPosition = -1
-        
-        self.descriptionShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
+        self.descriptionShadowView.backgroundColor = UIColor(displayP3Red: 222/255, green: 142/255, blue: 246/255, alpha: 1)
+        //self.descriptionShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
         
     }
     
