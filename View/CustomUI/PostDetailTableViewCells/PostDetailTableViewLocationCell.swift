@@ -47,6 +47,8 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     
     public func configure( with departurePlace : String , with destination : String, with transportationType : Transportation, with frameWidth : CGFloat, with frameHeight : CGFloat) {
         
+        self.selectionStyle = .none
+        
         self.navigationView.layer.cornerRadius = 10
         self.navigationView.clipsToBounds = true
         

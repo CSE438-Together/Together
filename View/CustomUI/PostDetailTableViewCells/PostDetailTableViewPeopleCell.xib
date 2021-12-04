@@ -48,11 +48,11 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoE-TB-ZIa">
-                                <rect key="frame" x="306.5" y="10" width="41.5" height="20"/>
+                                <rect key="frame" x="312.5" y="10" width="35.5" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="7TN-Vb-g44"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

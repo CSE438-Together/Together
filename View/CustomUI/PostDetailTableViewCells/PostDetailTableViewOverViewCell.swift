@@ -36,6 +36,9 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
     }
     
     public func configure( with title : String, with description : String, with frameWidth : CGFloat, with frameHeight : CGFloat ) {
+        
+        self.selectionStyle = .none
+        
         self.titleView.text = title
         self.titleView.textColor = .white
         self.descriptionView.text = description

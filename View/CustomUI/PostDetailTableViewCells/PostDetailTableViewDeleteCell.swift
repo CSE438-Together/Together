@@ -30,6 +30,9 @@ class PostDetailTableViewDeleteCell: UITableViewCell {
     }
     
     public func configure(with frameWidth : CGFloat, with frameHeight : CGFloat) {
+        
+        self.selectionStyle = .none
+        
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
         self.deleteLabel.layer.cornerRadius = 10

@@ -34,6 +34,9 @@ class PostDetailTableViewTimeCell: UITableViewCell {
     }
     
     public func configure( with time : String, with frameWidth : CGFloat, with frameHeight : CGFloat) {
+        
+        self.selectionStyle = .none
+        
         self.departureTime.text = time
         self.departureTime.textColor = .white
         

@@ -38,6 +38,9 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
     }
     
     public func configure( with joinedPeopleNum : Int , with maxPeopleNum : Int, with creatorAvator : UIImage, with memberAvatarCache : [String: UIImage?], with members : [String?]?, with owner : String, with frameWidth : CGFloat, with frameHeight : CGFloat) {
+        
+        self.selectionStyle = .none
+        
         self.statusView.text = "\(joinedPeopleNum)/\(maxPeopleNum)"
         self.statusView.textColor = .white
         

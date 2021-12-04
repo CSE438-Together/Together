@@ -33,6 +33,9 @@ class PostDetailTableViewTransportationCell: UITableViewCell {
     }
     
     public func configure( with transportationType: Transportation, with frameWidth : CGFloat, with frameHeight : CGFloat ) {
+        
+        self.selectionStyle = .none
+        
         switch transportationType {
         case .car:
             self.transportationImage.image = UIImage(named: "car")

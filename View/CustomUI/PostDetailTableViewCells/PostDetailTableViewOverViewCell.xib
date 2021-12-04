@@ -44,7 +44,7 @@
                                     <constraint firstItem="Z9b-Xf-rnu" firstAttribute="leading" secondItem="86j-Xz-7lz" secondAttribute="leading" constant="10" id="vNk-3a-JSk"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z74-re-2BC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z74-re-2BC">
                                 <rect key="frame" x="10" y="5" width="280" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Cdt-pb-PCe"/>
