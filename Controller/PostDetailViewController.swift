@@ -8,6 +8,7 @@
 import UIKit
 import Amplify
 import AWSPluginsCore
+import SQLite
 
 class PostDetailViewController: UIViewController {
     
@@ -16,6 +17,8 @@ class PostDetailViewController: UIViewController {
     var isMember : Bool!
     var isApplicants : Bool!
     var ceatorAvatar : UIImage!
+    var memberAvatarsChache = [String : UIImage?]()
+    var userAttributesCache = [String : Attributes?]()
     
     @IBOutlet var tableView : UITableView!
     
@@ -31,12 +34,19 @@ class PostDetailViewController: UIViewController {
         self.tableView.separatorStyle = .none
         self.tableView.layer.cornerRadius = 10
         self.tableView.clipsToBounds = true
+        if #available(iOS 15.0, *) {
+            self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
+        } else {
+            // Fallback on earlier versions
+        }
         
         self.tableView.register(PostDetailTableViewCreatorCell.nib(), forCellReuseIdentifier: PostDetailTableViewCreatorCell.identifier)
         self.tableView.register(PostDetailTableViewOverViewCell.nib(), forCellReuseIdentifier: PostDetailTableViewOverViewCell.identifier)
         self.tableView.register(PostDetailTableViewTimeCell.nib(), forCellReuseIdentifier: PostDetailTableViewTimeCell.identifier)
         self.tableView.register(PostDetailTableViewLocationCell.nib(), forCellReuseIdentifier: PostDetailTableViewLocationCell.identifier)
         self.tableView.register(PostDetailTableViewPeopleCell.nib(), forCellReuseIdentifier: PostDetailTableViewPeopleCell.identifier)
+        self.tableView.register(PostDetailTableViewTransportationCell.nib(), forCellReuseIdentifier: PostDetailTableViewTransportationCell.identifier)
+        self.tableView.register(PostDetailTableViewDeleteCell.nib(), forCellReuseIdentifier: PostDetailTableViewDeleteCell.identifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -55,6 +65,7 @@ class PostDetailViewController: UIViewController {
                     // result will be a single object of type Post?
                     print("Posts: \(result)")
                     self.post = result
+                    
                 case .failure(let error):
                     print("Error on query() for type Post - \(error.localizedDescription)")
                 }
@@ -75,7 +86,7 @@ class PostDetailViewController: UIViewController {
         
         if isCreator {
             print("add Edit button")
-            self.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
         } else {
             // check if has applied an applicants or joined
             guard let members = self.post.members else {
@@ -103,6 +114,45 @@ class PostDetailViewController: UIViewController {
             }
             
             
+        }
+        
+        // prepare memebers avatar
+        // also query member's name
+        guard let members = self.post.members else {
+            print("Error: this post doesn't have any member")
+            return
+        }
+        for member in members {
+            if member == nil {continue}
+            Amplify.Storage.downloadData(key: member!) {
+                [self] result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        memberAvatarsChache[member!] = UIImage(data: data)
+                    }
+                case .failure(_):
+                    memberAvatarsChache[member!] = nil
+                }
+            }
+            self.getAttributes(id: member!)
+
+        }
+        guard let applicants = self.post.applicants else {return}
+        for applicant in applicants {
+            if applicant == nil {continue}
+            Amplify.Storage.downloadData(key: applicant!) {
+                [self] result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        memberAvatarsChache[applicant!] = UIImage(data: data)
+                    }
+                case .failure(_):
+                    memberAvatarsChache[applicant!] = nil
+                }
+            }
+            self.getAttributes(id: applicant!)
         }
     }
     
@@ -142,18 +192,24 @@ class PostDetailViewController: UIViewController {
             print("Error: neither a member nor a applicants")
         }
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(emptyButton))
         
         Amplify.DataStore.save(self.post) { [self]
             result in
             switch(result) {
             case .success:
                 print("update successfully")
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
             case .failure:
                 print("update failed")
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leave", style: .plain, target: self, action: #selector(didTapLeaveButton))
             }
+            print("add leave button")
         }
         
     }
+    
+    @objc func emptyButton() {}
     
     @IBSegueAction func showNewPostView(_ coder: NSCoder, sender: PostDetailViewController?) -> NewPostViewController? {
         return NewPostViewController(coder: coder, delegate: self, post: post)
@@ -183,6 +239,8 @@ class PostDetailViewController: UIViewController {
         if ( members.contains(userId) || post.applicants!.contains(userId) ) {
             print("A member try to join again")
         } else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(emptyButton))
+            
             post.applicants!.append(userId)
             print("add to applicants")
             Amplify.DataStore.save(self.post) { [self]
@@ -190,8 +248,11 @@ class PostDetailViewController: UIViewController {
                 switch(result) {
                 case .success:
                     print("update successfully")
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leave", style: .plain, target: self, action: #selector(didTapLeaveButton))
+                    
                 case .failure:
                     print("update failed")
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .plain, target: self, action: #selector(didTapJoinButton))
                 }
             }
             
@@ -224,9 +285,11 @@ extension PostDetailViewController : UITableViewDataSource {
          3. Time ( start and end )
          4. Location ( start and end )
          5. People ()
+         5. delete if is creator
          
          so, 5 sections in total
          */
+        if self.isOwner() { return 6}
         return 5
     }
     
@@ -235,24 +298,29 @@ extension PostDetailViewController : UITableViewDataSource {
         
         
         switch indexPath.section {
+//        case 0:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewCreatorCell.identifier, for: indexPath) as! PostDetailTableViewCreatorCell
+//            cell.configure(with: ceatorAvatar, with: post.owner ?? "")
+//            return cell
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewCreatorCell.identifier, for: indexPath) as! PostDetailTableViewCreatorCell
-            cell.configure(with: ceatorAvatar, with: post.owner ?? "")
-            return cell
-        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewOverViewCell.identifier, for: indexPath) as! PostDetailTableViewOverViewCell
             
             cell.configure(with: post.title ?? "", with: post.description ?? "")
             return cell
             
-        case 2:
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTimeCell.identifier, for: indexPath) as! PostDetailTableViewTimeCell
             cell.configure(with: String(post.departureTime.toString()))
+            return cell
+        
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewTransportationCell.identifier, for: indexPath) as! PostDetailTableViewTransportationCell
+            cell.configure(with: post.transportation!)
             return cell
             
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewLocationCell.identifier, for: indexPath) as! PostDetailTableViewLocationCell
-            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "" )
+            cell.configure(with: post.departurePlace ?? "", with: post.destination ?? "", with: post.transportation! )
             return cell
             
         case 4:
@@ -262,7 +330,11 @@ extension PostDetailViewController : UITableViewDataSource {
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewPeopleCell.identifier, for: indexPath) as! PostDetailTableViewPeopleCell
-            cell.configure(with: members.count, with: post.maxMembers ?? 1)
+            cell.configure(with: members.count, with: post.maxMembers ?? 1, with: ceatorAvatar, with: memberAvatarsChache, with: members, with: post.owner ?? "")
+            return cell
+        case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailTableViewDeleteCell.identifier, for: indexPath) as! PostDetailTableViewDeleteCell
+            cell.configure()
             return cell
         default:
             //TODO: check error
@@ -278,7 +350,42 @@ extension PostDetailViewController : UITableViewDataSource {
             let membersViewController = MembersViewController()
             membersViewController.isOwner = self.isCreator
             membersViewController.post = self.post
+            membersViewController.memberAvatarsCache = self.memberAvatarsChache
+            membersViewController.creatorAvatar = self.ceatorAvatar
+            membersViewController.userAttributesCache = self.userAttributesCache
             navigationController?.pushViewController(membersViewController, animated: true)
+        case 5:
+            let alert = UIAlertController(title: "Delete?", message: "You will permanently delete this post.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            alert.addAction(
+                UIAlertAction(title: "Delete",
+                              style: .destructive,
+                              handler: {(_: UIAlertAction!) in
+                                  Amplify.DataStore.delete(self.post) {
+                                    switch $0 {
+                                    case .success:
+                                        print("Post deleted!")
+                                        DispatchQueue.main.async {
+                                            let alert = UIAlertController(title: "Delete Done!", message: "", preferredStyle: .alert)
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                                                self.navigationController?.popToRootViewController(animated: true)
+                                            }))
+                                            self.present(alert, animated: true, completion: nil)
+                                            
+                                        }
+                                        
+                                    case .failure(let error):
+                                        print("Error deleting post - \(error.localizedDescription)")
+                                        DispatchQueue.main.async {
+                                            let alert = UIAlertController(title: "Delete Failed!", message: "", preferredStyle: .alert)
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                            self.present(alert, animated: true, completion: nil)
+                                        }
+                                       
+                                    }}
+                    }))
+            self.present(alert, animated: true, completion: nil)
         default:
             return
         }
@@ -307,10 +414,12 @@ extension PostDetailViewController : UITableViewDataSource {
 extension PostDetailViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 1:
+        case 0:
             return "OverView"
-        case 2:
+        case 1:
             return "Time"
+        case 2:
+            return "Transportation"
         case 3:
             return "Location"
         case 4:
@@ -323,7 +432,11 @@ extension PostDetailViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
+        return 15
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
     }
 }
 
@@ -332,4 +445,36 @@ extension PostDetailViewController: NewPostViewDelegate {
     func handleSuccess() {}
     
     func handleFailure() {}
+}
+
+// extension with helper function
+extension PostDetailViewController {
+    func getAttributes(id : String) {
+        let queryParameters = ["username" : id]
+        let request = RESTRequest(path: "/getUserAttributes", queryParameters: queryParameters)
+        Amplify.API.get(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let item = try? JSONDecoder().decode(Attributes.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.userAttributesCache[id] = item
+                    }
+                } else {
+                    // handle error
+                    print("Error: Decoding attributes failed")
+                    DispatchQueue.main.async {
+                        self.userAttributesCache[id] = nil
+                    }
+                }
+            case .failure(let error):
+                // handle error
+                print("Warning: This user doesn't have any attributes")
+                print(error.errorDescription)
+                DispatchQueue.main.async {
+                    self.userAttributesCache[id] = nil
+                }
+                break
+            }
+        }
+    }
 }

@@ -13,9 +13,12 @@ class MembersViewController: UIViewController {
     
     var post : Post!
     var isOwner : Bool!
+    var memberAvatarsCache : [String : UIImage?]!
+    var creatorAvatar : UIImage!
+    var userAttributesCache : [String : Attributes?]!
     
     private let tableView : UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
+        let table = UITableView(frame: .zero, style: .plain)
         print("register member ")
         table.register(MembersTableViewCell.nib(), forCellReuseIdentifier: MembersTableViewCell.identifier)
         print("register member done")
@@ -26,6 +29,7 @@ class MembersViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
         print("load table done")
 
@@ -40,15 +44,6 @@ class MembersViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Amplify.DataStore.save(self.post) { [self]
-            result in
-            switch(result) {
-            case .success:
-                print("update successfully")
-            case .failure:
-                print("update failed")
-            }
-        }
     }
 
     /*
@@ -101,20 +96,74 @@ extension MembersViewController : UITableViewDataSource {
                 print("Error: this post doesn't have members or this index is out of index bound")
                 return cell
             }
-            cell.configure(with: members[indexPath.row]!)
+            guard let id = members[indexPath.row] else {
+                print("Error: No id")
+                cell.configure(with: "", with: UIImage(), with: "", with: "")
+                return cell
+            }
+            
+            var avatarImage : UIImage
+            var nickName = ""
+            var gender = ""
+            if memberAvatarsCache[id] != nil, memberAvatarsCache[id]! != nil {
+                avatarImage = memberAvatarsCache[id]!!
+            } else {
+                avatarImage = UIImage(named: "defaultPerson")!
+            }
+            
+            if userAttributesCache[id] != nil, userAttributesCache[id]! != nil {
+                if userAttributesCache[id]!!.gender != nil {
+                    gender = userAttributesCache[id]!!.gender!
+                }
+                if userAttributesCache[id]!!.nickName != nil {
+                    nickName = userAttributesCache[id]!!.nickName!
+                }
+                
+            }
+            
+            cell.configure(with: id,
+                           with: avatarImage,
+                           with: nickName,
+                           with: gender)
             return cell
         case 1:
             if self.post.applicants == nil {
                 print("None of apllicants")
-                cell.configure(with: "")
+                cell.configure(with: "", with: UIImage(), with: "", with: "")
                 return cell
             } else {
-                cell.configure(with: self.post.applicants![indexPath.row]!)
+                guard let id = self.post.applicants![indexPath.row] else {
+                    cell.configure(with: "", with: UIImage(), with: "", with: "")
+                    return cell
+                }
+                var avatarImage : UIImage
+                var nickName = ""
+                var gender = ""
+                
+                if memberAvatarsCache[id] != nil, memberAvatarsCache[id]! != nil {
+                    avatarImage = memberAvatarsCache[id]!!
+                } else {
+                    avatarImage = UIImage(named: "defaultPerson")!
+                }
+                if userAttributesCache[id] != nil, userAttributesCache[id]! != nil {
+                    if userAttributesCache[id]!!.gender != nil {
+                        gender = userAttributesCache[id]!!.gender!
+                    }
+                    if userAttributesCache[id]!!.nickName != nil {
+                        nickName = userAttributesCache[id]!!.nickName!
+                    }
+                    
+                }
+                
+                cell.configure(with: id,
+                               with: avatarImage,
+                               with: nickName,
+                               with: gender)
                 return cell
             }
         default:
             print("Error: there is the third section which should not exist")
-            cell.configure(with: "")
+            cell.configure(with: "", with: UIImage(), with: "", with: "")
             return cell
         }
     }
@@ -158,6 +207,7 @@ extension MembersViewController {
                 if self.post.members != nil {
                     self.post.members!.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.updatePost()
                 }
             })
             return [removeAction]
@@ -167,6 +217,7 @@ extension MembersViewController {
                 if self.post.applicants != nil {
                     self.post.applicants!.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.updatePost()
                 }
             })
             let approveAction = UITableViewRowAction(style: .destructive, title: "Approve", handler: {
@@ -183,6 +234,7 @@ extension MembersViewController {
                     self.post.applicants!.remove(at: indexPath.row)
                     //self.tableView.deleteRows(at: [indexPath], with: .automatic)
                     //self.tableView.insertRows(at: [IndexPath(row: self.post.members!.count, section: 0)], with: .automatic)
+                    self.updatePost()
                     self.tableView.reloadData()
                 }
 
@@ -197,6 +249,18 @@ extension MembersViewController {
         }
         
         
+    }
+    
+    func updatePost() {
+        Amplify.DataStore.save(self.post) { [self]
+            result in
+            switch(result) {
+            case .success:
+                print("update successfully")
+            case .failure:
+                print("update failed")
+            }
+        }
     }
     
     
@@ -224,3 +288,4 @@ extension MembersViewController {
 //        }
 //    }
 }
+

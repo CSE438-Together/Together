@@ -11,7 +11,9 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
     
     @IBOutlet var statusView : UILabel!
     @IBOutlet var progressView : UIProgressView!
+    @IBOutlet var creatorAvatarView : UIImageView!
     @IBOutlet var shadowView : UIView!
+    var memberImageViews = [UIImageView]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,9 +35,11 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         return UINib(nibName: "PostDetailTableViewPeopleCell", bundle: nil)
     }
     
-    public func configure( with joinedPeopleNum : Int , with maxPeopleNum : Int) {
+    public func configure( with joinedPeopleNum : Int , with maxPeopleNum : Int, with creatorAvator : UIImage, with memberAvatarCache : [String: UIImage?], with members : [String?]?, with owner : String) {
         self.statusView.text = "\(joinedPeopleNum)/\(maxPeopleNum)"
         self.progressView.progress = Float(joinedPeopleNum)/Float(maxPeopleNum)
+        self.creatorAvatarView.image = creatorAvator
+        self.creatorAvatarView.layer.cornerRadius = 10
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
@@ -49,6 +53,37 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         self.shadowView.layer.zPosition = -1
         
         self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        
+        var membersLeadingPadding : CGFloat = 15.0
+        
+        for imageView in memberImageViews {
+            imageView.removeFromSuperview()
+        }
+        
+        guard let members = members else {return}
+        for member in members {
+            if member == nil {continue}
+            if member! == owner {continue}
+            let imageView = UIImageView(
+                frame: CGRect(x: self.creatorAvatarView.frame.midX + membersLeadingPadding,
+                              y: self.creatorAvatarView.frame.minY,
+                              width: 20,
+                              height: 20))
+            if memberAvatarCache[member!] != nil {
+                imageView.image = memberAvatarCache[member!]!
+            } else {
+                imageView.image = UIImage(named: "defaultPerson")
+            }
+            imageView.layer.cornerRadius = 10
+            imageView.backgroundColor = .white
+            imageView.contentMode = .scaleToFill
+            imageView.tag = member!.hashValue
+            memberImageViews.append(imageView)
+            self.addSubview(imageView)
+            membersLeadingPadding += 10
+            
+            if membersLeadingPadding >= self.contentView.frame.width - 200 {break}
+        }
     }
     
 }
