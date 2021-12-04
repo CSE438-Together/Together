@@ -13,6 +13,8 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
     @IBOutlet var progressView : UIProgressView!
     @IBOutlet var creatorAvatarView : UIImageView!
     @IBOutlet var shadowView : UIView!
+    @IBOutlet var personIcon : UIImageView!
+    @IBOutlet var peopleIcon : UIImageView!
     var memberImageViews = [UIImageView]()
 
     override func awakeFromNib() {
@@ -37,9 +39,24 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
     
     public func configure( with joinedPeopleNum : Int , with maxPeopleNum : Int, with creatorAvator : UIImage, with memberAvatarCache : [String: UIImage?], with members : [String?]?, with owner : String, with frameWidth : CGFloat, with frameHeight : CGFloat) {
         self.statusView.text = "\(joinedPeopleNum)/\(maxPeopleNum)"
+        self.statusView.textColor = .white
+        
         self.progressView.progress = Float(joinedPeopleNum)/Float(maxPeopleNum)
+        self.progressView.progressTintColor = .white
+        self.progressView.trackTintColor = UIColor(named: "bgLightBlue")!
+                
         self.creatorAvatarView.image = creatorAvator
         self.creatorAvatarView.layer.cornerRadius = 10
+        
+        self.personIcon.layer.cornerRadius = 10
+        self.personIcon.clipsToBounds = true
+        self.personIcon.backgroundColor = .white
+        self.personIcon.alpha = 0.5
+        
+        self.peopleIcon.layer.cornerRadius = 10
+        self.peopleIcon.clipsToBounds = true
+        self.peopleIcon.backgroundColor = .white
+        self.peopleIcon.alpha = 0.5
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
@@ -53,18 +70,19 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         
         //self.shadowView.layer.zPosition = -1
         
-        self.shadowView.backgroundColor = UIColor(named: "bgGreen")
+        self.shadowView.backgroundColor = UIColor(named: "bgDarkBlue")!
+        self.shadowView.alpha = 0.8
         
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: self.frame.height - 10)
-        gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor(named: "bgDarkPurple")!.cgColor]
-        gradientLayer.locations = [0, 1]
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.zPosition = -1
-        gradientLayer.cornerRadius = 10
-        
-        self.shadowView.layer.addSublayer(gradientLayer)
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: self.frame.height - 10)
+//        gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor.white.cgColor]
+//        gradientLayer.locations = [0, 1]
+//        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+//        gradientLayer.zPosition = -1
+//        gradientLayer.cornerRadius = 10
+//
+//        self.shadowView.layer.addSublayer(gradientLayer)
         
         
         var membersLeadingPadding : CGFloat = 5.0

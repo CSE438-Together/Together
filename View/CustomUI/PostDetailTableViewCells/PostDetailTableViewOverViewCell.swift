@@ -42,7 +42,8 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         self.descriptionView.isEditable = false
         self.descriptionView.backgroundColor = .none
         self.descriptionView.textColor = .black
-        //self.descriptionView.layer.zPosition = 1
+        self.descriptionView.alpha = 1
+        self.descriptionView.layer.zPosition = 10
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
@@ -65,7 +66,7 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         self.descriptionShadowView.layer.cornerRadius = 10
         self.descriptionShadowView.clipsToBounds = true
 //
-//        //self.descriptionShadowView.layer.zPosition = -1
+//        self.descriptionShadowView.layer.zPosition = 9
         self.descriptionShadowView.alpha = 0.3
         self.descriptionShadowView.backgroundColor = UIColor(named: "bgLightBlue")!
         
@@ -73,7 +74,7 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: self.shadowView.frame.height - 10)
         print("debug?", "\(self.shadowView.frame.width)")
-        gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor(named: "bgDarkPurple")!.cgColor]
+        gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
         gradientLayer.locations = [0, 1]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)

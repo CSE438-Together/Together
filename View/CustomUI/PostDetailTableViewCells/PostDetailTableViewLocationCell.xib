@@ -22,7 +22,7 @@
                         <rect key="frame" x="10" y="10" width="334" height="45"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpk-Ik-6LL">
-                                <rect key="frame" x="35" y="5" width="299" height="35"/>
+                                <rect key="frame" x="45" y="5" width="289" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="vDl-fX-mkL"/>
                                 </constraints>
@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startPosition" translatesAutoresizingMaskIntoConstraints="NO" id="ctf-1S-7OW">
-                                <rect key="frame" x="0.0" y="7.5" width="30" height="30"/>
+                                <rect key="frame" x="10" y="7.5" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="MC6-qb-AhM"/>
                                     <constraint firstAttribute="width" constant="30" id="RAS-h9-JIf"/>
@@ -44,7 +44,7 @@
                             <constraint firstAttribute="bottom" secondItem="Fpk-Ik-6LL" secondAttribute="bottom" constant="5" id="IWi-YX-Ysc"/>
                             <constraint firstAttribute="trailing" secondItem="Fpk-Ik-6LL" secondAttribute="trailing" id="Ixc-pc-8LZ"/>
                             <constraint firstItem="Fpk-Ik-6LL" firstAttribute="leading" secondItem="ctf-1S-7OW" secondAttribute="trailing" constant="5" id="Tcr-Mz-Wui"/>
-                            <constraint firstItem="ctf-1S-7OW" firstAttribute="leading" secondItem="M2Q-uq-bcb" secondAttribute="leading" id="lnO-Zv-Ytd"/>
+                            <constraint firstItem="ctf-1S-7OW" firstAttribute="leading" secondItem="M2Q-uq-bcb" secondAttribute="leading" constant="10" id="lnO-Zv-Ytd"/>
                             <constraint firstItem="Fpk-Ik-6LL" firstAttribute="centerY" secondItem="ctf-1S-7OW" secondAttribute="centerY" id="z1t-aR-sbL"/>
                         </constraints>
                     </view>
@@ -52,7 +52,7 @@
                         <rect key="frame" x="10" y="65" width="334" height="40"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkG-BA-yql">
-                                <rect key="frame" x="35" y="5" width="299" height="30"/>
+                                <rect key="frame" x="45" y="5" width="289" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Rty-JZ-GBW"/>
                                 </constraints>
@@ -61,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination" translatesAutoresizingMaskIntoConstraints="NO" id="v0h-wi-6yJ">
-                                <rect key="frame" x="0.0" y="5" width="30" height="30"/>
+                                <rect key="frame" x="10" y="5" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GH2-DX-uL2"/>
                                     <constraint firstAttribute="width" constant="30" id="MEs-Nm-qw1"/>
@@ -70,7 +70,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="v0h-wi-6yJ" firstAttribute="leading" secondItem="0SC-xi-agm" secondAttribute="leading" id="AKc-AL-eJl"/>
+                            <constraint firstItem="v0h-wi-6yJ" firstAttribute="leading" secondItem="0SC-xi-agm" secondAttribute="leading" constant="10" id="AKc-AL-eJl"/>
                             <constraint firstAttribute="trailing" secondItem="BkG-BA-yql" secondAttribute="trailing" id="VCh-3c-q5h"/>
                             <constraint firstItem="BkG-BA-yql" firstAttribute="leading" secondItem="v0h-wi-6yJ" secondAttribute="trailing" constant="5" id="W55-89-fcX"/>
                             <constraint firstItem="BkG-BA-yql" firstAttribute="centerY" secondItem="v0h-wi-6yJ" secondAttribute="centerY" id="Yrx-hS-WuY"/>
@@ -114,9 +114,11 @@
             <connections>
                 <outlet property="departurePlaceView" destination="Fpk-Ik-6LL" id="cqC-NB-wZm"/>
                 <outlet property="destinationPositionShadowView" destination="0SC-xi-agm" id="obN-wN-vcW"/>
+                <outlet property="destionationIcon" destination="v0h-wi-6yJ" id="b8h-R2-1Yc"/>
                 <outlet property="destionationView" destination="BkG-BA-yql" id="23c-RW-8CR"/>
                 <outlet property="navigationShadowView" destination="yP6-Ak-p0g" id="JTi-d8-yLe"/>
                 <outlet property="navigationView" destination="FLO-bk-7eN" id="F0i-hn-G8Y"/>
+                <outlet property="starPositionIcon" destination="ctf-1S-7OW" id="tRx-1r-Gr9"/>
                 <outlet property="starPositionShadowView" destination="M2Q-uq-bcb" id="ipL-Aa-nCc"/>
             </connections>
             <point key="canvasLocation" x="59.420289855072468" y="206.58482142857142"/>

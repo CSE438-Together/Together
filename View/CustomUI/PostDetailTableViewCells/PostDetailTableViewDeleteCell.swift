@@ -10,6 +10,7 @@ import UIKit
 class PostDetailTableViewDeleteCell: UITableViewCell {
     
     @IBOutlet var deleteLabel : UILabel!
+    @IBOutlet var shadowView : UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +33,13 @@ class PostDetailTableViewDeleteCell: UITableViewCell {
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
         self.deleteLabel.layer.cornerRadius = 10
+        self.deleteLabel.clipsToBounds = true
+        
+        self.shadowView.layer.shadowColor = UIColor.gray.cgColor
+        self.shadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.shadowView.layer.shadowOpacity = 0.8
+        self.shadowView.layer.masksToBounds = false
+        self.shadowView.layer.cornerRadius = 10
     }
     
 }

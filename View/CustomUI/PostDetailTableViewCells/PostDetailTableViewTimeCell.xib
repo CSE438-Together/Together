@@ -60,6 +60,7 @@
             <connections>
                 <outlet property="departureTime" destination="nJ8-T5-DY7" id="nT8-s4-wYs"/>
                 <outlet property="shadowView" destination="GH8-Iz-W0f" id="jB3-HV-a4H"/>
+                <outlet property="timeIcon" destination="Ish-qz-wEQ" id="hwa-Wh-xki"/>
             </connections>
             <point key="canvasLocation" x="69.565217391304358" y="137.61160714285714"/>
         </tableViewCell>

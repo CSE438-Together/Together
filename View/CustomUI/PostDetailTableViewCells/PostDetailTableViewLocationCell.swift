@@ -17,6 +17,8 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     @IBOutlet var starPositionShadowView : UIView!
     @IBOutlet var destinationPositionShadowView : UIView!
     @IBOutlet var navigationShadowView : UIView!
+    @IBOutlet var destionationIcon : UIImageView!
+    @IBOutlet var starPositionIcon : UIImageView!
     
     var locationManager = CLLocationManager()
 
@@ -64,7 +66,8 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         self.starPositionShadowView.layer.cornerRadius = 10
         
         self.starPositionShadowView.layer.zPosition = -2
-        self.starPositionShadowView.backgroundColor = UIColor(named: "bgLightBlue")
+        self.starPositionShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
+        self.starPositionShadowView.alpha = 0.8
         
         self.destinationPositionShadowView.layer.shadowColor = UIColor.gray.cgColor
         self.destinationPositionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
@@ -73,16 +76,28 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         self.destinationPositionShadowView.layer.cornerRadius = 10
         
         self.destinationPositionShadowView.layer.zPosition = -2
-        self.destinationPositionShadowView.backgroundColor = UIColor(named: "bgLightBlue")
-        
+        self.destinationPositionShadowView.backgroundColor = UIColor(named: "bgDarkBlue")
+        self.destinationPositionShadowView.alpha = 0.8
         
         self.departurePlaceView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.departurePlaceView.numberOfLines = 0
         self.departurePlaceView.text = "From: \n" + departurePlace.components(separatedBy: .newlines).joined(separator: ", ")
+        self.departurePlaceView.textColor = .white
+        
+        self.starPositionIcon.layer.cornerRadius = 15
+        self.starPositionIcon.clipsToBounds = true
+        self.starPositionIcon.backgroundColor = .white
+        self.starPositionIcon.alpha = 0.5
         
         self.destionationView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.destionationView.numberOfLines = 0
         self.destionationView.text = "To: \n" + destination.components(separatedBy: .newlines).joined(separator: ", ")
+        self.destionationView.textColor = .white
+        
+        self.destionationIcon.layer.cornerRadius = 15
+        self.destionationIcon.clipsToBounds = true
+        self.destionationIcon.backgroundColor = .white
+        self.destionationIcon.alpha = 0.5
         
         // set up mapview
         
