@@ -206,7 +206,11 @@
                                                                 <rect key="frame" x="15" y="285.66666666666669" width="360" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auu-qr-PX6">
+<<<<<<< HEAD
                                                                         <rect key="frame" x="0.0" y="0.0" width="82.666666666666671" height="20.333333333333332"/>
+=======
+                                                                        <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="20.333333333333332"/>
+>>>>>>> 40b1cd4 (update)
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="oVj-gW-nJY"/>
                                                                         </constraints>
@@ -215,7 +219,11 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a departure place" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-0C-xtD" customClass="TextView" customModule="Together" customModuleProvider="target">
+<<<<<<< HEAD
                                                                         <rect key="frame" x="82.666666666666671" y="-5" width="224.66666666666663" height="33"/>
+=======
+                                                                        <rect key="frame" x="33.333333333333343" y="-5" width="305.33333333333326" height="33"/>
+>>>>>>> 40b1cd4 (update)
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <color key="textColor" systemColor="placeholderTextColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -225,7 +233,11 @@
                                                                         </connections>
                                                                     </textView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJs-s4-pqD">
+<<<<<<< HEAD
                                                                         <rect key="frame" x="307.33333333333331" y="0.0" width="52.666666666666686" height="25"/>
+=======
+                                                                        <rect key="frame" x="338.66666666666669" y="0.0" width="21.333333333333314" height="25"/>
+>>>>>>> 40b1cd4 (update)
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="yqr-ah-gxp"/>
                                                                         </constraints>
@@ -282,7 +294,11 @@
                                                                 <rect key="frame" x="15" y="323.66666666666669" width="360" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-bY-qqu">
+<<<<<<< HEAD
                                                                         <rect key="frame" x="0.0" y="0.0" width="44" height="20.333333333333332"/>
+=======
+                                                                        <rect key="frame" x="0.0" y="0.0" width="16.333333333333332" height="20.333333333333332"/>
+>>>>>>> 40b1cd4 (update)
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="gIj-aS-R77"/>
                                                                         </constraints>
@@ -291,7 +307,11 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Choose a destination" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MDa-rC-El2" customClass="TextView" customModule="Together" customModuleProvider="target">
+<<<<<<< HEAD
                                                                         <rect key="frame" x="44" y="-5" width="316" height="33"/>
+=======
+                                                                        <rect key="frame" x="16.333333333333343" y="-5" width="321.33333333333326" height="33"/>
+>>>>>>> 40b1cd4 (update)
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <color key="textColor" systemColor="placeholderTextColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
