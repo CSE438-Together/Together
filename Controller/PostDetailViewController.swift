@@ -9,6 +9,7 @@ import UIKit
 import Amplify
 import AWSPluginsCore
 import SQLite
+import SwiftUI
 
 class PostDetailViewController: UIViewController {
     
@@ -35,12 +36,8 @@ class PostDetailViewController: UIViewController {
         self.tableView.layer.cornerRadius = 10
         self.tableView.clipsToBounds = true
         self.tableView.alwaysBounceVertical = false
-        
-        if #available(iOS 15.0, *) {
-            self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-        } else {
-            self.tableView.contentInsetAdjustmentBehavior = .never
-        }
+        //self.tableView.contentInsetAdjustmentBehavior = .never
+        self.tableView.sectionHeaderHeight = 30
         
         self.tableView.register(PostDetailTableViewCreatorCell.nib(), forCellReuseIdentifier: PostDetailTableViewCreatorCell.identifier)
         self.tableView.register(PostDetailTableViewOverViewCell.nib(), forCellReuseIdentifier: PostDetailTableViewOverViewCell.identifier)
@@ -177,7 +174,7 @@ class PostDetailViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
+        //tableView.frame = view.bounds
         tableView.rowHeight = UITableView.automaticDimension
     }
     
@@ -478,7 +475,7 @@ extension PostDetailViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 15
+        return 25
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

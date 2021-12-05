@@ -59,7 +59,7 @@ class PostDetailTableViewTransportationCell: UITableViewCell {
         self.transportationImage.layer.cornerRadius = 15
         self.transportationImage.clipsToBounds = true
         self.transportationImage.backgroundColor = .white
-        self.transportationImage.alpha = 0.5
+        self.transportationImage.alpha = 1
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
