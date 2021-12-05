@@ -20,6 +20,8 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "search titles, places and descriptions"
+        
         setupTableView()
         guard let user = Amplify.Auth.getCurrentUser() else { return }
         eventManager = PostManager(
