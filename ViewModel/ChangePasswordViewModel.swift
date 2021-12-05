@@ -26,6 +26,9 @@ class ChangePasswordViewModel: ObservableObject {
                 if $0.isEmpty {
                     return "Old password should not be empty"
                 }
+                if $0 == $1 {
+                    return "Old password should not be the same as new password"
+                }
                 if !lowercasePredicate.evaluate(with: $1) {
                     return "New " + PasswordStatus.noLowercase.rawValue
                 }
@@ -38,11 +41,8 @@ class ChangePasswordViewModel: ObservableObject {
                 if $1.count < 8 {
                     return "New " + PasswordStatus.lengthNotEnough.rawValue
                 }
-                if $0 == $1 {
-                    return "Old password should not be the same as new password"
-                }
                 if $1 != $2 {
-                    return PasswordStatus.notMatch.rawValue
+                    return "New password does not match new password confirmation"
                 }
                 return PasswordStatus.valid.rawValue
             }
