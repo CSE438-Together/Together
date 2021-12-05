@@ -54,7 +54,7 @@ class MembersTableViewCell: UITableViewCell {
             self.memberGenderImageView.image = UIImage(named: "defaultPerson")
             self.memberGenderImageView.backgroundColor = UIColor(named: "bgLightPurple")!
             self.shadowView.backgroundColor = UIColor(named: "bgDarkPurple")
-            self.shadowView.alpha = 0.5
+            self.shadowView.alpha = 1
         default:
             self.memberGenderImageView.image = UIImage(named: "defaultPerson")
             self.memberGenderImageView.backgroundColor = UIColor(named: "bgOrange")!

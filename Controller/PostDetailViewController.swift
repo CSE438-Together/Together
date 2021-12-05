@@ -9,6 +9,7 @@ import UIKit
 import Amplify
 import AWSPluginsCore
 import SQLite
+import SwiftUI
 
 class PostDetailViewController: UIViewController {
     
@@ -37,7 +38,9 @@ class PostDetailViewController: UIViewController {
         self.tableView.alwaysBounceVertical = false
         
         if #available(iOS 15.0, *) {
-            self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
+            AnyView{
+                self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
+            }
         } else {
             self.tableView.contentInsetAdjustmentBehavior = .never
         }
