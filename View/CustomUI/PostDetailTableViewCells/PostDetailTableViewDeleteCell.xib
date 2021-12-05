@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4K-uu-OUO">
-                        <rect key="frame" x="10" y="10" width="300" height="30"/>
+                        <rect key="frame" x="10" y="0.0" width="300" height="30"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiD-Ou-l3H">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
@@ -46,7 +46,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="R4K-uu-OUO" secondAttribute="bottom" constant="10" id="XRi-R4-d8o"/>
-                    <constraint firstItem="R4K-uu-OUO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="mI1-PP-q6t"/>
+                    <constraint firstItem="R4K-uu-OUO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mI1-PP-q6t"/>
                     <constraint firstAttribute="trailing" secondItem="R4K-uu-OUO" secondAttribute="trailing" constant="10" id="nP6-ZK-7ik"/>
                     <constraint firstItem="R4K-uu-OUO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="x3u-KN-6Mq"/>
                 </constraints>
