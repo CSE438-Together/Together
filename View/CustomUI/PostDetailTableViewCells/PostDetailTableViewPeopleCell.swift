@@ -54,12 +54,12 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         self.personIcon.layer.cornerRadius = 10
         self.personIcon.clipsToBounds = true
         self.personIcon.backgroundColor = .white
-        self.personIcon.alpha = 0.5
+        self.personIcon.alpha = 1
         
         self.peopleIcon.layer.cornerRadius = 10
         self.peopleIcon.clipsToBounds = true
         self.peopleIcon.backgroundColor = .white
-        self.peopleIcon.alpha = 0.5
+        self.peopleIcon.alpha = 1
         
         self.layer.cornerRadius = 10
         self.clipsToBounds = true

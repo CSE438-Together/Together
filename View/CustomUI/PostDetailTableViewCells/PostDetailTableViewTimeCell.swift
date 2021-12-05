@@ -43,7 +43,7 @@ class PostDetailTableViewTimeCell: UITableViewCell {
         self.timeIcon.layer.cornerRadius = 15
         self.timeIcon.clipsToBounds = true
         self.timeIcon.backgroundColor = .white
-        self.timeIcon.alpha = 0.5
+        self.timeIcon.alpha = 1
         
         
         self.layer.cornerRadius = 10
