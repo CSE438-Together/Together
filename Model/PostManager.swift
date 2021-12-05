@@ -54,8 +54,8 @@ class PostManager {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         guard let postCell = cell as? PostTableViewCell else { return cell }
         postCell.postTitle.text = posts[indexPath.row].title
-        postCell.from.text = posts[indexPath.row].departurePlace?.components(separatedBy: .newlines).joined()
-        postCell.to.text = posts[indexPath.row].destination?.components(separatedBy: .newlines).joined()
+        postCell.from.text = posts[indexPath.row].departurePlace?.components(separatedBy: .newlines).joined(separator: " ")
+        postCell.to.text = posts[indexPath.row].destination?.components(separatedBy: .newlines).joined(separator: " ")
         postCell.numOfMembers.text = "\(posts[indexPath.row].members!.count) / \(posts[indexPath.row].maxMembers!)"
         
         if(posts[indexPath.row].members!.count == posts[indexPath.row].maxMembers!){
