@@ -13,7 +13,7 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
     @IBOutlet var titleView : UILabel!
     @IBOutlet var descriptionView : UITextView!
     @IBOutlet var shadowView : UIView!
-    @IBOutlet var descriptionShadowView: UIView!
+//    @IBOutlet var descriptionShadowView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,7 +44,7 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         self.descriptionView.text = description
         self.descriptionView.isEditable = false
         self.descriptionView.backgroundColor = .none
-        self.descriptionView.textColor = .black
+        self.descriptionView.textColor = .label
         self.descriptionView.alpha = 1
         self.descriptionView.layer.zPosition = 10
         
@@ -56,22 +56,13 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         self.shadowView.layer.shadowOpacity = 0.8
         self.shadowView.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 10
-//        self.shadowView.clipsToBounds = true
-        
-        //self.shadowView.layer.zPosition = -1
-        
         self.shadowView.backgroundColor = UIColor(displayP3Red: 193/255, green: 120/255, blue: 213/255, alpha: 1)
+
+//        self.descriptionShadowView.layer.cornerRadius = 10
+//        self.descriptionShadowView.clipsToBounds = true
 //
-//        self.descriptionShadowView.layer.shadowColor = UIColor.gray.cgColor
-//        self.descriptionShadowView.layer.shadowOffset = CGSize(width: 2, height: 3)
-//        self.descriptionShadowView.layer.shadowOpacity = 0.8
-//        self.descriptionShadowView.layer.masksToBounds = false
-        self.descriptionShadowView.layer.cornerRadius = 10
-        self.descriptionShadowView.clipsToBounds = true
-//
-//        self.descriptionShadowView.layer.zPosition = 9
-        self.descriptionShadowView.alpha = 0.3
-        self.descriptionShadowView.backgroundColor = UIColor(named: "bgLightBlue")!
+//        self.descriptionShadowView.alpha = 0.6
+//        self.descriptionShadowView.backgroundColor = UIColor(named: "bgLightBlue")!
         
         
         let gradientLayer = CAGradientLayer()
