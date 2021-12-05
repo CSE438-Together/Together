@@ -5,6 +5,9 @@
 # mac os
 .DS_Store
 
+# VS Code
+.vscode
+
 ## User settings
 xcuserdata/
 
