@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbg-Bo-VZR">
-                        <rect key="frame" x="10" y="10" width="300" height="40"/>
+                        <rect key="frame" x="10" y="0.0" width="300" height="40"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCN-1p-lWP">
                                 <rect key="frame" x="45" y="0.0" width="245" height="40"/>
@@ -52,7 +52,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="cbg-Bo-VZR" secondAttribute="bottom" constant="10" id="1iO-BH-L5p"/>
-                    <constraint firstItem="cbg-Bo-VZR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="IdN-f7-DeU"/>
+                    <constraint firstItem="cbg-Bo-VZR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IdN-f7-DeU"/>
                     <constraint firstItem="cbg-Bo-VZR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Se9-mP-BH6"/>
                     <constraint firstAttribute="trailing" secondItem="cbg-Bo-VZR" secondAttribute="trailing" constant="10" id="pMx-Fu-bKT"/>
                 </constraints>

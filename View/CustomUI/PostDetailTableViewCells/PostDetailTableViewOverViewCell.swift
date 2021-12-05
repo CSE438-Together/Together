@@ -75,7 +75,7 @@ class PostDetailTableViewOverViewCell: UITableViewCell {
         
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: self.shadowView.frame.height - 10)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: frameWidth - 20, height: self.shadowView.frame.height - 20)
         print("debug?", "\(self.shadowView.frame.width)")
         gradientLayer.colors = [UIColor(named: "bgDarkBlue")!.cgColor, UIColor(named: "bgLightBlue")!.cgColor]
         gradientLayer.locations = [0, 1]
