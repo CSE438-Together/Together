@@ -38,18 +38,6 @@ class PostDetailViewController: UIViewController {
         self.tableView.alwaysBounceVertical = false
         //self.tableView.contentInsetAdjustmentBehavior = .never
         self.tableView.sectionHeaderHeight = 30
-
-<<<<<<< HEAD
-=======
-        
-//        if #available(iOS 15.0, *) {
-//            AnyView{
-//                self.tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-//            }
-//        } else {
-//            self.tableView.contentInsetAdjustmentBehavior = .never
-//        }
->>>>>>> 40b1cd4 (update)
         
         self.tableView.register(PostDetailTableViewCreatorCell.nib(), forCellReuseIdentifier: PostDetailTableViewCreatorCell.identifier)
         self.tableView.register(PostDetailTableViewOverViewCell.nib(), forCellReuseIdentifier: PostDetailTableViewOverViewCell.identifier)
