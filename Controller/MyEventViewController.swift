@@ -51,7 +51,6 @@ class MyEventViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         eventManager.showPostDetailViewController(controller: self, indexPath: indexPath)
-//        Amplify.DataStore.delete(eventManager.posts[indexPath.row]) { _ in }
     }
     
     override func viewWillAppear(_ animated: Bool) {
