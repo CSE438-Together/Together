@@ -19,6 +19,8 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     @IBOutlet var navigationShadowView : UIView!
     @IBOutlet var destionationIcon : UIImageView!
     @IBOutlet var starPositionIcon : UIImageView!
+    var starPosition = ""
+    var destinationPosition = ""
     
     var locationManager = CLLocationManager()
 
@@ -46,6 +48,9 @@ class PostDetailTableViewLocationCell: UITableViewCell {
     }
     
     public func configure( with departurePlace : String , with destination : String, with transportationType : Transportation, with frameWidth : CGFloat, with frameHeight : CGFloat) {
+        
+        self.starPosition = departurePlace.components(separatedBy: .newlines).joined(separator: ", ")
+        self.destinationPosition = destination.components(separatedBy: .newlines).joined(separator: ", ")
         
         self.selectionStyle = .none
         
@@ -86,20 +91,34 @@ class PostDetailTableViewLocationCell: UITableViewCell {
         self.departurePlaceView.text = "From: \n" + departurePlace.components(separatedBy: .newlines).joined(separator: ", ")
         self.departurePlaceView.textColor = .white
         
+        //set touchable
+        let departurePlaceGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(launchAppleMapWithDeparturePosition(_:)))
+        departurePlaceGestureRecognizer.numberOfTapsRequired = 1
+        departurePlaceGestureRecognizer.numberOfTouchesRequired = 1
+        self.departurePlaceView.addGestureRecognizer(departurePlaceGestureRecognizer)
+        self.departurePlaceView.isUserInteractionEnabled = true
+        
         self.starPositionIcon.layer.cornerRadius = 15
         self.starPositionIcon.clipsToBounds = true
         self.starPositionIcon.backgroundColor = .white
-        self.starPositionIcon.alpha = 0.5
+        self.starPositionIcon.alpha = 1
         
         self.destionationView.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.destionationView.numberOfLines = 0
         self.destionationView.text = "To: \n" + destination.components(separatedBy: .newlines).joined(separator: ", ")
         self.destionationView.textColor = .white
         
+        //set touchable
+        let destinationGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(launchAppleMapWithDestinationPosition(_:)))
+        destinationGestureRecognizer.numberOfTapsRequired = 1
+        destinationGestureRecognizer.numberOfTouchesRequired = 1
+        self.destionationView.addGestureRecognizer(destinationGestureRecognizer)
+        self.destionationView.isUserInteractionEnabled = true
+        
         self.destionationIcon.layer.cornerRadius = 15
         self.destionationIcon.clipsToBounds = true
         self.destionationIcon.backgroundColor = .white
-        self.destionationIcon.alpha = 0.5
+        self.destionationIcon.alpha = 1
         
         // set up mapview
         
@@ -142,6 +161,20 @@ class PostDetailTableViewLocationCell: UITableViewCell {
             })
         })
         
+    }
+    
+    @objc func launchAppleMapWithDeparturePosition(_ gesture: UITapGestureRecognizer) {
+        CLGeocoder().geocodeAddressString(self.starPosition) { (placemarks, error) -> Void in
+            guard let placemark = placemarks?.first else { return }
+            MKMapItem(placemark: MKPlacemark(placemark: placemark)).openInMaps()
+        }
+    }
+    
+    @objc func launchAppleMapWithDestinationPosition(_ gesture: UITapGestureRecognizer) {
+        CLGeocoder().geocodeAddressString(self.destinationPosition) { (placemarks, error) -> Void in
+            guard let placemark = placemarks?.first else { return }
+            MKMapItem(placemark: MKPlacemark(placemark: placemark)).openInMaps()
+        }
     }
     
     func route(departureCord: CLLocationCoordinate2D, destinationCord: CLLocationCoordinate2D, transportationType: Transportation) {
