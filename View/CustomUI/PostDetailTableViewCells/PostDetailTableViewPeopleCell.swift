@@ -49,7 +49,9 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
         self.progressView.trackTintColor = UIColor(named: "bgLightBlue")!
                 
         self.creatorAvatarView.image = creatorAvator
+        self.creatorAvatarView.backgroundColor = .white
         self.creatorAvatarView.layer.cornerRadius = 10
+        self.creatorAvatarView.clipsToBounds = true
         
         self.personIcon.layer.cornerRadius = 10
         self.personIcon.clipsToBounds = true
