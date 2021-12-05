@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cF-HY-IkP">
-                        <rect key="frame" x="10" y="10" width="358" height="60"/>
+                        <rect key="frame" x="10" y="0.0" width="358" height="60"/>
                         <subviews>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pLm-vv-9BW">
                                 <rect key="frame" x="35" y="43" width="288" height="4"/>
@@ -77,7 +77,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="3cF-HY-IkP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Riu-IE-wPT"/>
+                    <constraint firstItem="3cF-HY-IkP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Riu-IE-wPT"/>
                     <constraint firstItem="3cF-HY-IkP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="XtZ-o6-utg"/>
                     <constraint firstAttribute="trailing" secondItem="3cF-HY-IkP" secondAttribute="trailing" constant="10" id="ZUK-TI-XXj"/>
                     <constraint firstAttribute="bottom" secondItem="3cF-HY-IkP" secondAttribute="bottom" constant="15" id="bot-8M-Rwx"/>

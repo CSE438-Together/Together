@@ -109,6 +109,7 @@ class PostDetailTableViewPeopleCell: UITableViewCell {
                 imageView.image = UIImage(named: "defaultPerson")
             }
             imageView.layer.cornerRadius = 10
+            imageView.clipsToBounds = true
             imageView.backgroundColor = .white
             imageView.contentMode = .scaleToFill
             imageView.tag = member!.hashValue
